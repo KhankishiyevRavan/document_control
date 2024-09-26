@@ -1,0 +1,120 @@
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+}
+
+h1, h2 {
+    color: #333;
+}
+
+form {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin: 5px 0 3px;
+}
+
+input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+button {
+    padding: 10px 15px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid #ccc;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #f8f8f8;
+}
+
+td:last-child {
+    width: 120px;
+    max-width: 120px;
+    text-align: center;
+}
+
+/* Select elementinin stili */
+select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: white;
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+/* Select hover effekti */
+select:hover {
+    border-color: #888;
+}
+
+/* Select fokuslandığında */
+select:focus,
+input:focus {
+    outline: none;
+    border-color: #28a745;
+    box-shadow: 0 0 5px rgba(40, 167, 69, 0.5);
+}
+
+/* Option elementinin stili (istəyə görə) */
+option {
+    padding: 10px;
+    font-size: 16px;
+}
+
+/* Delete düyməsi üçün xüsusi stil */
+.delete-btn {
+    background-color: #e74c3c;
+    /* Qırmızı rəng */
+    color: white;
+    /* Ağ rəngdə yazı */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Hover effekti */
+.delete-btn:hover {
+    background-color: #c0392b;
+    /* Hover zamanı tünd qırmızı rəng */
+}
