@@ -229,46 +229,24 @@ const layiheFilterOption = () => {
   $(layiheFilter).selectpicker("refresh");
 };
 const terefFilterOption = () => {
-  // Existing logic to populate terefList
+  console.log(terefList);
+
   partyFilter.innerHTML = ""; // Clear existing options
   const optionDefault = document.createElement("option");
   optionDefault.value = "";
   optionDefault.textContent = "Hamısını Göstər";
-  partyFilter.append(optionDefault);
+  partyFilter.append(optionDefault); // Add the default option
 
-  terefList.forEach((role) => {
-      const option = document.createElement("option");
-      option.value = role;
-      option.textContent = role;
-      partyFilter.append(option);
+  // Add options dynamically from terefList
+  terefList.map((project) => {
+    const option = document.createElement("option");
+    option.value = project;
+    option.textContent = project;
+    partyFilter.append(option);
   });
 
-  $(partyFilter).selectpicker("refresh"); // Refresh to show new options
+  // If using Bootstrap select, refresh the selectpicker
+  $(partyFilter).selectpicker("refresh"); // Refresh to display the options
 };
 
-// Call this function after you have fetched and populated terefList
-
-
-
 getDocuments();
-// const partySearchInput = document.getElementById("partySearchInput");
-
-// // Function to filter party options based on the search input
-// function filterPartyOptions() {
-//   const searchValue = partySearchInput.value.toLowerCase(); // Get the input value
-//   const options = partyFilter.getElementsByTagName("option");
-//   console.log(options);
-  
-
-//   for (let i = 0; i < options.length; i++) {
-//     const option = options[i];
-//     console.log(option.textContent.toLowerCase().includes(searchValue));
-    
-//     // Show or hide option based on search value
-//     option.style.display = option.textContent.toLowerCase().includes(searchValue) ? "" : "none";
-//   }
-//   $(partyFilter).selectpicker("refresh");
-// }
-
-// // Add event listener for the party search input
-// partySearchInput.addEventListener("input", filterPartyOptions);
