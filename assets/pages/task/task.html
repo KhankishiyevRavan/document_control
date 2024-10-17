@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="az">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task Management System</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Task Management System</h1>
+
+      <div class="task-form">
+        <input type="text" id="taskName" placeholder="Tapşırığın adı" />
+        <select id="priority">
+          <option value="Aşağı">Aşağı Prioritet</option>
+          <option value="Orta">Orta Prioritet</option>
+          <option value="Yüksək">Yüksək Prioritet</option>
+        </select>
+        <input type="date" id="deadline" />
+
+        <!-- Mövcud vəziyyət -->
+        <select id="status">
+          <option value="Planlaşdırılır">Planlaşdırılır</option>
+          <option value="Davam edir">Davam edir</option>
+          <option value="Tamamlandı">Tamamlandı</option>
+        </select>
+
+        <!-- Şöbə Seçimi -->
+        <select id="department">
+          <option value="IT">IT</option>
+          <option value="HR">HR</option>
+          <option value="Marketing">Marketing</option>
+          <option value="Finance">Finance</option>
+        </select>
+
+        <!-- Məsul şəxs əlavə etmək -->
+        <div class="responsibles">
+          <input
+            type="text"
+            id="responsiblePerson"
+            placeholder="Məsul şəxs adı"
+          />
+          <button id="addResponsible">Məsul şəxs əlavə et</button>
+        </div>
+        <ul id="responsibleList"></ul>
+
+        <textarea id="note" placeholder="Qeyd əlavə edin..."></textarea>
+        <button id="addTask">Tapşırıq əlavə et</button>
+      </div>
+
+      <!-- Hər şöbə üçün ayrıca cədvəllər -->
+      <div class="tables-section">
+        <h3>IT Şöbəsi</h3>
+        <table id="itTable">
+          <tr>
+            <th>Tapşırıq adı</th>
+            <th>Prioritet</th>
+            <th>Son tarix</th>
+            <th>Vəziyyət</th>
+            <th>Məsul Şəxslər</th>
+          </tr>
+        </table>
+
+        <h3>HR Şöbəsi</h3>
+        <table id="hrTable">
+          <tr>
+            <th>Tapşırıq adı</th>
+            <th>Prioritet</th>
+            <th>Son tarix</th>
+            <th>Vəziyyət</th>
+            <th>Məsul Şəxslər</th>
+          </tr>
+        </table>
+
+        <h3>Marketing Şöbəsi</h3>
+        <table id="marketingTable">
+          <tr>
+            <th>Tapşırıq adı</th>
+            <th>Prioritet</th>
+            <th>Son tarix</th>
+            <th>Vəziyyət</th>
+            <th>Məsul Şəxslər</th>
+          </tr>
+        </table>
+
+        <h3>Finance Şöbəsi</h3>
+        <table id="financeTable">
+          <tr>
+            <th>Tapşırıq adı</th>
+            <th>Prioritet</th>
+            <th>Son tarix</th>
+            <th>Vəziyyət</th>
+            <th>Məsul Şəxslər</th>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <script type="module" src="script.js"></script>
+    <script type="module" src="../../js/auth/checker.js"></script>
+  </body>
+</html>

@@ -1,0 +1,164 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  width: 50%;
+  margin: 50px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+}
+
+.task-form {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.task-form input,
+.task-form select {
+  padding: 10px;
+  width: 200px;
+}
+
+button {
+  padding: 10px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #218838;
+}
+
+#taskList {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+#taskList li {
+  background: #f8f9fa;
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.task-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.status {
+  margin-left: 10px;
+}
+
+.delete-btn {
+  background: #dc3545;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  background: #c82333;
+}
+
+.complete-btn {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+.complete-btn:hover {
+  background: #0069d9;
+}
+
+.task-form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  resize: vertical;
+}
+
+.task-form select, .task-form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  resize: vertical;
+}
+
+.responsibles {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.responsibles input {
+  width: 70%;
+  padding: 10px;
+}
+
+.responsibles button {
+  padding: 10px;
+}
+
+#responsibleList {
+  list-style: none;
+  padding: 0;
+  margin-top: 10px;
+}
+
+#responsibleList li {
+  padding: 5px;
+  background-color: #e9ecef;
+  margin-bottom: 5px;
+}
+.task-form select, .task-form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  resize: vertical;
+}
+.tables-section {
+  margin-top: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #f4f4f4;
+}
+

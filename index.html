@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sənəd İdarəetmə Sistemi</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link rel="stylesheet" href="./assets/css/styles.css" />
+  </head>
+  <body>
+    <h1 style="text-align: center">Sənəd İdarəetmə Sistemi</h1>
+    <div class="modal_form">
+      <button id="cancel_form" style="display: block; margin-left: auto">
+        X
+      </button>
+      <form id="document-form">
+        <div class="form_group">
+          <label for="sira">Sıra:</label>
+          <input type="number" id="sira" name="sira" disabled />
+        </div>
+        <div class="form_group">
+          <label for="sened-novu">Sənəd Növü:</label>
+          <select id="sened-novu" name="sened-novu" required>
+            <option value="">Seçin</option>
+            <option value="Müqavilə">Müqavilə</option>
+            <option value="Faktura">Faktura</option>
+            <option value="Sertifikat">Sertifikat</option>
+            <option value="Hesabat">Hesabat</option>
+          </select>
+        </div>
+        <div class="form_group">
+          <label for="sened-nomresi">Sənədin Nömrəsi:</label>
+          <input type="text" id="sened-nomresi" name="sened-nomresi" required />
+        </div>
+        <div class="form_group">
+          <label for="movzu">Mövzu:</label>
+          <input type="text" id="movzu" name="movzu" required />
+        </div>
+
+        <div class="form_group">
+          <label for="layihe">Layihə:</label>
+          <input
+            type="text"
+            id="layihe"
+            name="layihe"
+            placeholder="Layihə adını daxil edin"
+            required
+          />
+        </div>
+
+        <div class="form_group">
+          <label for="qovluq">Qovluq:</label>
+          <select id="qovluq" name="qovluq" required>
+            <option value="">Seçin</option>
+            <option value="01">01</option>
+            <option value="02">02</option>
+            <option value="03">03</option>
+            <option value="04">04</option>
+            <option value="05">05</option>
+            <option value="06">06</option>
+            <option value="07">07</option>
+            <option value="08">08</option>
+            <option value="09">09</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
+            <option value="18">18</option>
+            <option value="19">19</option>
+            <option value="20">20</option>
+            <option value="21">21</option>
+            <option value="22">22</option>
+            <option value="23">23</option>
+            <option value="24">24</option>
+            <option value="25">25</option>
+            <option value="26">26</option>
+            <option value="27">27</option>
+            <option value="28">28</option>
+            <option value="29">29</option>
+            <option value="30">30</option>
+          </select>
+        </div>
+        <div class="form_group">
+          <label for="sened-sira-nomresi">Sənədin Sıra Nömrəsi:</label>
+          <input
+            type="text"
+            id="sened-sira-nomresi"
+            name="sened-sira-nomresi"
+            required
+          />
+        </div>
+        <div class="form_group">
+          <label for="tag-input">Tag əlavə edin:</label>
+          <input type="text" id="tag-input" placeholder="Tag əlavə edin" />
+          <button type="button" id="add-tag-btn">Tag Əlavə Et</button>
+          <div id="tag-container"></div>
+        </div>
+        
+        <div class="form_group">
+          <label for="kimde">Kimdə:</label>
+          <input type="text" id="kimde" name="kimde" />
+        </div>
+        <div class="form_group">
+          <label for="qeyd">Qeyd:</label>
+          <input type="text" id="qeyd" name="qeyd" />
+        </div>
+        <div class="form_group" style="width: 100%">
+          <label for="terefler">Tərəflər:</label>
+          <div id="rolesContainer">
+            <!-- Dynamic role inputs will be appended here -->
+          </div>
+          <button type="button" id="addRoleButton">+</button>
+        </div>
+
+        <button type="submit">Əlavə Et</button>
+      </form>
+    </div>
+    <div style="margin: 20px 0; display: flex; justify-content: space-between">
+      <button id="logout">Log out</button>
+      <button id="btn_modal" type="button">Sənəd əlavə et</button>
+    </div>
+    <!-- <h2>Əlavə Edilmiş Sənədlər:</h2> -->
+    <h2>Filtr:</h2>
+    <div id="filter_div">
+      <div>
+        <label for="typeFilter">Sənəd Növü:</label>
+        <select id="typeFilter">
+          <option value="">Hamısını göstər</option>
+          <option value="Müqavilə">Müqavilə</option>
+          <option value="Faktura">Faktura</option>
+          <option value="Sertifikat">Sertifikat</option>
+          <option value="Hesabat">Hesabat</option>
+        </select>
+      </div>
+      <div>
+        <label for="folderFilter">Qovluq:</label>
+        <select id="folderFilter">
+          <option value="">Hamısını göstər</option>
+          <option value="01">01</option>
+          <option value="02">02</option>
+          <option value="03">03</option>
+          <option value="04">04</option>
+          <option value="05">05</option>
+          <option value="06">06</option>
+          <option value="07">07</option>
+          <option value="08">08</option>
+          <option value="09">09</option>
+          <option value="10">10</option>
+          <option value="11">11</option>
+          <option value="12">12</option>
+          <option value="13">13</option>
+          <option value="14">14</option>
+          <option value="15">15</option>
+          <option value="16">16</option>
+          <option value="17">17</option>
+          <option value="18">18</option>
+          <option value="19">19</option>
+          <option value="20">20</option>
+          <option value="21">21</option>
+          <option value="22">22</option>
+          <option value="23">23</option>
+          <option value="24">24</option>
+          <option value="25">25</option>
+          <option value="26">26</option>
+          <option value="27">27</option>
+          <option value="28">28</option>
+          <option value="29">29</option>
+          <option value="30">30</option>
+        </select>
+      </div>
+      <div>
+        <label for="partyFilter">Tərəf:</label>
+        <select id="partyFilter">
+          <option value="">Hamısını göstər</option>
+          <option value="ND">ND</option>
+          <option value="Cenubqaz">Cenubqaz</option>
+          <option value="Socar">Socar</option>
+          <!-- Digər tərəfləri buraya əlavə edin -->
+        </select>
+      </div>
+      <div>
+        <label for="layiheFilter">Layihə:</label>
+        <select id="layiheFilter">
+          <option value="">Hamısını Göstər</option>
+          <!-- <option value="Kelbecer">Kelbecer</option>
+          <option value="Agdam">Agdam</option>
+          <option value="Haciqabul">Haciqabul</option> -->
+        </select>
+      </div>
+
+      <div>
+        <label for="searchInput">Axtarış:</label>
+        <input type="text" id="searchInput" placeholder="Axtarış edin..." />
+      </div>
+    </div>
+
+    <table id="document-table">
+      <thead>
+        <tr>
+          <th>Sıra</th>
+          <th>Sənəd Növü</th>
+          <th>Sənədin Nömrəsi</th>
+          <th>Mövzu</th>
+          <th>Layihə</th>
+          <th>Tərəflər</th>
+          <th>Qovluq</th>
+          <th>Sənədin sıra nömrəsi</th>
+          <th>Tag</th>
+          <th>Kimde</th>
+          <th>Qeyd</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Sənədlər burada göstəriləcək -->
+      </tbody>
+    </table>
+
+    <script type="module" src="./assets/js/app-fb.js"></script>
+    <script type="module" src="./assets/js/auth/checker.js"></script>
+    <script type="module" src="./assets/js/auth/logOut.js"></script>
+    <!-- <script type="module" src="./assets/js/app.js"></script> -->
+  </body>
+</html>

@@ -1,0 +1,64 @@
+#document_control_content .demo-view{
+    width: 100%;
+}
+#document_control_content .container-fluid.pt-0{
+    padding-right: 0!important;
+}
+#document_control_content th{
+    font-size: 1.025rem;
+}
+#document_control_content td{
+    color: #303972;
+    font-size: 1rem;
+}
+#document_control_content td .btn{
+    padding: 0.25rem 0.425rem;
+    font-size: 0.875rem;
+}
+#document_control_content td p{
+    margin-bottom: 0;
+    line-height: 1;
+    display: inline-block;
+    margin: 0 10px;
+    color: #303972;
+}
+
+.filter_group{
+    display: flex;
+    flex-direction: column;
+}
+/* Select elementinin stili */
+select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: white;
+    font-size: 1rem;
+    color: #333;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+/* Select hover effekti */
+select:hover {
+    border-color: #888;
+}
+
+/* Select fokuslandığında */
+/* select:focus,
+input:focus {
+    outline: none;
+    border-color: #28a745;
+    box-shadow: 0 0 5px rgba(40, 167, 69, 0.5);
+} */
+
+/* Option elementinin stili (istəyə görə) */
+option {
+    padding: 10px;
+    font-size: 1rem;
+}
+
+.filter_group >div{
+    width: 100%!important;
+} 
