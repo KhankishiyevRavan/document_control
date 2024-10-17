@@ -269,7 +269,7 @@ const pushDocuments = async (newDocument) => {
   })
     .then(() => {
       alert("Data successfully written!");
-    //   window.location.pathname = "/assets/pages/document/document-page.html";
+      window.location.pathname = "/assets/pages/document/document-page.html";
     })
     .catch((error) => {
       alert("Error writing data: ", error);
