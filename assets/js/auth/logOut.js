@@ -29,11 +29,13 @@ function logout() {
   signOut(auth)
     .then(() => {
       console.log("Kullanıcı oturumu kapatıldı.");
+      alert("Kullanıcı oturumu kapatıldı.")
       // Oturum kapatma başarılı olduğunda login sayfasına yönlendirin
       window.location.href = "/assets/pages/login.html";
     })
     .catch((error) => {
       console.error("Oturum kapatma hatası:", error);
+      alert("Oturum kapatma hatası:", error);
     });
 }
 
