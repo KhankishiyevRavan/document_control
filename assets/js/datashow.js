@@ -178,17 +178,17 @@ function filterDocuments() {
 
     // // Qovluq filtr
     if (folderValue) {
-      matchesFolder = cells[6].textContent.includes(folderValue); // 5-ci sütun (Qovluq)
+      matchesFolder = cells[7].textContent.includes(folderValue); // 5-ci sütun (Qovluq)
     }
 
     // Tərəf filtr
     if (partyValue) {
-      matchesParty = cells[5].textContent.includes(partyValue); // 4-cü sütun (Tərəflər)
+      matchesParty = cells[6].textContent.includes(partyValue); // 4-cü sütun (Tərəflər)
     }
 
     // Layihe filtr
     if (layiheValue) {
-      matchesLayihe = cells[4].textContent.includes(layiheValue); // 3-cü sütun (Layihə)
+      matchesLayihe = cells[5].textContent.includes(layiheValue); // 3-cü sütun (Layihə)
     }
 
     // Bütün kriteriyalar uyğun gəlirsə, satırı göstərin
