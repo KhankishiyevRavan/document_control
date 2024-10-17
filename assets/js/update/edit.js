@@ -36,8 +36,9 @@ import {
 
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
-const dataRef = ref(database, "/documents/" + documentId);
+const dataRef = ref(database, "/documents/data/" + documentId);
 let data = [];
+let datas =[];
 let mainDocumentList = [];
 let siraCount = null;
 
@@ -265,11 +266,13 @@ const getDocument = async () => {
         console.log(res);
 
         data = res;
-        for (let resId in res) {
-          if (res[resId].mainDocument) {
-            mainDocumentList.push(res[resId].senedNomresi);
-          }
-        }
+        // for (let resId in data) {
+        //   console.log(data[resId].mainDocument);
+
+        //   if (data[resId].mainDocument) {
+        //     mainDocumentList.push(data[resId].senedNomresi);
+        //   }
+        // }
         console.log(mainDocumentList);
 
         mainDocumentOption();
@@ -288,7 +291,7 @@ getDocument();
 const putDocuments = async (id, updatedDocument) => {
   console.log(id);
 
-  update(ref(database, "/documents/" + id), updatedDocument)
+  update(ref(database, "/documents/data/" + id), updatedDocument)
     .then(() => {
       // if (snapshot.exists()) {
       //   const res = snapshot.val();
@@ -309,16 +312,13 @@ const putDocuments = async (id, updatedDocument) => {
 const editDataShow = () => {
   document.getElementById("sened-novu").value = data.senedNovu;
   document.getElementById("reletedDoc").value = data.elaqeliSened;
-  console.log( data.elaqeliSened);
-  console.log(
-    document.getElementById("reletedDoc").value
-  );
+  console.log(data.elaqeliSened);
+  console.log(document.getElementById("reletedDoc").value);
 
   console.log(document.getElementById("sened-novu").value);
   document.getElementById("sened-nomresi").value = data.senedNomresi;
   document.getElementById("movzu").value = data.movzu;
   document.getElementById("datepicker").value = data.tarix;
-  document.getElementById("layihe").value = data.layihe;
   document.getElementById("layihe").value = data.layihe;
   document.getElementById("qovluq").value = data.qovluq;
   document.getElementById("sened-sira-nomresi").value = data.senedSiraNomresi;
@@ -344,16 +344,16 @@ const editDataShow = () => {
   $(document.getElementById("sened-novu")).selectpicker("refresh");
   $(document.getElementById("qovluq")).selectpicker("refresh");
 };
-const dataRefS = ref(database, "/documents/");
+const dataRefS = ref(database, "/documents/data");
 const getDocuments = async () => {
   get(dataRefS)
     .then((snapshot) => {
       if (snapshot.exists()) {
         const res = snapshot.val();
-
-        for (let resId in res) {
-          if (res[resId].mainDocument) {
-            mainDocumentList.push(res[resId].senedNomresi);
+        datas = res;
+        for (let resId in datas) {
+          if (datas[resId].mainDocument) {
+            mainDocumentList.push(datas[resId].senedNomresi);
           }
         }
         mainDocumentOption();
@@ -383,7 +383,9 @@ const mainDocumentOption = () => {
     option.textContent = project;
     reletedDocSelect.append(option);
   });
-  document.getElementById("reletedDoc").value = data.elaqeliSened
+  console.log(data);
+  
+  document.getElementById("reletedDoc").value = data.elaqeliSened;
   // If using Bootstrap select, refresh the selectpicker
   $(reletedDocSelect).selectpicker("refresh"); // Refresh to display the options
 };

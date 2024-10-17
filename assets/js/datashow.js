@@ -127,11 +127,12 @@ const getDocuments = async () => {
       if (snapshot.exists()) {
         const res = snapshot.val();
         console.log(res);
-        const nestedObjects = Object.values(res);
+        
+        data = res.data;
+        const nestedObjects = Object.values(data);
         const lastObject = nestedObjects[nestedObjects.length - 1];
         siraCount = Number(lastObject.siraCount) + 1;
         window.localStorage.setItem("siraCount", siraCount);
-        data = res;
         cedveliGoster();
       } else {
         console.log("No data available");

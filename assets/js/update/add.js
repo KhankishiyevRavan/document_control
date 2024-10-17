@@ -264,7 +264,7 @@ const pushDocuments = async (newDocument) => {
   var objKey = push(dataRef).key;
   console.log(newDocument);
 
-  set(ref(database, "/documents/" + objKey), {
+  set(ref(database, "/documents/data/" + objKey), {
     ...newDocument,
   })
     .then(() => {
@@ -280,17 +280,17 @@ const getDocuments = async () => {
     .then((snapshot) => {
       if (snapshot.exists()) {
         const res = snapshot.val();
-        data = res;
+        data = res.data;
 
-        for (let resId in res) {
-          if (res[resId].mainDocument) {
-            mainDocumentList.push(res[resId].senedNomresi);
+        for (let dataId in data) {
+          if (data[dataId].mainDocument) {
+            mainDocumentList.push(data[dataId].senedNomresi);
           }
         }
         mainDocumentOption();
         console.log(mainDocumentList);
 
-        const nestedObjects = Object.values(res);
+        const nestedObjects = Object.values(data);
 
         // Sonuncu obyekti tap
         const lastObject = nestedObjects[nestedObjects.length - 1];
