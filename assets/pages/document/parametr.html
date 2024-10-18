@@ -3,26 +3,28 @@
   <head>
     <!-- All Meta -->
     <meta charset="utf-8" />
+
+    <!-- Mobile Specific -->
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <!-- Page Title Here -->
-    <title>Sənəd İdarəetmə Sistemi</title>
+    <title>
+      Akademi : School and Education Management Admin Dashboard Template
+    </title>
 
     <!-- FAVICONS ICON -->
+    <link
+      rel="shortcut icon"
+      type="image/png"
+      href="../../images/favicon.png"
+    />
     <!-- Custom Stylesheet -->
-    <!-- Include Bootstrap Select CSS and JS -->
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/css/bootstrap-select.min.css"
-      rel="stylesheet"
-    />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js"></script>
-
-    <link
-      href="../../vendor/jquery-nice-select/css/nice-select.css"
-      rel="stylesheet"
-    />
     <link
       href="../../vendor/bootstrap-select/dist/css/bootstrap-select.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="../../vendor/jquery-nice-select/css/nice-select.css"
       rel="stylesheet"
     />
     <link
@@ -30,7 +32,6 @@
       rel="stylesheet"
     />
     <link href="../../css/style.css" rel="stylesheet" />
-    <link rel="stylesheet" href="../../css/doc_control.css" />
   </head>
 
   <body>
@@ -119,7 +120,6 @@
       <!--**********************************
             Nav header end
         ***********************************-->
-
       <!--**********************************
             Header start
         ***********************************-->
@@ -128,7 +128,7 @@
           <nav class="navbar navbar-expand">
             <div class="collapse navbar-collapse justify-content-between">
               <div class="header-left">
-                <div class="dashboard_bar">Sənəd İdarəetmə Sistemi</div>
+                <div class="dashboard_bar">Parametrlər</div>
               </div>
               <ul class="navbar-nav header-right">
                 <li class="nav-item dropdown notification_dropdown all">
@@ -287,6 +287,93 @@
                     </div>
                   </div>
                 </li>
+                <li
+                  class="nav-item dropdown notification_dropdown search-area-header"
+                >
+                  <a
+                    class="nav-link"
+                    href="javascript:void(0);"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                  >
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 32 32"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M27.6 25.8L22 20.2C23.3 18.5 24.1 16.4 24.1 14.1C24.1 8.60001 19.6 4.10001 14.1 4.10001C8.6 4.10001 4 8.60001 4 14.1C4 19.6 8.5 24.1 14 24.1C16.3 24.1 18.5 23.3 20.2 21.9L25.8 27.5C26 27.7 26.4 27.9 26.7 27.9C27 27.9 27.3 27.8 27.6 27.5C28.1 27.1 28.1 26.3 27.6 25.8ZM6.5 14.1C6.5 10 9.9 6.60001 14 6.60001C18.1 6.60001 21.5 10 21.5 14.1C21.5 18.2 18.1 21.6 14 21.6C9.9 21.6 6.5 18.3 6.5 14.1Z"
+                        fill="#A098AE"
+                      />
+                    </svg>
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-end p-0 rounded">
+                    <div class="card mb-0">
+                      <div class="card-body px-0">
+                        <div class="px-3">
+                          <div class="input-group search-area w-100">
+                            <input
+                              type="text"
+                              class="form-control"
+                              placeholder="Search here..."
+                            />
+                            <span class="input-group-text"
+                              ><a href="javascript:void(0)">
+                                <svg
+                                  width="15"
+                                  height="15"
+                                  viewBox="0 0 18 18"
+                                  fill="none"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path
+                                    d="M17.5605 15.4395L13.7527 11.6317C14.5395 10.446 15 9.02625 15 7.5C15 3.3645 11.6355 0 7.5 0C3.3645 0 0 3.3645 0 7.5C0 11.6355 3.3645 15 7.5 15C9.02625 15 10.446 14.5395 11.6317 13.7527L15.4395 17.5605C16.0245 18.1462 16.9755 18.1462 17.5605 17.5605C18.1462 16.9747 18.1462 16.0252 17.5605 15.4395V15.4395ZM2.25 7.5C2.25 4.605 4.605 2.25 7.5 2.25C10.395 2.25 12.75 4.605 12.75 7.5C12.75 10.395 10.395 12.75 7.5 12.75C4.605 12.75 2.25 10.395 2.25 7.5V7.5Z"
+                                    fill="#01A3FF"
+                                  ></path>
+                                </svg> </a
+                            ></span>
+                          </div>
+                          <h6 class="my-2 mt-3">Recently Searched:</h6>
+                        </div>
+                        <div class="dlab-scroll px-3 mt-3 height300">
+                          <ul class="d-flex align-items-center mb-3">
+                            <li>
+                              <img
+                                src="../../images/avatar/1.jpg"
+                                class="avatar avatar-sm"
+                                alt=""
+                              />
+                              <a href="javascript:void(0);" class="ms-2"
+                                >Benjamin</a
+                              >
+                            </li>
+                            <li class="ms-auto">
+                              <i class="fa-solid fa-trash"></i>
+                            </li>
+                          </ul>
+                          <ul class="d-flex align-items-center mb-3">
+                            <li>
+                              <img
+                                src="../../images/avatar/2.jpg"
+                                class="avatar avatar-sm"
+                                alt=""
+                              />
+                              <a href="javascript:void(0);" class="ms-2"
+                                >Oliver</a
+                              >
+                            </li>
+                            <li class="ms-auto">
+                              <i class="fa-solid fa-trash"></i>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+
                 <li class="nav-item dropdown notification_dropdown">
                   <a
                     class="nav-link bell dz-theme-mode"
@@ -689,10 +776,7 @@
                             </svg>
                             <span class="ms-2">Profile </span>
                           </a>
-                          <a
-                            href="https://akademi.dexignlab.com/xhtml/chat.html"
-                            class="dropdown-item ai-icon"
-                          >
+                          <a href="chat.html" class="dropdown-item ai-icon">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -789,8 +873,8 @@
                         </div>
                         <div class="card-footer text-center p-3">
                           <a
-                            id="logout"
                             href="#"
+                            id="logout"
                             class="dropdown-item ai-icon btn btn-primary light"
                           >
                             <svg
@@ -861,22 +945,9 @@
                 <span class="nav-text">Student</span>
               </a>
               <ul aria-expanded="false">
-                <li>
-                  <a href="https://akademi.dexignlab.com/xhtml/student.html"
-                    >Student</a
-                  >
-                </li>
-                <li>
-                  <a
-                    href="https://akademi.dexignlab.com/xhtml/student-detail.html"
-                    >Student Detail</a
-                  >
-                </li>
-                <li>
-                  <a href="https://akademi.dexignlab.com/xhtml/add-student.html"
-                    >Add New Student</a
-                  >
-                </li>
+                <li><a href="student.html">Student</a></li>
+                <li><a href="student-detail.html">Student Detail</a></li>
+                <li><a href="add-student.html">Add New Student</a></li>
               </ul>
             </li>
             <li>
@@ -889,22 +960,9 @@
                 <span class="nav-text">Teacher</span>
               </a>
               <ul aria-expanded="false">
-                <li>
-                  <a href="https://akademi.dexignlab.com/xhtml/teacher.html"
-                    >Teacher</a
-                  >
-                </li>
-                <li>
-                  <a
-                    href="https://akademi.dexignlab.com/xhtml/teacher-detail.html"
-                    >Teacher Detail</a
-                  >
-                </li>
-                <li>
-                  <a href="https://akademi.dexignlab.com/xhtml/add-teacher.html"
-                    >Add New Teacher</a
-                  >
-                </li>
+                <li><a href="teacher.html">Teacher</a></li>
+                <li><a href="teacher-detail.html">Teacher Detail</a></li>
+                <li><a href="add-teacher.html">Add New Teacher</a></li>
               </ul>
             </li>
             <li>
@@ -917,17 +975,8 @@
                 <span class="nav-text">Food</span>
               </a>
               <ul aria-expanded="false">
-                <li>
-                  <a href="https://akademi.dexignlab.com/xhtml/food.html"
-                    >Food menu</a
-                  >
-                </li>
-                <li>
-                  <a
-                    href="https://akademi.dexignlab.com/xhtml/food-details.html"
-                    >Food Detail</a
-                  >
-                </li>
+                <li><a href="food.html">Food menu</a></li>
+                <li><a href="food-details.html">Food Detail</a></li>
               </ul>
             </li>
             <li>
@@ -940,32 +989,11 @@
                 <span class="nav-text">File Manager</span>
               </a>
               <ul aria-expanded="false">
-                <li>
-                  <a
-                    href="https://akademi.dexignlab.com/xhtml/file-manager.html"
-                    >File Manager</a
-                  >
-                </li>
-                <li>
-                  <a href="https://akademi.dexignlab.com/xhtml/user.html"
-                    >User</a
-                  >
-                </li>
-                <li>
-                  <a href="https://akademi.dexignlab.com/xhtml/celandar.html"
-                    >Calendar</a
-                  >
-                </li>
-                <li>
-                  <a href="https://akademi.dexignlab.com/xhtml/chat.html"
-                    >Chat</a
-                  >
-                </li>
-                <li>
-                  <a href="https://akademi.dexignlab.com/xhtml/activity.html"
-                    >Activity</a
-                  >
-                </li>
+                <li><a href="file-manager.html">File Manager</a></li>
+                <li><a href="user.html">User</a></li>
+                <li><a href="celandar.html">Calendar</a></li>
+                <li><a href="chat.html">Chat</a></li>
+                <li><a href="activity.html">Activity</a></li>
               </ul>
             </li>
             <li>
@@ -978,23 +1006,9 @@
                 <span class="nav-text">Apps</span>
               </a>
               <ul aria-expanded="false">
-                <li>
-                  <a href="https://akademi.dexignlab.com/xhtml/app-profile.html"
-                    >Profile</a
-                  >
-                </li>
-                <li>
-                  <a
-                    href="https://akademi.dexignlab.com/xhtml/edit-profile.html"
-                    >Edit Profile</a
-                  >
-                </li>
-                <li>
-                  <a
-                    href="https://akademi.dexignlab.com/xhtml/post-details.html"
-                    >Post Details</a
-                  >
-                </li>
+                <li><a href="app-profile.html">Profile</a></li>
+                <li><a href="edit-profile.html">Edit Profile</a></li>
+                <li><a href="post-details.html">Post Details</a></li>
                 <li>
                   <a
                     class="has-arrow"
@@ -1003,32 +1017,12 @@
                     >Email</a
                   >
                   <ul aria-expanded="false">
-                    <li>
-                      <a
-                        href="https://akademi.dexignlab.com/xhtml/email-compose.html"
-                        >Compose</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        href="https://akademi.dexignlab.com/xhtml/email-inbox.html"
-                        >Inbox</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        href="https://akademi.dexignlab.com/xhtml/email-read.html"
-                        >Read</a
-                      >
-                    </li>
+                    <li><a href="email-compose.html">Compose</a></li>
+                    <li><a href="email-inbox.html">Inbox</a></li>
+                    <li><a href="email-read.html">Read</a></li>
                   </ul>
                 </li>
-                <li>
-                  <a
-                    href="https://akademi.dexignlab.com/xhtml/app-calender.html"
-                    >Calendar</a
-                  >
-                </li>
+                <li><a href="app-calender.html">Calendar</a></li>
                 <li>
                   <a
                     class="has-arrow"
@@ -1037,48 +1031,15 @@
                     >Shop</a
                   >
                   <ul aria-expanded="false">
+                    <li><a href="ecom-product-grid.html">Product Grid</a></li>
+                    <li><a href="ecom-product-list.html">Product List</a></li>
                     <li>
-                      <a
-                        href="https://akademi.dexignlab.com/xhtml/ecom-product-grid.html"
-                        >Product Grid</a
-                      >
+                      <a href="ecom-product-detail.html">Product Details</a>
                     </li>
-                    <li>
-                      <a
-                        href="https://akademi.dexignlab.com/xhtml/ecom-product-list.html"
-                        >Product List</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        href="https://akademi.dexignlab.com/xhtml/ecom-product-detail.html"
-                        >Product Details</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        href="https://akademi.dexignlab.com/xhtml/ecom-product-order.html"
-                        >Order</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        href="https://akademi.dexignlab.com/xhtml/ecom-checkout.html"
-                        >Checkout</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        href="https://akademi.dexignlab.com/xhtml/ecom-invoice.html"
-                        >Invoice</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        href="https://akademi.dexignlab.com/xhtml/ecom-customers.html"
-                        >Customers</a
-                      >
-                    </li>
+                    <li><a href="ecom-product-order.html">Order</a></li>
+                    <li><a href="ecom-checkout.html">Checkout</a></li>
+                    <li><a href="ecom-invoice.html">Invoice</a></li>
+                    <li><a href="ecom-customers.html">Customers</a></li>
                   </ul>
                 </li>
               </ul>
@@ -1093,40 +1054,12 @@
                 <span class="nav-text">Charts</span>
               </a>
               <ul aria-expanded="false">
-                <li>
-                  <a href="https://akademi.dexignlab.com/xhtml/chart-flot.html"
-                    >Flot</a
-                  >
-                </li>
-                <li>
-                  <a
-                    href="https://akademi.dexignlab.com/xhtml/chart-morris.html"
-                    >Morris</a
-                  >
-                </li>
-                <li>
-                  <a
-                    href="https://akademi.dexignlab.com/xhtml/chart-chartjs.html"
-                    >Chartjs</a
-                  >
-                </li>
-                <li>
-                  <a
-                    href="https://akademi.dexignlab.com/xhtml/chart-chartist.html"
-                    >Chartist</a
-                  >
-                </li>
-                <li>
-                  <a
-                    href="https://akademi.dexignlab.com/xhtml/chart-sparkline.html"
-                    >Sparkline</a
-                  >
-                </li>
-                <li>
-                  <a href="https://akademi.dexignlab.com/xhtml/chart-peity.html"
-                    >Peity</a
-                  >
-                </li>
+                <li><a href="chart-flot.html">Flot</a></li>
+                <li><a href="chart-morris.html">Morris</a></li>
+                <li><a href="chart-chartjs.html">Chartjs</a></li>
+                <li><a href="chart-chartist.html">Chartist</a></li>
+                <li><a href="chart-sparkline.html">Sparkline</a></li>
+                <li><a href="chart-peity.html">Peity</a></li>
               </ul>
             </li>
             <li>
@@ -1139,92 +1072,22 @@
                 <span class="nav-text">Bootstrap</span>
               </a>
               <ul aria-expanded="false">
-                <li>
-                  <a
-                    href="https://akademi.dexignlab.com/xhtml/ui-accordion.html"
-                    >Accordion</a
-                  >
-                </li>
-                <li>
-                  <a href="https://akademi.dexignlab.com/xhtml/ui-alert.html"
-                    >Alert</a
-                  >
-                </li>
-                <li>
-                  <a href="https://akademi.dexignlab.com/xhtml/ui-badge.html"
-                    >Badge</a
-                  >
-                </li>
-                <li>
-                  <a href="https://akademi.dexignlab.com/xhtml/ui-button.html"
-                    >Button</a
-                  >
-                </li>
-                <li>
-                  <a href="https://akademi.dexignlab.com/xhtml/ui-modal.html"
-                    >Modal</a
-                  >
-                </li>
-                <li>
-                  <a
-                    href="https://akademi.dexignlab.com/xhtml/ui-button-group.html"
-                    >Button Group</a
-                  >
-                </li>
-                <li>
-                  <a
-                    href="https://akademi.dexignlab.com/xhtml/ui-list-group.html"
-                    >List Group</a
-                  >
-                </li>
-                <li>
-                  <a href="https://akademi.dexignlab.com/xhtml/ui-card.html"
-                    >Cards</a
-                  >
-                </li>
-                <li>
-                  <a href="https://akademi.dexignlab.com/xhtml/ui-carousel.html"
-                    >Carousel</a
-                  >
-                </li>
-                <li>
-                  <a href="https://akademi.dexignlab.com/xhtml/ui-dropdown.html"
-                    >Dropdown</a
-                  >
-                </li>
-                <li>
-                  <a href="https://akademi.dexignlab.com/xhtml/ui-popover.html"
-                    >Popover</a
-                  >
-                </li>
-                <li>
-                  <a
-                    href="https://akademi.dexignlab.com/xhtml/ui-progressbar.html"
-                    >Progressbar</a
-                  >
-                </li>
-                <li>
-                  <a href="https://akademi.dexignlab.com/xhtml/ui-tab.html"
-                    >Tab</a
-                  >
-                </li>
-                <li>
-                  <a
-                    href="https://akademi.dexignlab.com/xhtml/ui-typography.html"
-                    >Typography</a
-                  >
-                </li>
-                <li>
-                  <a
-                    href="https://akademi.dexignlab.com/xhtml/ui-pagination.html"
-                    >Pagination</a
-                  >
-                </li>
-                <li>
-                  <a href="https://akademi.dexignlab.com/xhtml/ui-grid.html"
-                    >Grid</a
-                  >
-                </li>
+                <li><a href="ui-accordion.html">Accordion</a></li>
+                <li><a href="ui-alert.html">Alert</a></li>
+                <li><a href="ui-badge.html">Badge</a></li>
+                <li><a href="ui-button.html">Button</a></li>
+                <li><a href="ui-modal.html">Modal</a></li>
+                <li><a href="ui-button-group.html">Button Group</a></li>
+                <li><a href="ui-list-group.html">List Group</a></li>
+                <li><a href="ui-card.html">Cards</a></li>
+                <li><a href="ui-carousel.html">Carousel</a></li>
+                <li><a href="ui-dropdown.html">Dropdown</a></li>
+                <li><a href="ui-popover.html">Popover</a></li>
+                <li><a href="ui-progressbar.html">Progressbar</a></li>
+                <li><a href="ui-tab.html">Tab</a></li>
+                <li><a href="ui-typography.html">Typography</a></li>
+                <li><a href="ui-pagination.html">Pagination</a></li>
+                <li><a href="ui-grid.html">Grid</a></li>
               </ul>
             </li>
             <li>
@@ -1237,44 +1100,13 @@
                 <span class="nav-text">Plugins</span>
               </a>
               <ul aria-expanded="false">
-                <li>
-                  <a href="https://akademi.dexignlab.com/xhtml/uc-select2.html"
-                    >Select 2</a
-                  >
-                </li>
-                <li>
-                  <a href="https://akademi.dexignlab.com/xhtml/uc-nestable.html"
-                    >Nestedable</a
-                  >
-                </li>
-                <li>
-                  <a
-                    href="https://akademi.dexignlab.com/xhtml/uc-noui-slider.html"
-                    >Noui Slider</a
-                  >
-                </li>
-                <li>
-                  <a
-                    href="https://akademi.dexignlab.com/xhtml/uc-sweetalert.html"
-                    >Sweet Alert</a
-                  >
-                </li>
-                <li>
-                  <a href="https://akademi.dexignlab.com/xhtml/uc-toastr.html"
-                    >Toastr</a
-                  >
-                </li>
-                <li>
-                  <a href="https://akademi.dexignlab.com/xhtml/map-jqvmap.html"
-                    >Jqv Map</a
-                  >
-                </li>
-                <li>
-                  <a
-                    href="https://akademi.dexignlab.com/xhtml/uc-lightgallery.html"
-                    >Light Gallery</a
-                  >
-                </li>
+                <li><a href="uc-select2.html">Select 2</a></li>
+                <li><a href="uc-nestable.html">Nestedable</a></li>
+                <li><a href="uc-noui-slider.html">Noui Slider</a></li>
+                <li><a href="uc-sweetalert.html">Sweet Alert</a></li>
+                <li><a href="uc-toastr.html">Toastr</a></li>
+                <li><a href="map-jqvmap.html">Jqv Map</a></li>
+                <li><a href="uc-lightgallery.html">Light Gallery</a></li>
               </ul>
             </li>
             <li>
@@ -1287,22 +1119,9 @@
                 <span class="nav-text">Widget</span>
               </a>
               <ul aria-expanded="false">
-                <li>
-                  <a
-                    href="https://akademi.dexignlab.com/xhtml/widget-chart.html"
-                    >Chart</a
-                  >
-                </li>
-                <li>
-                  <a href="https://akademi.dexignlab.com/xhtml/widget-card.html"
-                    >Card</a
-                  >
-                </li>
-                <li>
-                  <a href="https://akademi.dexignlab.com/xhtml/widget-list.html"
-                    >List</a
-                  >
-                </li>
+                <li><a href="widget-chart.html">Chart</a></li>
+                <li><a href="widget-card.html">Card</a></li>
+                <li><a href="widget-list.html">List</a></li>
               </ul>
             </li>
             <li>
@@ -1315,35 +1134,11 @@
                 <span class="nav-text">Forms</span>
               </a>
               <ul aria-expanded="false">
-                <li>
-                  <a
-                    href="https://akademi.dexignlab.com/xhtml/form-element.html"
-                    >Form Elements</a
-                  >
-                </li>
-                <li>
-                  <a href="https://akademi.dexignlab.com/xhtml/form-wizard.html"
-                    >Wizard</a
-                  >
-                </li>
-                <li>
-                  <a
-                    href="https://akademi.dexignlab.com/xhtml/form-ckeditor.html"
-                    >CkEditor</a
-                  >
-                </li>
-                <li>
-                  <a
-                    href="https://akademi.dexignlab.com/xhtml/form-pickers.html"
-                    >Pickers</a
-                  >
-                </li>
-                <li>
-                  <a
-                    href="https://akademi.dexignlab.com/xhtml/form-validation.html"
-                    >Form Validate</a
-                  >
-                </li>
+                <li><a href="form-element.html">Form Elements</a></li>
+                <li><a href="form-wizard.html">Wizard</a></li>
+                <li><a href="form-ckeditor.html">CkEditor</a></li>
+                <li><a href="form-pickers.html">Pickers</a></li>
+                <li><a href="form-validation.html">Form Validate</a></li>
               </ul>
             </li>
             <li>
@@ -1356,18 +1151,8 @@
                 <span class="nav-text">Table</span>
               </a>
               <ul aria-expanded="false">
-                <li>
-                  <a
-                    href="https://akademi.dexignlab.com/xhtml/table-bootstrap-basic.html"
-                    >Bootstrap</a
-                  >
-                </li>
-                <li>
-                  <a
-                    href="https://akademi.dexignlab.com/xhtml/table-datatable-basic.html"
-                    >Datatable</a
-                  >
-                </li>
+                <li><a href="table-bootstrap-basic.html">Bootstrap</a></li>
+                <li><a href="table-datatable-basic.html">Datatable</a></li>
               </ul>
             </li>
             <li>
@@ -1380,17 +1165,8 @@
                 <span class="nav-text">Pages</span>
               </a>
               <ul aria-expanded="false">
-                <li>
-                  <a href="https://akademi.dexignlab.com/xhtml/page-login.html"
-                    >Login</a
-                  >
-                </li>
-                <li>
-                  <a
-                    href="https://akademi.dexignlab.com/xhtml/page-register.html"
-                    >Register</a
-                  >
-                </li>
+                <li><a href="page-login.html">Login</a></li>
+                <li><a href="page-register.html">Register</a></li>
                 <li>
                   <a
                     class="has-arrow"
@@ -1399,49 +1175,15 @@
                     >Error</a
                   >
                   <ul aria-expanded="false">
-                    <li>
-                      <a
-                        href="https://akademi.dexignlab.com/xhtml/page-error-400.html"
-                        >Error 400</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        href="https://akademi.dexignlab.com/xhtml/page-error-403.html"
-                        >Error 403</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        href="https://akademi.dexignlab.com/xhtml/page-error-404.html"
-                        >Error 404</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        href="https://akademi.dexignlab.com/xhtml/page-error-500.html"
-                        >Error 500</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        href="https://akademi.dexignlab.com/xhtml/page-error-503.html"
-                        >Error 503</a
-                      >
-                    </li>
+                    <li><a href="page-error-400.html">Error 400</a></li>
+                    <li><a href="page-error-403.html">Error 403</a></li>
+                    <li><a href="page-error-404.html">Error 404</a></li>
+                    <li><a href="page-error-500.html">Error 500</a></li>
+                    <li><a href="page-error-503.html">Error 503</a></li>
                   </ul>
                 </li>
-                <li>
-                  <a
-                    href="https://akademi.dexignlab.com/xhtml/page-lock-screen.html"
-                    >Lock Screen</a
-                  >
-                </li>
-                <li>
-                  <a href="https://akademi.dexignlab.com/xhtml/empty-page.html"
-                    >Empty Page</a
-                  >
-                </li>
+                <li><a href="page-lock-screen.html">Lock Screen</a></li>
+                <li><a href="empty-page.html">Empty Page</a></li>
               </ul>
             </li>
           </ul>
@@ -1453,226 +1195,169 @@
           </div>
         </div>
       </div>
-      <div class="content-body" id="document_control_content">
-        <!-- container starts -->
+      <!--**********************************
+            Sidebar end
+        ***********************************-->
+
+      <!--**********************************
+            Content body start
+        ***********************************-->
+      <div class="content-body">
         <div class="container-fluid">
           <!-- row -->
-          <div class="element-area">
-            <div class="demo-view">
-              <div class="container-fluid pt-0 ps-0 pe-lg-4 pe-0">
-                <!-- Column starts -->
-                <div class="col-xl-12">
-                  <div class="card" id="bootstrap-table5">
-                    <div
-                      class="card-header flex-wrap d-flex justify-content-between border-0 px-3"
-                    >
-                      <div>
-                        <h4 class="card-title">Sənədlər siyahısı</h4>
-                        <p class="m-0 subtitle">
-                          Add <code>table bordered</code> class with
-                          <code>bootsrap-table</code>
-                        </p>
-                      </div>
-                      <a
-                        href="./document-add.html"
-                        type="button"
-                        class="btn btn-primary"
-                      >
-                        <span class="btn-icon-start text-primary"
-                          ><i class="fa fa-plus color-primary"></i> </span
-                        >Sənəd
-                      </a>
-                    </div>
-                    <div
-                      id="filter_div"
-                      class="row"
-                      style="margin-left: 0; width: 100%"
-                    >
-                      <div class="col-xl-12">
+          <div class="row">
+            <div class="col-xl-6 col-lg-12">
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title">Sənəd tipləri</h4>
+                </div>
+                <div class="card-body">
+                  <div class="basic-form">
+                    <form>
+                      <div class="col-auto">
+                        <label class="sr-only">Sənəd tipi</label>
                         <input
                           type="text"
-                          class="form-control input-default"
-                          id="searchInput"
-                          placeholder="Axtarış edin..."
+                          class="form-control mb-2"
+                          placeholder="Sənəd tipin yaz"
                         />
                       </div>
-                      <div
-                        class="mb-3 mt-3 filter_group col-xl-3 col-lg-4 col-sm-6"
-                      >
-                        <label for="typeFilter" class="form-label"
-                          >Sənəd növü</label
-                        >
-                        <select id="typeFilter" class="selectpicker" data-live-search="true">
-                          <!-- <option selected value="">Hamısını göstər</option>
-                          <option value="Müqavilə">Müqavilə</option>
-                          <option value="Faktura">Faktura</option>
-                          <option value="Sertifikat">Sertifikat</option>
-                          <option value="Hesabat">Hesabat</option> -->
-                        </select>
-                      </div>
-                      <div
-                        class="mb-3 mt-3 filter_group col-xl-3 col-lg-4 col-sm-6"
-                      >
-                        <label for="partyFilter" class=""
-                          >Tərəf
-                        </label>
 
-                        <select id="partyFilter"  class="selectpicker" data-live-search="true">
-                          <option value="">Hamısını göstər</option>
-                        </select>
+                      <div class="col-12 mt-3">
+                        <button type="submit" class="btn btn-primary mb-2">
+                          Əlavə et
+                        </button>
                       </div>
-                      <div
-                        class="mb-3 mt-3 filter_group col-xl-3 col-lg-4 col-sm-6"
-                      >
-                        <label for="layiheFilter" class="">Layihə</label>
-                        <select id="layiheFilter" class="selectpicker" data-live-search="true">
-                          <option value="">Hamısını göstər</option>
-                        </select>
-                      </div>
-                      <div
-                        class="mb-3 mt-3 filter_group col-xl-3 col-lg-4 col-sm-6"
-                      >
-                        <label for="folderFilter" class="">Qovluq</label>
-                        <select id="folderFilter" class="selectpicker" data-live-search="true">
-                          <option value="">Hamısını göstər</option>
-                          <option value="01">01</option>
-                          <option value="02">02</option>
-                          <option value="03">03</option>
-                          <option value="04">04</option>
-                          <option value="05">05</option>
-                          <option value="06">06</option>
-                          <option value="07">07</option>
-                          <option value="08">08</option>
-                          <option value="09">09</option>
-                          <option value="10">10</option>
-                          <option value="11">11</option>
-                          <option value="12">12</option>
-                          <option value="13">13</option>
-                          <option value="14">14</option>
-                          <option value="15">15</option>
-                          <option value="16">16</option>
-                          <option value="17">17</option>
-                          <option value="18">18</option>
-                          <option value="19">19</option>
-                          <option value="20">20</option>
-                          <option value="21">21</option>
-                          <option value="22">22</option>
-                          <option value="23">23</option>
-                          <option value="24">24</option>
-                          <option value="25">25</option>
-                          <option value="26">26</option>
-                          <option value="27">27</option>
-                          <option value="28">28</option>
-                          <option value="29">29</option>
-                          <option value="30">30</option>
-                        </select>
-                      </div>
-                    </div>
-                    <!-- tab-content -->
-                    <div class="tab-content" id="myTabContent-4">
-                      <div
-                        class="tab-pane fade show active"
-                        id="leftPosition"
-                        role="tabpanel"
-                        aria-labelledby="home-tab-4"
-                      >
-                        <div class="card-body p-0">
-                          <div class="table-responsive">
-                            <table
-                              class="table table-bordered table-responsive-sm"
-                              id="document-table"
-                            >
-                              <thead>
-                                <tr>
-                                  <th>#</th>
-                                  <th>Sənəd Növü</th>
-                                  <th>Sənədin Nömrəsi</th>
-                                  <th>Tarix</th>
-                                  <th>Mövzu</th>
-                                  <th>Layihə</th>
-                                  <th>Tərəflər</th>
-                                  <th>Qovluq</th>
-                                  <th>Sənədin sıra nömrəsi</th>
-                                  <th>Tag</th>
-                                  <th>Kimde</th>
-                                  <th>Əlaqəli sənəd nömrəsi</th>
-                                  <th>Qeyd</th>
-                                  <th>Action</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <!-- <tr>
-                                  <th>1</th>
-                                  <td>Kolor Tea Shirt For Man</td>
-                                  <td>
-                                    <span class="badge badge-primary"
-                                      >Sale</span
-                                    >
-                                  </td>
-                                  <td>January 22</td>
-                                  <td class="color-primary">$21.56</td>
-                                </tr>
-                                <tr>
-                                  <th>2</th>
-                                  <td>Kolor Tea Shirt For Women</td>
-                                  <td>
-                                    <span class="badge badge-success">Tax</span>
-                                  </td>
-                                  <td>January 30</td>
-                                  <td class="color-success">$55.32</td>
-                                </tr>
-                                <tr>
-                                  <th>3</th>
-                                  <td>Blue Backpack For Baby</td>
-                                  <td>
-                                    <span class="badge badge-danger"
-                                      >Extended</span
-                                    >
-                                  </td>
-                                  <td>January 25</td>
-                                  <td class="text-danger">$14.85</td>
-                                </tr> -->
-                              </tbody>
-                            </table>
+                    </form>
+                  </div>
+                  <div class="col-xl-12 mt-3">
+                    <div class="card" id="bootstrap-table9">
+                      <div class="tab-content" id="myTabContent-7">
+                        <div
+                          class="tab-pane fade show active"
+                          id="solidbackground"
+                          role="tabpanel"
+                          aria-labelledby="home-tab-7"
+                        >
+                          <div class="card-body p-0">
+                            <div class="table-responsive">
+                              <table
+                              id="senedNovuTable"
+                                class="table table-bordered table-striped verticle-middle table-responsive-sm"
+                              >
+                                <thead>
+                                  <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Adı</th>
+                                    <th scope="col">Action</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <td>1</td>
+                                    <td>Air Conditioner</td>
+                                    <td>
+                                      <span
+                                        ><a
+                                          href="javascript:void(0);"
+                                          class="me-4"
+                                          data-bs-toggle="tooltip"
+                                          data-placement="top"
+                                          title="Edit"
+                                          ><i
+                                            class="fa fa-pencil color-muted"
+                                          ></i> </a
+                                        ><a
+                                          href="javascript:void(0);"
+                                          data-bs-toggle="tooltip"
+                                          data-placement="top"
+                                          title="btn-close"
+                                          ><i
+                                            class="fa-solid fa-xmark text-danger"
+                                          ></i></a
+                                      ></span>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
                           </div>
                         </div>
                       </div>
-
-                      <div
-                        class="tab-pane fade"
-                        id="leftPosition-html"
-                        role="tabpanel"
-                        aria-labelledby="home-tab-4"
-                      ></div>
                     </div>
-                    <!-- /tab-content -->
                   </div>
                 </div>
-                <!-- Column ends -->
+              </div>
+            </div>
+            <div class="col-xl-6 col-lg-12">
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title">Sənəd tipləri</h4>
+                </div>
+                <div class="card-body">
+                  <div class="basic-form">
+                    <form>
+                      <div class="col-auto">
+                        <label class="sr-only">Sənəd tipi</label>
+                        <input
+                          type="text"
+                          class="form-control mb-2"
+                          placeholder="Sənəd tipin yaz"
+                        />
+                      </div>
+
+                      <div class="col-12">
+                        <button type="submit" class="btn btn-primary mb-2">
+                          Əlavə et
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+      <!--**********************************
+            Content body end
+        ***********************************-->
+
+      <!--**********************************
+			Footer start
+		***********************************-->
+      <div class="footer out-footer style-2">
+        <div class="copyright">
+          <p>
+            Copyright © Designed &amp; Developed by
+            <a href="https://dexignlab.com/" target="_blank">DexignLab</a> 2023
+          </p>
+        </div>
+      </div>
+      <!--**********************************
+			Footer end
+		***********************************-->
     </div>
+    <!--**********************************
+        Main wrapper end
+    ***********************************-->
+
     <!--**********************************
         Scripts
     ***********************************-->
     <!-- Required vendors -->
     <script src="../../vendor/global/global.min.js"></script>
-    <!-- <script src="../vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script> -->
+    <script src="../../vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
     <script src="../../vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+
     <script src="../../js/libraries/custom.min.js"></script>
     <script src="../../js/libraries/dlabnav-init.js"></script>
-    <!-- + -->
     <script src="../../js/libraries/demo.js"></script>
-    <!-- + -->
     <script src="../../js/libraries/styleSwitcher.js"></script>
-    <script type="module" src="../../js/auth/checker.js"></script>
-    <script type="module" src="../../js/datashow.js"></script>
     <script type="module" src="../../js/auth/logOut.js"></script>
-    <!-- + -->
-    <!-- <script src="../../highlight.min.js"></script> -->
+    <script type="module" src="../../js/auth/checker.js"></script>
+
+    <script type="module" src="../../js/parametr/docType.js"></script>
   </body>
 </html>
-<!-- 5633 -->
+<!-- 2269 -->
