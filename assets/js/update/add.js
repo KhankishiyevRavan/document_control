@@ -32,6 +32,8 @@ const dataRef = ref(database, "/documents");
 
 let data = [];
 
+let senedNovuList = [];
+
 let siraCount = null;
 
 let mainDocumentList = [];
@@ -48,7 +50,8 @@ const mainDocumentCheckbox = document.querySelector("#flexCheckDefault");
 
 const reletedDocSelect = document.querySelector("#reletedDoc");
 
-// Enter düyməsinə basıldıqda tag əlavə etmək
+const typeSelect = document.querySelector("#sened-novu");
+
 tagInput.addEventListener("keypress", function (e) {
   if (e.key === "Enter") {
     e.preventDefault();
@@ -56,7 +59,6 @@ tagInput.addEventListener("keypress", function (e) {
   }
 });
 
-// Düyməyə basıldıqda tag əlavə etmək
 // addTagBtn.addEventListener("click", function () {
 //   addTag();
 // });
@@ -64,9 +66,9 @@ tagInput.addEventListener("keypress", function (e) {
 function addTag() {
   const newTag = tagInput.value.trim();
   if (newTag !== "" && !tagsArray.includes(newTag)) {
-    tagsArray.push(newTag); // Tag arrayinə əlavə edirik
-    displayTags(); // Tag-ları göstəririk
-    tagInput.value = ""; // Input sahəsini təmizləyirik
+    tagsArray.push(newTag);
+    displayTags();
+    tagInput.value = "";
   }
 }
 
@@ -96,19 +98,19 @@ function displayTags() {
     removeBtnIcon.classList.add("fas", "fa-times");
     removeBtn.append(removeBtnIcon);
     removeBtn.onclick = function () {
-      tagsArray.splice(index, 1); // Tag arraydən çıxarılır
-      displayTags(); // Yenilənir
+      tagsArray.splice(index, 1);
+      displayTags();
     };
 
     tagElement.appendChild(removeBtn);
     tagContainer.appendChild(tagElement);
   });
 }
-let editingIndex = null; // Redaktə edilən sənədin indeksini saxlamaq üçün dəyişən
+let editingIndex = null;
 siraInput.value = siraCount;
 
-let rolesArray = []; // Rol arrayını yaradın
-// Rol adları üçün seçimlər
+let rolesArray = [];
+
 const roleNames = [
   "Müəllim",
   "Təchizatçı",
@@ -116,17 +118,14 @@ const roleNames = [
   "İşçi",
   "Icraci",
   "Sifarisci ",
-]; // İstədiyiniz rol adlarını buraya əlavə edin
+];
 
-// Dinamik rol inputları üçün funksiyadır
 function addRoleInput(roleName = "", role = "") {
   const rolesContainer = document.getElementById("rolesContainer");
 
-  // Yeni rol input divini yaradın
   const roleDiv = document.createElement("div");
   roleDiv.classList.add("role-input", "col-xl-6", "mb-3");
 
-  // Rol adı üçün seçim (select)
   const roleNameSelect = document.createElement("select");
   roleNameSelect.classList.add("roleName");
   roleNames?.forEach((name) => {
@@ -134,46 +133,42 @@ function addRoleInput(roleName = "", role = "") {
     option.value = name;
     option.textContent = name;
     if (name === roleName) {
-      option.selected = true; // Əgər redaktə edilirsə, seçimi əlavə edin
+      option.selected = true;
     }
     roleNameSelect.appendChild(option);
   });
-  // Rol inputu
+
   const roleInput = document.createElement("input");
   roleInput.type = "text";
   roleInput.placeholder = "Rol";
   roleInput.classList.add("role", "form-control");
-  roleInput.value = role; // Əgər redaktə edilirsə, dəyəri əlavə edin
+  roleInput.value = role;
 
-  // Rol inputlarını div-ə əlavə edin
   roleDiv.appendChild(roleNameSelect);
   roleDiv.appendChild(roleInput);
 
-  // Divi konteynerə əlavə edin
   rolesContainer.appendChild(roleDiv);
   $(roleNameSelect).selectpicker("refresh");
 
-  // Sil düyməsi yaradın
   const deleteButton = document.createElement("button");
   deleteButton.textContent = "Sil";
   deleteButton.type = "button";
   deleteButton.classList.add("delete-button", "btn", "btn-danger");
   deleteButton.onclick = function () {
-    roleDiv.remove(); // Rol input divini sil
+    roleDiv.remove();
   };
 
-  roleDiv.appendChild(deleteButton); // Sil düyməsini rol divinə əlavə edin
+  roleDiv.appendChild(deleteButton);
 }
 
-// "+" düyməsinə basıldıqda rol inputları əlavə edin
 document.getElementById("addRoleButton").addEventListener("click", function () {
-  addRoleInput(); // Yeni boş inputlar əlavə edin
+  addRoleInput();
 });
 
 form.addEventListener("submit", function (event) {
   event.preventDefault();
 
-  const tagsString = tagsArray.join(", "); // Tag-ları vergül ilə ayırıb stringə çeviririk
+  const tagsString = tagsArray.join(", ");
   console.log(tagsString);
 
   const sira = parseInt(siraInput.value);
@@ -187,10 +182,10 @@ form.addEventListener("submit", function (event) {
   const senedSiraNomresi = document.getElementById("sened-sira-nomresi").value;
   // const senedTag = document.getElementById("sened-tag").value;
   const qeyd = document.getElementById("qeyd").value;
-  const kimde = document.getElementById("kimde").value; // "kimde" sahəsinin dəyərini al
+  const kimde = document.getElementById("kimde").value;
 
   const mainDocument = mainDocumentCheckbox.checked;
-  // Rol inputlarından məlumat toplayın
+
   rolesArray = [];
   const roleInputs = document.querySelectorAll(".role-input");
   roleInputs.forEach((roleDiv) => {
@@ -210,7 +205,7 @@ form.addEventListener("submit", function (event) {
   console.log(Object.keys(data));
 
   const existingSenedNomresiIndex = Object.keys(data).find(
-    (key) => data[key].senedNomresi === senedNomresi // burada id-nizi istifadə edirsinizsə, `editingIndex` olmalı
+    (key) => data[key].senedNomresi === senedNomresi
   );
 
   console.log(existingSenedNomresiIndex);
@@ -224,7 +219,6 @@ form.addEventListener("submit", function (event) {
     );
     return;
   }
-  // Eyni sənəd nömrəsi varmı yoxlanılır
 
   console.log(existingSenedNomresiIndex);
   console.log(rolesArray);
@@ -232,13 +226,13 @@ form.addEventListener("submit", function (event) {
   let newDocument = {
     siraCount: sira,
     senedNovu: senedNovu,
-    elaqeliSened:elaqeliSened,
+    elaqeliSened: elaqeliSened,
     senedNomresi: senedNomresi,
     movzu: movzu,
     tarix: tarix,
     layihe: layihe,
     qovluq: qovluq,
-    kimde: kimde, // "kimde" sahəsini əlavə edin
+    kimde: kimde,
     terefler: rolesArray,
     senedSiraNomresi: senedSiraNomresi,
     tagsArray: tagsArray,
@@ -255,9 +249,8 @@ form.addEventListener("submit", function (event) {
   form.reset();
   siraInput.value = siraCount;
 
-  // Rol inputlarını təmizləyin
   const rolesContainer = document.getElementById("rolesContainer");
-  rolesContainer.innerHTML = ""; // Bütün rol inputlarını silin
+  rolesContainer.innerHTML = "";
 });
 
 const pushDocuments = async (newDocument) => {
@@ -281,13 +274,15 @@ const getDocuments = async () => {
       if (snapshot.exists()) {
         const res = snapshot.val();
         data = res.data;
-
+        senedNovuList = res.senedNovu;
         for (let dataId in data) {
           if (data[dataId].mainDocument) {
             mainDocumentList.push(data[dataId].senedNomresi);
           }
         }
+
         mainDocumentOption();
+        senedNovuFilterOption();
         console.log(mainDocumentList);
 
         const nestedObjects = Object.values(data);
@@ -309,13 +304,12 @@ getDocuments();
 const mainDocumentOption = () => {
   console.log(mainDocumentList);
 
-  reletedDocSelect.innerHTML = ""; // Clear existing options
+  reletedDocSelect.innerHTML = "";
   const optionDefault = document.createElement("option");
   optionDefault.value = "";
   optionDefault.textContent = "Hamısını Göstər";
-  reletedDocSelect.append(optionDefault); // Add the default option
+  reletedDocSelect.append(optionDefault);
 
-  // Add options dynamically from terefList
   mainDocumentList.map((project) => {
     const option = document.createElement("option");
     option.value = project;
@@ -323,6 +317,23 @@ const mainDocumentOption = () => {
     reletedDocSelect.append(option);
   });
 
-  // If using Bootstrap select, refresh the selectpicker
-  $(reletedDocSelect).selectpicker("refresh"); // Refresh to display the options
+  $(reletedDocSelect).selectpicker("refresh");
+};
+const senedNovuFilterOption = () => {
+  typeSelect.innerHTML = ""; // Clear existing options
+  const optionDefault = document.createElement("option");
+  optionDefault.value = "";
+  optionDefault.textContent = "Hamısını Göstər";
+  typeSelect.append(optionDefault);
+
+  console.log(senedNovuList);
+
+  senedNovuList.forEach((role) => {
+    const option = document.createElement("option");
+    option.value = role.id;
+    option.textContent = role.name;
+    typeSelect.append(option);
+  });
+
+  $(typeSelect).selectpicker("refresh");
 };

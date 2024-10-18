@@ -38,7 +38,8 @@ const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 const dataRef = ref(database, "/documents/data/" + documentId);
 let data = [];
-let datas =[];
+let datas = [];
+let senedNovuList = [];
 let mainDocumentList = [];
 let siraCount = null;
 
@@ -56,7 +57,8 @@ const tagContainer = document.getElementById("tag-container");
 
 const mainDocumentCheckbox = document.querySelector("#flexCheckDefault");
 
-// Enter düyməsinə basıldıqda tag əlavə etmək
+const typeSelect = document.querySelector("#sened-novu");
+
 tagInput.addEventListener("keypress", function (e) {
   if (e.key === "Enter") {
     e.preventDefault();
@@ -64,7 +66,6 @@ tagInput.addEventListener("keypress", function (e) {
   }
 });
 
-// Düyməyə basıldıqda tag əlavə etmək
 // addTagBtn.addEventListener("click", function () {
 //   addTag();
 // });
@@ -72,9 +73,9 @@ tagInput.addEventListener("keypress", function (e) {
 function addTag() {
   const newTag = tagInput.value.trim();
   if (newTag !== "" && !tagsArray.includes(newTag)) {
-    tagsArray.push(newTag); // Tag arrayinə əlavə edirik
-    displayTags(); // Tag-ları göstəririk
-    tagInput.value = ""; // Input sahəsini təmizləyirik
+    tagsArray.push(newTag);
+    displayTags();
+    tagInput.value = "";
   }
 }
 
@@ -91,19 +92,19 @@ function displayTags() {
     removeBtnIcon.classList.add("fas", "fa-times");
     removeBtn.append(removeBtnIcon);
     removeBtn.onclick = function () {
-      tagsArray.splice(index, 1); // Tag arraydən çıxarılır
-      displayTags(); // Yenilənir
+      tagsArray.splice(index, 1);
+      displayTags();
     };
 
     tagElement.appendChild(removeBtn);
     tagContainer.appendChild(tagElement);
   });
 }
-let editingIndex = null; // Redaktə edilən sənədin indeksini saxlamaq üçün dəyişən
+let editingIndex = null;
 siraInput.value = siraCount;
 
-let rolesArray = []; // Rol arrayını yaradın
-// Rol adları üçün seçimlər
+let rolesArray = [];
+
 const roleNames = [
   "Müəllim",
   "Təchizatçı",
@@ -111,17 +112,14 @@ const roleNames = [
   "İşçi",
   "Icraci",
   "Sifarisci ",
-]; // İstədiyiniz rol adlarını buraya əlavə edin
+];
 
-// Dinamik rol inputları üçün funksiyadır
 function addRoleInput(roleName = "", role = "") {
   const rolesContainer = document.getElementById("rolesContainer");
 
-  // Yeni rol input divini yaradın
   const roleDiv = document.createElement("div");
   roleDiv.classList.add("role-input", "col-xl-6", "mb-3");
 
-  // Rol adı üçün seçim (select)
   const roleNameSelect = document.createElement("select");
   roleNameSelect.classList.add("roleName");
   roleNames?.forEach((name) => {
@@ -129,45 +127,41 @@ function addRoleInput(roleName = "", role = "") {
     option.value = name;
     option.textContent = name;
     if (name === roleName) {
-      option.selected = true; // Əgər redaktə edilirsə, seçimi əlavə edin
+      option.selected = true;
     }
     roleNameSelect.appendChild(option);
   });
-  // Rol inputu
+
   const roleInput = document.createElement("input");
   roleInput.type = "text";
   roleInput.placeholder = "Rol";
   roleInput.classList.add("role", "form-control");
-  roleInput.value = role; // Əgər redaktə edilirsə, dəyəri əlavə edin
+  roleInput.value = role;
 
-  // Rol inputlarını div-ə əlavə edin
   roleDiv.appendChild(roleNameSelect);
   roleDiv.appendChild(roleInput);
 
-  // Divi konteynerə əlavə edin
   rolesContainer.appendChild(roleDiv);
   $(roleNameSelect).selectpicker("refresh");
 
-  // Sil düyməsi yaradın
   const deleteButton = document.createElement("button");
   deleteButton.textContent = "Sil";
   deleteButton.type = "button";
   deleteButton.classList.add("delete-button", "btn", "btn-danger");
   deleteButton.onclick = function () {
-    roleDiv.remove(); // Rol input divini sil
+    roleDiv.remove();
   };
 
-  roleDiv.appendChild(deleteButton); // Sil düyməsini rol divinə əlavə edin
+  roleDiv.appendChild(deleteButton);
 }
 
-// "+" düyməsinə basıldıqda rol inputları əlavə edin
 document.getElementById("addRoleButton").addEventListener("click", function () {
-  addRoleInput(); // Yeni boş inputlar əlavə edin
+  addRoleInput();
 });
 form.addEventListener("submit", function (event) {
   event.preventDefault();
 
-  const tagsString = tagsArray.join(", "); // Tag-ları vergül ilə ayırıb stringə çeviririk
+  const tagsString = tagsArray.join(", ");
   console.log(tagsString);
 
   const sira = parseInt(siraInput.value);
@@ -181,33 +175,33 @@ form.addEventListener("submit", function (event) {
   const senedSiraNomresi = document.getElementById("sened-sira-nomresi").value;
   // const senedTag = document.getElementById("sened-tag").value;
   const qeyd = document.getElementById("qeyd").value;
-  const kimde = document.getElementById("kimde").value; // "kimde" sahəsinin dəyərini al
+  const kimde = document.getElementById("kimde").value;
 
   const mainDocument = mainDocumentCheckbox.checked;
-  // Rol inputlarından məlumat toplayın
+
   rolesArray = [];
   const roleInputs = document.querySelectorAll(".role-input");
   roleInputs.forEach((roleDiv) => {
-    console.log(roleDiv);
+    // console.log(roleDiv);
 
     const roleName = roleDiv.querySelector("select.roleName").value;
     const role = roleDiv.querySelector(".role").value;
-    console.log(roleName, role);
+    // console.log(roleName, role);
 
     if (roleName && role) {
       rolesArray.push({ roleName, role });
     }
   });
 
-  console.log(data);
+  // console.log(data);
 
-  console.log(Object.keys(data));
+  // console.log(Object.keys(data));
 
   const existingSenedNomresiIndex = Object.keys(data).find(
-    (key) => data[key].senedNomresi === senedNomresi // burada id-nizi istifadə edirsinizsə, `editingIndex` olmalı
+    (key) => data[key].senedNomresi === senedNomresi
   );
 
-  console.log(existingSenedNomresiIndex);
+  // console.log(existingSenedNomresiIndex);
 
   if (existingSenedNomresiIndex) {
     alert(
@@ -218,10 +212,9 @@ form.addEventListener("submit", function (event) {
     );
     return;
   }
-  // Eyni sənəd nömrəsi varmı yoxlanılır
 
-  console.log(existingSenedNomresiIndex);
-  console.log(rolesArray);
+  // console.log(existingSenedNomresiIndex);
+  // console.log(rolesArray);
 
   data[editingIndex] = {
     siraCount: sira,
@@ -240,7 +233,7 @@ form.addEventListener("submit", function (event) {
     mainDocument: mainDocument,
   };
   let updatedDocument = data[editingIndex];
-  console.log(updatedDocument);
+  // console.log(updatedDocument);
 
   putDocuments(editingIndex, updatedDocument);
 
@@ -252,9 +245,8 @@ form.addEventListener("submit", function (event) {
   form.reset();
   siraInput.value = siraCount;
 
-  // Rol inputlarını təmizləyin
   const rolesContainer = document.getElementById("rolesContainer");
-  rolesContainer.innerHTML = ""; // Bütün rol inputlarını silin
+  rolesContainer.innerHTML = "";
 });
 const getDocument = async () => {
   get(dataRef)
@@ -263,7 +255,7 @@ const getDocument = async () => {
         const res = snapshot.val();
         // console.log(res);
 
-        console.log(res);
+        // console.log(res);
 
         data = res;
         // for (let resId in data) {
@@ -273,9 +265,10 @@ const getDocument = async () => {
         //     mainDocumentList.push(data[resId].senedNomresi);
         //   }
         // }
-        console.log(mainDocumentList);
+        // console.log(mainDocumentList);
 
         mainDocumentOption();
+        senedNovuFilterOption();
         editDataShow();
         docNameDetails.textContent =
           data.senedNomresi + " nömrəli sənədin detalları";
@@ -289,7 +282,7 @@ const getDocument = async () => {
 };
 getDocument();
 const putDocuments = async (id, updatedDocument) => {
-  console.log(id);
+  // console.log(id);
 
   update(ref(database, "/documents/data/" + id), updatedDocument)
     .then(() => {
@@ -312,10 +305,9 @@ const putDocuments = async (id, updatedDocument) => {
 const editDataShow = () => {
   document.getElementById("sened-novu").value = data.senedNovu;
   document.getElementById("reletedDoc").value = data.elaqeliSened;
-  console.log(data.elaqeliSened);
-  console.log(document.getElementById("reletedDoc").value);
+  // console.log(data.elaqeliSened);
+  // console.log(document.getElementById("reletedDoc").value);
 
-  console.log(document.getElementById("sened-novu").value);
   document.getElementById("sened-nomresi").value = data.senedNomresi;
   document.getElementById("movzu").value = data.movzu;
   document.getElementById("datepicker").value = data.tarix;
@@ -341,23 +333,27 @@ const editDataShow = () => {
 
   siraInput.value = data.siraCount;
   editingIndex = documentId;
-  $(document.getElementById("sened-novu")).selectpicker("refresh");
+  // $(document.getElementById("sened-novu")).selectpicker("refresh");
   $(document.getElementById("qovluq")).selectpicker("refresh");
 };
-const dataRefS = ref(database, "/documents/data");
+const dataRefS = ref(database, "/documents");
 const getDocuments = async () => {
   get(dataRefS)
     .then((snapshot) => {
       if (snapshot.exists()) {
         const res = snapshot.val();
-        datas = res;
+        datas = res.data;
+        senedNovuList = res.senedNovu;
+        // console.log(res.senedNovu);
+
         for (let resId in datas) {
           if (datas[resId].mainDocument) {
             mainDocumentList.push(datas[resId].senedNomresi);
           }
         }
         mainDocumentOption();
-        console.log(mainDocumentList);
+        senedNovuFilterOption();
+        // console.log(mainDocumentList);
       } else {
         console.log("No data available");
       }
@@ -368,24 +364,44 @@ const getDocuments = async () => {
 };
 getDocuments();
 const mainDocumentOption = () => {
-  console.log(mainDocumentList);
+  // console.log(mainDocumentList);
 
-  reletedDocSelect.innerHTML = ""; // Clear existing options
+  reletedDocSelect.innerHTML = "";
   const optionDefault = document.createElement("option");
   optionDefault.value = "";
   optionDefault.textContent = "Hamısını Göstər";
-  reletedDocSelect.append(optionDefault); // Add the default option
+  reletedDocSelect.append(optionDefault);
 
-  // Add options dynamically from terefList
   mainDocumentList.map((project) => {
     const option = document.createElement("option");
     option.value = project;
     option.textContent = project;
     reletedDocSelect.append(option);
   });
-  console.log(data);
-  
+  // console.log(data);
+
   document.getElementById("reletedDoc").value = data.elaqeliSened;
-  // If using Bootstrap select, refresh the selectpicker
+
   $(reletedDocSelect).selectpicker("refresh"); // Refresh to display the options
+};
+
+const senedNovuFilterOption = () => {
+  typeSelect.innerHTML = ""; // Clear existing options
+  const optionDefault = document.createElement("option");
+  optionDefault.value = "";
+  optionDefault.textContent = "Hamısını Göstər";
+  typeSelect.append(optionDefault);
+
+  console.log(senedNovuList);
+
+  senedNovuList.forEach((role) => {
+    const option = document.createElement("option");
+    option.value = role.id;
+    option.textContent = role.name;
+    typeSelect.append(option);
+  });
+
+  document.getElementById("sened-novu").value = data.senedNovu;
+
+  $(typeSelect).selectpicker("refresh");
 };

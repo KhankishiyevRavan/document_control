@@ -26,7 +26,8 @@ let siraCount = 1;
 const form = document.getElementById("document-form");
 const documentTableBody = document.querySelector("#document-table tbody");
 let data = [];
-let rolesArray = []; // Rol arrayını yaradın
+let rolesArray = [];
+let senedNovuList = [];
 let layiheList = [];
 let terefList = [];
 const roleNames = [
@@ -61,12 +62,17 @@ const cedveliGoster = () => {
         terefList.push(teref.role);
       }
     });
-
+    senedNovuFilterOption();
+    layiheFilterOption();
+    terefFilterOption();
+    let senedNovuText = senedNovuList.find((s)=>s.id == data[dataId].senedNovu);
+    console.log(senedNovuText);
+    
     newRow.innerHTML = `
             <td>${data[dataId].siraCount}</td>
-            <td>${data[dataId].senedNovu}</td>
+            <td>${senedNovuText?.name}</td>
             <td>${data[dataId].senedNomresi}</td>
-            <td>${data[dataId].tarix?data[dataId].tarix:""}</td>
+            <td>${data[dataId].tarix ? data[dataId].tarix : ""}</td>
             <td>${data[dataId].movzu}</td>
             <td>${data[dataId].layihe}</td>
             <td>
@@ -103,22 +109,20 @@ const cedveliGoster = () => {
             `;
 
     documentTableBody.appendChild(newRow);
-    // "Sil" düyməsi funksionallığı
+
     const deleteBtn = newRow.querySelector(".delete-btn");
     deleteBtn.addEventListener("click", function () {
       data = data.filter((_, i) => i !== dataId);
       cedveliGoster();
     });
 
-    // "Redaktə et" düyməsi funksionallığı
     const editBtn = newRow.querySelector(".edit-btn");
     editBtn.addEventListener("click", function () {
       window.location.href =
         "/assets/pages/document/document-edit.html?id=" + dataId;
     });
   }
-  layiheFilterOption();
-  terefFilterOption();
+
   console.log(layiheList);
 };
 const getDocuments = async () => {
@@ -127,8 +131,11 @@ const getDocuments = async () => {
       if (snapshot.exists()) {
         const res = snapshot.val();
         console.log(res);
-        
+
         data = res.data;
+        senedNovuList = res.senedNovu;
+        console.log(senedNovuList);
+
         const nestedObjects = Object.values(data);
         const lastObject = nestedObjects[nestedObjects.length - 1];
         siraCount = Number(lastObject.siraCount) + 1;
@@ -149,7 +156,7 @@ const partyFilter = document.getElementById("partyFilter");
 const layiheFilter = document.getElementById("layiheFilter");
 // Filtr funksiyası
 function filterDocuments() {
-  const typeValue = typeFilter.value; // Sənəd növü seçimi
+  const typeValue = typeFilter.value; //
   const searchValue = searchInput.value.toLowerCase(); // Axtarış dəyəri
   const folderValue = folderFilter.value; // Qovluq seçimi
   const partyValue = partyFilter.value; // Tərəf seçimi
@@ -166,6 +173,10 @@ function filterDocuments() {
     let matchesLayihe = true;
 
     // Sənəd növü filtr
+    console.log(cells[1]);
+    console.log(typeValue);
+    
+    
     if (typeValue) {
       matchesType = cells[1].textContent.includes(typeValue); // 1-ci sütun (Sənəd Növü)
     }
@@ -238,18 +249,31 @@ const terefFilterOption = () => {
   partyFilter.append(optionDefault);
 
   terefList.forEach((role) => {
-      const option = document.createElement("option");
-      option.value = role;
-      option.textContent = role;
-      partyFilter.append(option);
+    const option = document.createElement("option");
+    option.value = role;
+    option.textContent = role;
+    partyFilter.append(option);
   });
 
   $(partyFilter).selectpicker("refresh"); // Refresh to show new options
 };
+const senedNovuFilterOption = () => {
+  typeFilter.innerHTML = ""; // Clear existing options
+  const optionDefault = document.createElement("option");
+  optionDefault.value = "";
+  optionDefault.textContent = "Hamısını Göstər";
+  typeFilter.append(optionDefault);
 
+  senedNovuList.forEach((role) => {
+    const option = document.createElement("option");
+    option.value = role.name;
+    option.textContent = role.name;
+    typeFilter.append(option);
+  });
+
+  $(typeFilter).selectpicker("refresh");
+};
 // Call this function after you have fetched and populated terefList
-
-
 
 getDocuments();
 // const partySearchInput = document.getElementById("partySearchInput");
@@ -259,12 +283,11 @@ getDocuments();
 //   const searchValue = partySearchInput.value.toLowerCase(); // Get the input value
 //   const options = partyFilter.getElementsByTagName("option");
 //   console.log(options);
-  
 
 //   for (let i = 0; i < options.length; i++) {
 //     const option = options[i];
 //     console.log(option.textContent.toLowerCase().includes(searchValue));
-    
+
 //     // Show or hide option based on search value
 //     option.style.display = option.textContent.toLowerCase().includes(searchValue) ? "" : "none";
 //   }
