@@ -133,7 +133,7 @@ const getDocuments = async () => {
         console.log(res);
 
         data = res.data;
-        senedNovuList = res.senedNovu;
+        senedNovuList = res.parametrs.senedNovu;
         console.log(senedNovuList);
 
         const nestedObjects = Object.values(data);

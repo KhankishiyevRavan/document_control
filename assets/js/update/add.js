@@ -274,7 +274,7 @@ const getDocuments = async () => {
       if (snapshot.exists()) {
         const res = snapshot.val();
         data = res.data;
-        senedNovuList = res.senedNovu;
+        senedNovuList = res.parametrs.senedNovu;
         for (let dataId in data) {
           if (data[dataId].mainDocument) {
             mainDocumentList.push(data[dataId].senedNomresi);

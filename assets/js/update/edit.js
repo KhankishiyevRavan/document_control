@@ -343,7 +343,7 @@ const getDocuments = async () => {
       if (snapshot.exists()) {
         const res = snapshot.val();
         datas = res.data;
-        senedNovuList = res.senedNovu;
+        senedNovuList = res.parametrs.senedNovu;
         // console.log(res.senedNovu);
 
         for (let resId in datas) {
