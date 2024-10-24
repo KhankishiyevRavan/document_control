@@ -28,13 +28,14 @@ let tasks = [];
 let editIndex = -1; // Redaktə edilən tapşırığın indeksi
 let responsibles = []; // Məsul şəxslərin siyahısı
 let departments = [];
-
+let counters = {};
 // Function to render the tasks and update department tables
 function renderTasks() {
   for (let taskId in tasks) {
     let task = tasks[taskId];
     if (!departments.includes(task.department)) {
       departments.push(task.department);
+      counters[task.department] = 1;
       let tableContainer = document.createElement("div");
       tableContainer.classList.add("col-xl-12", "card");
       tableContainer.setAttribute("id", "bootstrap-table9");
@@ -57,11 +58,13 @@ function renderTasks() {
                         >
                             <thead>
                               <tr>
+                                <th scope="col">#</th>
                                 <th scope="col">Task</th>
                                 <th scope="col">Prioritet</th>
                                 <th scope="col">Deadline</th>
                                 <th scope="col">Status</th>
                                 <th scope="col">Məsul şəxslər</th>
+                                <th scope="col">Note</th>
                                 <th scope="col">Action</th>
                               </tr>
                             </thead>
@@ -77,24 +80,51 @@ function renderTasks() {
       tablesContainer.append(tableContainer);
     }
     let tr = document.createElement("tr");
+    tr.classList.add("tr_table");
+
+    let tdCount = document.createElement("td");
+    tdCount.textContent = counters[task.department];
+    counters[task.department]++;
 
     let tdName = document.createElement("td");
-    tdName.textContent = task.name;
+    tdName.textContent = task?.name;
 
     let tdPriority = document.createElement("td");
-    tdPriority.textContent = task.priority;
+    tdPriority.textContent = task?.priority;
 
     let tdDeadline = document.createElement("td");
-    tdDeadline.textContent = task.deadline;
+    tdDeadline.textContent = task?.deadline;
 
     let tdStatus = document.createElement("td");
-    tdStatus.textContent = task.status;
+    tdStatus.textContent = task?.status;
 
-    tr.append(tdName, tdPriority,tdDeadline,tdStatus);
-    console.log(document.querySelector(`#dep${task.shortName}`));
+    let tdresponsibles = document.createElement("td");
+    tdresponsibles.textContent = " ";
 
+    let tdNote = document.createElement("td");
+    tdNote.textContent = task?.note;
+
+    let tdAction = document.createElement("td");
+    tdAction.innerHTML = `
+    <span>
+        <a
+            href="javascript:void(0);"
+            class="me-4"
+            title="Edit"
+        >
+            <i class="fa fa-pencil color-muted"></i> 
+        </a>
+        <a
+            href="javascript:void(0);"
+            title="btn-close"
+        >
+            <i class="fa-solid fa-xmark text-danger"></i>
+        </a>
+    </span>
+    `;
+
+    tr.append(tdCount, tdName, tdPriority, tdDeadline, tdStatus, tdresponsibles, tdNote, tdAction);
     document.querySelector(`#dep${task.shortName}`).append(tr);
-    console.log(departments);
   }
 
   // Hər bir şöbə üçün cədvəlləri sıfırlamaq
