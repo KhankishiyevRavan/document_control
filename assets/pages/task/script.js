@@ -31,17 +31,14 @@ let responsibles = []; // Məsul şəxslərin siyahısı
 function renderTasks() {
   // Hər bir şöbə üçün cədvəlləri sıfırlamaq
   document.getElementById("itTable").innerHTML =
-  "<tr><th>Tapşırıq adı</th><th>Prioritet</th><th>Son tarix</th><th>Vəziyyət</th><th>Məsul Şəxslər</th><th>Əməliyyatlar</th></tr>";
+    "<tr><th>Tapşırıq adı</th><th>Prioritet</th><th>Son tarix</th><th>Vəziyyət</th><th>Məsul Şəxslər</th><th>Əməliyyatlar</th></tr>";
   document.getElementById("hrTable").innerHTML =
-  "<tr><th>Tapşırıq adı</th><th>Prioritet</th><th>Son tarix</th><th>Vəziyyət</th><th>Məsul Şəxslər</th><th>Əməliyyatlar</th></tr>";
+    "<tr><th>Tapşırıq adı</th><th>Prioritet</th><th>Son tarix</th><th>Vəziyyət</th><th>Məsul Şəxslər</th><th>Əməliyyatlar</th></tr>";
   document.getElementById("marketingTable").innerHTML =
-  "<tr><th>Tapşırıq adı</th><th>Prioritet</th><th>Son tarix</th><th>Vəziyyət</th><th>Məsul Şəxslər</th><th>Əməliyyatlar</th></tr>";
+    "<tr><th>Tapşırıq adı</th><th>Prioritet</th><th>Son tarix</th><th>Vəziyyət</th><th>Məsul Şəxslər</th><th>Əməliyyatlar</th></tr>";
   document.getElementById("financeTable").innerHTML =
-  "<tr><th>Tapşırıq adı</th><th>Prioritet</th><th>Son tarix</th><th>Vəziyyət</th><th>Məsul Şəxslər</th><th>Əməliyyatlar</th></tr>";
-  for(let taskId in tasks){
-    // task  ====>  tasks[taskId]
-    // index  ====>  taskId
-  
+    "<tr><th>Tapşırıq adı</th><th>Prioritet</th><th>Son tarix</th><th>Vəziyyət</th><th>Məsul Şəxslər</th><th>Əməliyyatlar</th></tr>";
+  for (let taskId in tasks) {
     const row = `
     <tr>
     <td>${tasks[taskId].name}</td>
@@ -50,12 +47,12 @@ function renderTasks() {
     <td>${tasks[taskId].status}</td>
     <td>${tasks[taskId]?.responsibles?.join(", ")}</td>
     <td>
-    <button onclick="editTask(${taskId})">Redaktə et</button>
-    <button onclick="deleteTask(${taskId})">Sil</button>
+    <button onclick="editTask('${taskId}')">Redaktə et</button>
+    <button onclick="deleteTask('${taskId}')">Sil</button>
     </td>
     </tr>
     `;
-    
+
     // Tapşırığı müvafiq şöbəyə əlavə edirik
     if (tasks[taskId].department === "IT") {
       document.getElementById("itTable").innerHTML += row;
@@ -66,18 +63,38 @@ function renderTasks() {
     } else if (tasks[taskId].department === "Finance") {
       document.getElementById("financeTable").innerHTML += row;
     }
-  };
+  }
 }
 
 // Add/Edit Task Function
+window.editTask = function (taskId) {
+  console.log(tasks);
+
+  const task = tasks[taskId]; // Firebase-dən tapşırığı alırıq
+  document.getElementById("taskName").value = task.name;
+  document.getElementById("priority").value = task.priority;
+  document.getElementById("deadline").value = task.deadline;
+  document.getElementById("department").value = task.department;
+  document.getElementById("status").value = task.status;
+  document.getElementById("note").value = task.note;
+  console.log(responsibles);
+
+  responsibles = [...task.responsibles];
+  renderResponsibles();
+  console.log(taskId);
+
+  editIndex = taskId; // Redaktə edilən tapşırığın ID-sini saxlayır
+  document.getElementById("addTask").textContent = "Tapşırığı Redaktə et"; // Button mətnini dəyişir
+};
+
 document.getElementById("addTask").addEventListener("click", () => {
   const taskName = document.getElementById("taskName").value;
   const priority = document.getElementById("priority").value;
   const deadline = document.getElementById("deadline").value;
   const department = document.getElementById("department").value;
-  const status = document.getElementById("status").value; // Mövcud vəziyyət seçimi
+  const status = document.getElementById("status").value;
   const note = document.getElementById("note").value;
-  
+
   if (taskName && deadline) {
     const newTask = {
       name: taskName,
@@ -85,53 +102,51 @@ document.getElementById("addTask").addEventListener("click", () => {
       deadline: deadline,
       department: department,
       note: note,
-      responsibles: [...responsibles], // Məsul şəxslər tapşırığa əlavə olunur
-      status: status, // Mövcud vəziyyət tapşırığa əlavə olunur
+      responsibles: [...responsibles],
+      status: status,
       completed: false,
     };
-    
+
     if (editIndex === -1) {
       // Yeni tapşırıq əlavə edir
-      console.log(tasks);
-      // tasks.push(newTask);
       pushDocuments(newTask);
-      tasks = {...tasks,newTask};
     } else {
-      // Mövcud tapşırığı redaktə edir
-      tasks[editIndex] = newTask;
+      // Mövcud tapşırığı redaktə edir və Firebase-də yeniləyir
+      const taskId = Object.keys(tasks)[editIndex];
+
+      update(ref(database, "/tasks/" + editIndex), newTask)
+        .then(() => {
+          alert("Tapşırıq uğurla yeniləndi!");
+        })
+        .catch((error) => {
+          console.error("Tapşırıq yenilənərkən səhv:", error);
+        });
+
       editIndex = -1; // Redaktə rejimini sıfırlayır
-      document.getElementById("addTask").textContent = "Tapşırıq əlavə et"; // Button mətnini yeniləyir
+      document.getElementById("addTask").textContent = "Tapşırıq əlavə et";
     }
-    
+
     renderTasks();
     clearForm();
   } else {
     alert("Tapşırığın adı və son tarixi daxil edilməlidir!");
   }
+  getDocuments();
 });
 
-// Edit Task Function
-function editTask(index) {
-  const task = tasks[index];
-  document.getElementById("taskName").value = task.name;
-  document.getElementById("priority").value = task.priority;
-  document.getElementById("deadline").value = task.deadline;
-  document.getElementById("department").value = task.department;
-  document.getElementById("status").value = task.status;
-  document.getElementById("note").value = task.note;
-  
-  responsibles = [...task.responsibles];
-  renderResponsibles();
-  
-  editIndex = index; // Redaktə edilən tapşırığın indeksini saxlayır
-  document.getElementById("addTask").textContent = "Tapşırığı Redaktə et"; // Button mətnini dəyişir
-}
-
 // Delete Task Function
-function deleteTask(index) {
-  tasks.splice(index, 1); // Tapşırığı siyahıdan silir
-  renderTasks(); // Cədvəlləri yenidən render edir
-}
+window.deleteTask = function (index) {
+  const taskId = Object.keys(tasks)[index]; // Firebase-dən tapşırığın ID-sini götürür
+  remove(ref(database, "/tasks/" + taskId))
+    .then(() => {
+      alert("Tapşırıq uğurla silindi!");
+      tasks.splice(index, 1); // Massivdən tapşırığı çıxardır
+      renderTasks(); // Siyahını yenidən render edir
+    })
+    .catch((error) => {
+      console.error("Tapşırıq silinərkən səhv:", error);
+    });
+};
 
 // Add Responsible Person
 document.getElementById("addResponsible").addEventListener("click", () => {
@@ -170,8 +185,6 @@ function clearForm() {
 
 renderTasks();
 
-
-
 const pushDocuments = async (newDocument) => {
   var objKey = push(dataRef).key;
   console.log(newDocument);
@@ -194,7 +207,7 @@ const getDocuments = async () => {
       if (snapshot.exists()) {
         const res = snapshot.val();
         console.log(res);
-       
+
         tasks = res;
         renderTasks();
       } else {

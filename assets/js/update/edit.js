@@ -106,12 +106,14 @@ siraInput.value = siraCount;
 let rolesArray = [];
 
 const roleNames = [
-  "Müəllim",
-  "Təchizatçı",
-  "Müdir",
-  "İşçi",
-  "Icraci",
-  "Sifarisci ",
+  "Podratçı",
+  "SubPodratçı",
+  "Sifarisçi ",
+  "İcraçı",
+  "İcarəyə verən",
+  "İcarəçi",
+  "Alıcı",
+  "Satıcı",
 ];
 
 function addRoleInput(roleName = "", role = "") {
