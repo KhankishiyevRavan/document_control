@@ -25,6 +25,7 @@ const database = getDatabase(app);
 const dataRef = ref(database, "/tasks");
 const tablesContainer = document.getElementById("tables_container");
 let tasks = [];
+let taskStatus =[];
 let editIndex = -1; // Redaktə edilən tapşırığın indeksi
 let responsibles = []; // Məsul şəxslərin siyahısı
 let departments = [];
@@ -96,7 +97,10 @@ function renderTasks() {
     tdDeadline.textContent = task?.deadline;
 
     let tdStatus = document.createElement("td");
-    tdStatus.textContent = task?.status;
+    let taskText = taskStatus.find((s)=>s.degree == task.status).name;
+    console.log(taskText);
+    
+    tdStatus.textContent = taskText;
 
     let tdresponsibles = document.createElement("td");
     tdresponsibles.textContent = " ";
@@ -306,8 +310,10 @@ const getDocuments = async () => {
       if (snapshot.exists()) {
         const res = snapshot.val();
         console.log(res);
-
-        tasks = res;
+        taskStatus = res.parametrs.status;
+        console.log(taskStatus);
+        
+        tasks = res?.data;
 
         renderTasks();
       } else {

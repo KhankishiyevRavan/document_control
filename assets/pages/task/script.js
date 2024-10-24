@@ -22,7 +22,7 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-database.js";
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
-const dataRef = ref(database, "/tasks");
+const dataRef = ref(database, "/tasks/data");
 let tasks = [];
 let editIndex = -1; // Redaktə edilən tapşırığın indeksi
 let responsibles = []; // Məsul şəxslərin siyahısı
@@ -114,7 +114,7 @@ document.getElementById("addTask").addEventListener("click", () => {
       // Mövcud tapşırığı redaktə edir və Firebase-də yeniləyir
       const taskId = Object.keys(tasks)[editIndex];
 
-      update(ref(database, "/tasks/" + editIndex), newTask)
+      update(ref(database, "/tasks/data/" + editIndex), newTask)
         .then(() => {
           alert("Tapşırıq uğurla yeniləndi!");
         })
@@ -137,7 +137,7 @@ document.getElementById("addTask").addEventListener("click", () => {
 // Delete Task Function
 window.deleteTask = function (index) {
   const taskId = Object.keys(tasks)[index]; // Firebase-dən tapşırığın ID-sini götürür
-  remove(ref(database, "/tasks/" + taskId))
+  remove(ref(database, "/tasks/data/" + taskId))
     .then(() => {
       alert("Tapşırıq uğurla silindi!");
       tasks.splice(index, 1); // Massivdən tapşırığı çıxardır
@@ -189,7 +189,7 @@ const pushDocuments = async (newDocument) => {
   var objKey = push(dataRef).key;
   console.log(newDocument);
 
-  set(ref(database, "/tasks/" + objKey), {
+  set(ref(database, "/tasks/data/" + objKey), {
     ...newDocument,
   })
     .then(() => {
