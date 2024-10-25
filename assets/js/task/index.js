@@ -25,7 +25,7 @@ const database = getDatabase(app);
 const dataRef = ref(database, "/tasks");
 const tablesContainer = document.getElementById("tables_container");
 let tasks = [];
-let taskStatus =[];
+let taskStatus = [];
 let editIndex = -1; // Redaktə edilən tapşırığın indeksi
 let responsibles = []; // Məsul şəxslərin siyahısı
 let departments = [];
@@ -97,12 +97,23 @@ function renderTasks() {
     tdDeadline.textContent = task?.deadline;
 
     let tdStatus = document.createElement("td");
-    let taskText = taskStatus.find((s)=>s.degree == task.status).name;
+    let taskText = taskStatus.find((s) => s.degree == task.status);
     console.log(taskText);
-    
-    tdStatus.textContent = taskText;
+    let spanStatus = document.createElement("span");
+    spanStatus.classList.add("badge","light");
+    spanStatus.style.color= "white";
+    spanStatus.style.backgroundColor= taskText.color;
+    spanStatus.textContent = taskText.name;
+    // <span class="badge light badge-success">Successful</span>
+
+    tdStatus.append(spanStatus);
 
     let tdresponsibles = document.createElement("td");
+    console.log(task.responsibles);
+    task?.responsibles?.map((re)=>{
+        
+    })
+    
     tdresponsibles.textContent = " ";
 
     let tdNote = document.createElement("td");
@@ -127,7 +138,16 @@ function renderTasks() {
     </span>
     `;
 
-    tr.append(tdCount, tdName, tdPriority, tdDeadline, tdStatus, tdresponsibles, tdNote, tdAction);
+    tr.append(
+      tdCount,
+      tdName,
+      tdPriority,
+      tdDeadline,
+      tdStatus,
+      tdresponsibles,
+      tdNote,
+      tdAction
+    );
     document.querySelector(`#dep${task.shortName}`).append(tr);
   }
 
@@ -312,7 +332,7 @@ const getDocuments = async () => {
         console.log(res);
         taskStatus = res.parametrs.status;
         console.log(taskStatus);
-        
+
         tasks = res?.data;
 
         renderTasks();
