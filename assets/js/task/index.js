@@ -70,9 +70,10 @@ function renderTasks() {
                               </tr>
                             </thead>
                             <tbody>
-                            
+                              
                             </tbody>
                         </table>
+                        <button class="ms-2 mb-3 btn light btn-primary addTrBtn">+</button>
                     </div>
                 </div>
             </div>
@@ -80,6 +81,7 @@ function renderTasks() {
 
       tablesContainer.append(tableContainer);
     }
+
     let tr = document.createElement("tr");
     tr.classList.add("tr_table");
 
@@ -98,23 +100,28 @@ function renderTasks() {
 
     let tdStatus = document.createElement("td");
     let taskText = taskStatus.find((s) => s.degree == task.status);
-    console.log(taskText);
+    // console.log(taskText);
     let spanStatus = document.createElement("span");
-    spanStatus.classList.add("badge","light");
-    spanStatus.style.color= "white";
-    spanStatus.style.backgroundColor= taskText.color;
+    spanStatus.classList.add("badge", "light");
+    spanStatus.style.color = "white";
+    spanStatus.style.backgroundColor = taskText.color;
     spanStatus.textContent = taskText.name;
     // <span class="badge light badge-success">Successful</span>
 
     tdStatus.append(spanStatus);
 
     let tdresponsibles = document.createElement("td");
-    console.log(task.responsibles);
-    task?.responsibles?.map((re)=>{
-        
-    })
-    
-    tdresponsibles.textContent = " ";
+    // tdresponsibles.style.display="flex";
+    // console.log(task.responsibles);
+    task?.responsibles?.map((re) => {
+      let spanResponsible = document.createElement("span");
+      spanResponsible.textContent = re;
+      spanResponsible.classList.add("responsible_span");
+      tdresponsibles.append(spanResponsible);
+      // console.log(re);
+    });
+
+    // tdresponsibles.textContent = " ";
 
     let tdNote = document.createElement("td");
     tdNote.textContent = task?.note;
@@ -148,9 +155,47 @@ function renderTasks() {
       tdNote,
       tdAction
     );
-    document.querySelector(`#dep${task.shortName}`).append(tr);
-  }
+    document.querySelector(`#dep${task.shortName} tbody`).append(tr);
 
+    // document.querySelector(`#dep${task.shortName} tbody`).insertBefore(tr,[...document.querySelectorAll(`#dep${task.shortName} tbody tr`)].slice(-1)[0]);
+  }
+//   let addTr = document.createElement("tr");
+  let addTr= `
+  <tr class="add_tr">
+    <td scope="col">
+      <input type="text" />
+    </td>
+    <td scope="col">
+      <input type="text" />
+    </td>
+    <td scope="col">
+      <input type="text" />
+    </td>
+    <td scope="col">
+      <input type="text" />
+    </td>
+    <td scope="col">
+      <input type="text" />
+    </td>
+    <td scope="col">
+      <input type="text" />
+    </td>
+    <td scope="col">
+      <input type="text" />
+    </td>
+    <td scope="col">
+      <input type="text" />
+    </td>
+  </tr>
+  `;
+  let addTrBtns = tablesContainer.querySelectorAll(".addTrBtn");
+  [...addTrBtns].map((btn) => {
+    btn.addEventListener("click", () => {
+      btn.closest(".table-responsive").querySelector("tbody").innerHTML +=
+        addTr;
+      //   btn.closest(".table-responsive").querySelector("tbody").append(addTr);
+    });
+  });
   // Hər bir şöbə üçün cədvəlləri sıfırlamaq
 
   //   document.getElementById("itTable").innerHTML =
@@ -329,9 +374,9 @@ const getDocuments = async () => {
     .then((snapshot) => {
       if (snapshot.exists()) {
         const res = snapshot.val();
-        console.log(res);
+        // console.log(res);
         taskStatus = res.parametrs.status;
-        console.log(taskStatus);
+        // console.log(taskStatus);
 
         tasks = res?.data;
 
@@ -416,3 +461,17 @@ getDocuments();
 //                         </td>
 //                       </tr>
 //                     </tbody>
+////////////////////////////////
+
+{
+  /* <tr class='edit_tr'>
+                                <td scope="col"><input type="text"/></td>
+                                <td scope="col"><input type="text"/></td>
+                                <td scope="col"><input type="text"/></td>
+                                <td scope="col"><input type="text"/></td>
+                                <td scope="col"><input type="text"/></td>
+                                <td scope="col"><input type="text"/></td>
+                                <td scope="col"><input type="text"/></td>
+                                <td scope="col"><input type="text"/></td>
+                              </tr> */
+}
