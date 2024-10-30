@@ -34,6 +34,7 @@ let data = [];
 
 let senedNovuList = [];
 let businessProcesses = [];
+let projectList = [];
 
 let siraCount = null;
 
@@ -282,17 +283,26 @@ const getDocuments = async () => {
         data = res.data;
         senedNovuList = res.parametrs.senedNovu;
         businessProcesses = res.parametrs.businessProcess;
-
+        projectList = res.parametrs.projectList
+        // let count = 1;
         for (let dataId in data) {
+          // if (!projectList.find((p) => p.name == data[dataId].layihe)) {
+          //   projectList.push({
+          //     id: count,
+          //     name: data[dataId].layihe,
+          //   });
+          //   count++;
+          // }
           if (data[dataId].mainDocument) {
             mainDocumentList.push(data[dataId].senedNomresi);
           }
         }
-
+        console.log(projectList);
+      
         mainDocumentOption();
         senedNovuFilterOption();
         businessProcessesOption();
-        console.log(mainDocumentList);
+        // console.log(mainDocumentList);
 
         const nestedObjects = Object.values(data);
 
@@ -311,7 +321,7 @@ const getDocuments = async () => {
 getDocuments();
 
 const mainDocumentOption = () => {
-  console.log(mainDocumentList);
+  // console.log(mainDocumentList);
 
   reletedDocSelect.innerHTML = "";
   const optionDefault = document.createElement("option");
@@ -335,7 +345,7 @@ const senedNovuFilterOption = () => {
   optionDefault.textContent = "Hamısını Göstər";
   typeSelect.append(optionDefault);
 
-  console.log(senedNovuList);
+  // console.log(senedNovuList);
 
   senedNovuList.forEach((role) => {
     const option = document.createElement("option");
@@ -347,8 +357,8 @@ const senedNovuFilterOption = () => {
   $(typeSelect).selectpicker("refresh");
 };
 const businessProcessesOption = () => {
-  console.log(businessSelect);
-  console.log(businessProcesses);
+  // console.log(businessSelect);
+  // console.log(businessProcesses);
 
   businessSelect.innerHTML = ""; // Clear existing options
   const optionDefault = document.createElement("option");
@@ -365,3 +375,6 @@ const businessProcessesOption = () => {
 
   $(businessSelect).selectpicker("refresh");
 };
+const projectDataListShow = ()=>{
+  
+}

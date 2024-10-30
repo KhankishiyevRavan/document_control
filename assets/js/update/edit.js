@@ -83,7 +83,7 @@ function addTag() {
 
 function displayTags() {
   tagContainer.innerHTML = "";
-  tagsArray.forEach((tag, index) => {
+  tagsArray?.forEach((tag, index) => {
     const tagElement = document.createElement("span");
     tagElement.classList.add("tag", "btn", "btn-danger", "mt-2");
     tagElement.textContent = tag;
@@ -335,7 +335,7 @@ const editDataShow = () => {
   });
   ////////////////////
   tagContainer.innerHTML = "";
-  tagsArray = data.tagsArray;
+  tagsArray = data?.tagsArray;
 
   displayTags();
 
