@@ -159,8 +159,8 @@ function renderTasks() {
 
     // document.querySelector(`#dep${task.shortName} tbody`).insertBefore(tr,[...document.querySelectorAll(`#dep${task.shortName} tbody tr`)].slice(-1)[0]);
   }
-//   let addTr = document.createElement("tr");
-  let addTr= `
+  //   let addTr = document.createElement("tr");
+  let addTr = `
   <tr class="add_tr">
     <td scope="col">
       <input type="text" />
@@ -177,8 +177,12 @@ function renderTasks() {
     <td scope="col">
       <input type="text" />
     </td>
-    <td scope="col">
-      <input type="text" />
+    <td>
+      <select id="multi-value-select" multiple="multiple">
+          <option selected="selected">orange</option>
+          <option>white</option>
+          <option selected="selected">purple</option>
+      </select>
     </td>
     <td scope="col">
       <input type="text" />
@@ -193,6 +197,21 @@ function renderTasks() {
     btn.addEventListener("click", () => {
       btn.closest(".table-responsive").querySelector("tbody").innerHTML +=
         addTr;
+
+        
+      const selectD = btn.closest(".table-responsive").querySelector("select");
+      $(selectD).selectpicker("refresh");
+      // let newtaskData = {
+      //   department: task.department,
+      //   name: inputs[1].value,
+      //   priority: inputs[2].value,
+      //   deadline: inputs[3].value,
+      //   status: inputs[4].value,
+      //   responsibles: inputs[5].value.split(", "), // Virgülle ayrılmış məsul şəxslər
+      //   note: inputs[6].value,
+      // };
+      // console.log(newtaskData);
+
       //   btn.closest(".table-responsive").querySelector("tbody").append(addTr);
     });
   });

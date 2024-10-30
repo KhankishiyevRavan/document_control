@@ -33,6 +33,7 @@ const dataRef = ref(database, "/documents");
 let data = [];
 
 let senedNovuList = [];
+let businessProcesses = [];
 
 let siraCount = null;
 
@@ -51,6 +52,7 @@ const mainDocumentCheckbox = document.querySelector("#flexCheckDefault");
 const reletedDocSelect = document.querySelector("#reletedDoc");
 
 const typeSelect = document.querySelector("#sened-novu");
+const businessSelect = document.querySelector("#business-prosess");
 
 tagInput.addEventListener("keypress", function (e) {
   if (e.key === "Enter") {
@@ -175,6 +177,7 @@ form.addEventListener("submit", function (event) {
 
   const sira = parseInt(siraInput.value);
   const senedNovu = document.getElementById("sened-novu").value;
+  const businessProcess = document.getElementById("business-prosess").value;
   const elaqeliSened = document.getElementById("reletedDoc").value;
   const senedNomresi = document.getElementById("sened-nomresi").value;
   const movzu = document.getElementById("movzu").value;
@@ -228,6 +231,7 @@ form.addEventListener("submit", function (event) {
   let newDocument = {
     siraCount: sira,
     senedNovu: senedNovu,
+    businessProcess: businessProcess,
     elaqeliSened: elaqeliSened,
     senedNomresi: senedNomresi,
     movzu: movzu,
@@ -277,6 +281,8 @@ const getDocuments = async () => {
         const res = snapshot.val();
         data = res.data;
         senedNovuList = res.parametrs.senedNovu;
+        businessProcesses = res.parametrs.businessProcess;
+
         for (let dataId in data) {
           if (data[dataId].mainDocument) {
             mainDocumentList.push(data[dataId].senedNomresi);
@@ -285,6 +291,7 @@ const getDocuments = async () => {
 
         mainDocumentOption();
         senedNovuFilterOption();
+        businessProcessesOption();
         console.log(mainDocumentList);
 
         const nestedObjects = Object.values(data);
@@ -338,4 +345,23 @@ const senedNovuFilterOption = () => {
   });
 
   $(typeSelect).selectpicker("refresh");
+};
+const businessProcessesOption = () => {
+  console.log(businessSelect);
+  console.log(businessProcesses);
+
+  businessSelect.innerHTML = ""; // Clear existing options
+  const optionDefault = document.createElement("option");
+  optionDefault.value = "";
+  optionDefault.textContent = "Hamısını Göstər";
+  businessSelect.append(optionDefault);
+
+  businessProcesses.forEach((role) => {
+    const option = document.createElement("option");
+    option.value = role.id;
+    option.textContent = role.name;
+    businessSelect.append(option);
+  });
+
+  $(businessSelect).selectpicker("refresh");
 };

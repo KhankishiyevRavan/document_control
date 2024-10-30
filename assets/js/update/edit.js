@@ -40,6 +40,7 @@ const dataRef = ref(database, "/documents/data/" + documentId);
 let data = [];
 let datas = [];
 let senedNovuList = [];
+let businessProcesses = [];
 let mainDocumentList = [];
 let siraCount = null;
 
@@ -58,6 +59,7 @@ const tagContainer = document.getElementById("tag-container");
 const mainDocumentCheckbox = document.querySelector("#flexCheckDefault");
 
 const typeSelect = document.querySelector("#sened-novu");
+const businessSelect = document.querySelector("#business-prosess");
 
 tagInput.addEventListener("keypress", function (e) {
   if (e.key === "Enter") {
@@ -168,6 +170,7 @@ form.addEventListener("submit", function (event) {
 
   const sira = parseInt(siraInput.value);
   const senedNovu = document.getElementById("sened-novu").value;
+  const businessProcess = document.getElementById("business-prosess").value;
   const elaqeliSened = document.getElementById("reletedDoc").value;
   const senedNomresi = document.getElementById("sened-nomresi").value;
   const movzu = document.getElementById("movzu").value;
@@ -221,6 +224,7 @@ form.addEventListener("submit", function (event) {
   data[editingIndex] = {
     siraCount: sira,
     senedNovu: senedNovu,
+    businessProcess: businessProcess,
     elaqeliSened: elaqeliSened,
     senedNomresi: senedNomresi,
     movzu: movzu,
@@ -271,6 +275,7 @@ const getDocument = async () => {
 
         mainDocumentOption();
         senedNovuFilterOption();
+        businessProcessesOption();
         editDataShow();
         docNameDetails.textContent =
           data.senedNomresi + " nömrəli sənədin detalları";
@@ -306,6 +311,7 @@ const putDocuments = async (id, updatedDocument) => {
 };
 const editDataShow = () => {
   document.getElementById("sened-novu").value = data.senedNovu;
+  document.getElementById("business-prosess").value = data.businessProcess;
   document.getElementById("reletedDoc").value = data.elaqeliSened;
   // console.log(data.elaqeliSened);
   // console.log(document.getElementById("reletedDoc").value);
@@ -346,7 +352,7 @@ const getDocuments = async () => {
         const res = snapshot.val();
         datas = res.data;
         senedNovuList = res.parametrs.senedNovu;
-        // console.log(res.senedNovu);
+        businessProcesses = res.parametrs.businessProcess;
 
         for (let resId in datas) {
           if (datas[resId].mainDocument) {
@@ -355,6 +361,7 @@ const getDocuments = async () => {
         }
         mainDocumentOption();
         senedNovuFilterOption();
+        businessProcessesOption();
         // console.log(mainDocumentList);
       } else {
         console.log("No data available");
@@ -406,4 +413,25 @@ const senedNovuFilterOption = () => {
   document.getElementById("sened-novu").value = data.senedNovu;
 
   $(typeSelect).selectpicker("refresh");
+};
+const businessProcessesOption = () => {
+  console.log(businessSelect);
+  console.log(businessProcesses);
+
+  businessSelect.innerHTML = ""; // Clear existing options
+  const optionDefault = document.createElement("option");
+  optionDefault.value = "";
+  optionDefault.textContent = "Hamısını Göstər";
+  businessSelect.append(optionDefault);
+
+  businessProcesses.forEach((role) => {
+    const option = document.createElement("option");
+    option.value = role.id;
+    option.textContent = role.name;
+    businessSelect.append(option);
+  });
+
+  document.getElementById("business-prosess").value = data.businessProcess;
+
+  $(businessSelect).selectpicker("refresh");
 };

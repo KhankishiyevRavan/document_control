@@ -28,6 +28,7 @@ const documentTableBody = document.querySelector("#document-table tbody");
 let data = [];
 let rolesArray = [];
 let senedNovuList = [];
+let businessProcesses = [];
 let layiheList = [];
 let terefList = [];
 const roleNames = [
@@ -65,14 +66,22 @@ const cedveliGoster = () => {
     senedNovuFilterOption();
     layiheFilterOption();
     terefFilterOption();
-    let senedNovuText = senedNovuList.find((s)=>s.id == data[dataId].senedNovu);
-    console.log(senedNovuText);
-    
+    let senedNovuText = senedNovuList.find(
+      (s) => s.id == data[dataId].senedNovu
+    );
+    let businessProcessText = businessProcesses.find(
+      (b) => b.id == data[dataId].businessProcess
+    );
+    console.log(businessProcessText);
+
     newRow.innerHTML = `
             <td>${data[dataId].siraCount}</td>
             <td>${senedNovuText?.name}</td>
             <td>${data[dataId].senedNomresi}</td>
             <td>${data[dataId].tarix ? data[dataId].tarix : ""}</td>
+            <td>${
+              businessProcessText?.name ? businessProcessText?.name : ""
+            }</td>
             <td>${data[dataId].movzu}</td>
             <td>${data[dataId].layihe}</td>
             <td>
@@ -123,18 +132,19 @@ const cedveliGoster = () => {
     });
   }
 
-  console.log(layiheList);
+  // console.log(layiheList);
 };
 const getDocuments = async () => {
   get(dataRef)
     .then((snapshot) => {
       if (snapshot.exists()) {
         const res = snapshot.val();
-        console.log(res);
+        // console.log(res);
 
         data = res.data;
         senedNovuList = res.parametrs.senedNovu;
-        console.log(senedNovuList);
+        businessProcesses = res.parametrs.businessProcess;
+        // console.log(senedNovuList);
 
         const nestedObjects = Object.values(data);
         const lastObject = nestedObjects[nestedObjects.length - 1];
@@ -175,8 +185,7 @@ function filterDocuments() {
     // Sənəd növü filtr
     console.log(cells[1]);
     console.log(typeValue);
-    
-    
+
     if (typeValue) {
       matchesType = cells[1].textContent.includes(typeValue); // 1-ci sütun (Sənəd Növü)
     }
@@ -190,17 +199,17 @@ function filterDocuments() {
 
     // // Qovluq filtr
     if (folderValue) {
-      matchesFolder = cells[7].textContent.includes(folderValue); // 5-ci sütun (Qovluq)
+      matchesFolder = cells[8].textContent.includes(folderValue); // 5-ci sütun (Qovluq)
     }
 
     // Tərəf filtr
     if (partyValue) {
-      matchesParty = cells[6].textContent.includes(partyValue); // 4-cü sütun (Tərəflər)
+      matchesParty = cells[7].textContent.includes(partyValue); // 4-cü sütun (Tərəflər)
     }
 
     // Layihe filtr
     if (layiheValue) {
-      matchesLayihe = cells[5].textContent.includes(layiheValue); // 3-cü sütun (Layihə)
+      matchesLayihe = cells[6].textContent.includes(layiheValue); // 3-cü sütun (Layihə)
     }
 
     // Bütün kriteriyalar uyğun gəlirsə, satırı göstərin
@@ -223,7 +232,7 @@ partyFilter.addEventListener("change", filterDocuments);
 layiheFilter.addEventListener("change", filterDocuments);
 
 const layiheFilterOption = () => {
-  console.log(layiheList);
+  // console.log(layiheList);
 
   layiheFilter.innerHTML = "";
   const optionDefault = document.createElement("option");
