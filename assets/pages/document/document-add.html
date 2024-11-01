@@ -1555,7 +1555,9 @@
                             <label
                               for="business-prosess"
                               class="form-label text-primary"
-                              >Biznes prosesi:<span class="required">*</span></label
+                              >Biznes prosesi:<span class="required"
+                                >*</span
+                              ></label
                             >
                             <select
                               class="selectpicke w-100"
@@ -1640,9 +1642,12 @@
                               name="layihe"
                               required
                             />
-                            <datalist id="project-list">
-                              <!-- Burada JavaScript ilə layihə adları əlavə ediləcək -->
-                            </datalist>
+                            <ul
+                              id="suggestions"
+                              style="width: 100%;"
+                              class="suggestions dropdown-menu inner"
+                              role="presentation"
+                            ></ul>
                           </div>
                           <div class="mb-3">
                             <label for="qovluq" class="form-label text-primary">

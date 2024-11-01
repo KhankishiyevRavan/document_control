@@ -55,6 +55,8 @@ const reletedDocSelect = document.querySelector("#reletedDoc");
 const typeSelect = document.querySelector("#sened-novu");
 const businessSelect = document.querySelector("#business-prosess");
 
+const projectDataList = document.querySelector("#layihe");
+
 tagInput.addEventListener("keypress", function (e) {
   if (e.key === "Enter") {
     e.preventDefault();
@@ -283,7 +285,7 @@ const getDocuments = async () => {
         data = res.data;
         senedNovuList = res.parametrs.senedNovu;
         businessProcesses = res.parametrs.businessProcess;
-        projectList = res.parametrs.projectList
+        projectList = res.parametrs.projectList;
         // let count = 1;
         for (let dataId in data) {
           // if (!projectList.find((p) => p.name == data[dataId].layihe)) {
@@ -298,10 +300,11 @@ const getDocuments = async () => {
           }
         }
         console.log(projectList);
-      
+
         mainDocumentOption();
         senedNovuFilterOption();
         businessProcessesOption();
+        projectDataListShow();
         // console.log(mainDocumentList);
 
         const nestedObjects = Object.values(data);
@@ -375,6 +378,50 @@ const businessProcessesOption = () => {
 
   $(businessSelect).selectpicker("refresh");
 };
-const projectDataListShow = ()=>{
-  
-}
+const suggestionsList = document.getElementById("suggestions");
+const projectDataListShow = () => {
+  const input = document.getElementById("layihe");
+
+  input.addEventListener("input", function () {
+    const searchQuery = input.value.toLowerCase();
+    suggestionsList.innerHTML = "";
+    suggestionsList.style.display = "none";
+
+    if (searchQuery.length > 0) {
+      const filteredData = projectList.filter((item) =>
+        item.name.toLowerCase().includes(searchQuery)
+      );
+      filteredData.forEach((item) => {
+        const li = document.createElement("li");
+        li.textContent = item?.name;
+        li.classList.add("dropdown-item", "drop-css");
+        li.addEventListener("click", function () {
+          input.value = item?.name;
+          suggestionsList.innerHTML = "";
+          suggestionsList.style.display = "none";
+        });
+        suggestionsList.appendChild(li);
+        suggestionsList.style.display = "block";
+      });
+    }
+  });
+
+  document.addEventListener("click", function (e) {
+    if (e.target !== input) {
+      suggestionsList.innerHTML = "";
+      suggestionsList.style.display = "none";
+    }
+  });
+  // projectDataList.innerHTML = "";
+  // // let optionDefault = document.createElement("option");
+  // // optionDefault.textContent = "Seç";
+  // // optionDefault.setAttribute("defaultValue"," ");
+  // // projectDataList.append(optionDefault)
+  // projectList.map((project) => {
+  //   console.log(project);
+  //   let option = document.createElement("option");
+  //   option.textContent = project?.name;
+  //   projectDataList.append(option);
+  // });
+  // $(projectDataList).selectpicker("refresh");
+};
