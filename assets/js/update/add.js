@@ -35,7 +35,7 @@ let data = [];
 let senedNovuList = [];
 let businessProcesses = [];
 let projectList = [];
-
+let terefList = [];
 let siraCount = null;
 
 let mainDocumentList = [];
@@ -55,7 +55,6 @@ const reletedDocSelect = document.querySelector("#reletedDoc");
 const typeSelect = document.querySelector("#sened-novu");
 const businessSelect = document.querySelector("#business-prosess");
 
-const projectDataList = document.querySelector("#layihe");
 
 tagInput.addEventListener("keypress", function (e) {
   if (e.key === "Enter") {
@@ -70,8 +69,8 @@ tagInput.addEventListener("keypress", function (e) {
 
 function addTag() {
   const newTag = tagInput.value.trim();
-  if (newTag !== "" && !tagsArray.includes(newTag)) {
-    tagsArray.push(newTag);
+  if (newTag !== "" && !tagsArray?.includes(newTag)) {
+    tagsArray?.push(newTag);
     displayTags();
     tagInput.value = "";
   }
@@ -79,20 +78,7 @@ function addTag() {
 
 function displayTags() {
   tagContainer.innerHTML = "";
-  tagsArray.forEach((tag, index) => {
-    {
-      /* 
-        <button 
-            type="button" 
-            class="btn btn-danger"
-        >
-            Remove 
-            <span class="btn-icon-end">
-                <i class="fas fa-times"></i>
-            </span>
-        </button> */
-    }
-
+  tagsArray?.forEach((tag, index) => {
     const tagElement = document.createElement("span");
     tagElement.classList.add("tag", "btn", "btn-danger", "mt-2");
     tagElement.textContent = tag;
@@ -103,7 +89,7 @@ function displayTags() {
     removeBtnIcon.classList.add("fas", "fa-times");
     removeBtn.append(removeBtnIcon);
     removeBtn.onclick = function () {
-      tagsArray.splice(index, 1);
+      tagsArray?.splice(index, 1);
       displayTags();
     };
 
@@ -147,7 +133,7 @@ function addRoleInput(roleName = "", role = "") {
 
   const roleInput = document.createElement("input");
   roleInput.type = "text";
-  roleInput.placeholder = "Rol";
+  roleInput.placeholder = "Tərəf";
   roleInput.classList.add("role", "form-control");
   roleInput.value = role;
 
@@ -175,7 +161,7 @@ document.getElementById("addRoleButton").addEventListener("click", function () {
 form.addEventListener("submit", function (event) {
   event.preventDefault();
 
-  const tagsString = tagsArray.join(", ");
+  const tagsString = tagsArray?.join(", ");
   console.log(tagsString);
 
   const sira = parseInt(siraInput.value);
@@ -295,11 +281,19 @@ const getDocuments = async () => {
           //   });
           //   count++;
           // }
+          let terefler = data[dataId].terefler;
+          terefler?.map((teref) => {
+            if (!terefList.includes(teref.role)) {
+              terefList.push(teref.role);
+            }
+          });
+
           if (data[dataId].mainDocument) {
             mainDocumentList.push(data[dataId].senedNomresi);
           }
         }
-        console.log(projectList);
+        // console.log(projectList);
+        console.log(terefList);
 
         mainDocumentOption();
         senedNovuFilterOption();
@@ -379,30 +373,42 @@ const businessProcessesOption = () => {
   $(businessSelect).selectpicker("refresh");
 };
 const suggestionsList = document.getElementById("suggestions");
-const projectDataListShow = () => {
-  const input = document.getElementById("layihe");
-
-  input.addEventListener("input", function () {
-    const searchQuery = input.value.toLowerCase();
+const createSuggestionItem = (item, input) => {
+  const li = document.createElement("li");
+  li.textContent = item?.name;
+  li.classList.add("dropdown-item", "drop-css");
+  li.addEventListener("click", function () {
+    input.value = item?.name;
     suggestionsList.innerHTML = "";
     suggestionsList.style.display = "none";
+  });
+  return li;
+};
 
-    if (searchQuery.length > 0) {
+const input = document.getElementById("layihe");
+
+const showResults = (data) => {
+  suggestionsList.innerHTML = "";
+  data.forEach((item) => {
+    const li = createSuggestionItem(item, input);
+    suggestionsList.appendChild(li);
+  });
+  suggestionsList.style.display = data.length > 0 ? "block" : "none";
+};
+const projectDataListShow = () => {
+  input.addEventListener("input", function () {
+    const searchQuery = input.value.toLowerCase();
+    if (searchQuery.length >= 0) {
       const filteredData = projectList.filter((item) =>
         item.name.toLowerCase().includes(searchQuery)
       );
-      filteredData.forEach((item) => {
-        const li = document.createElement("li");
-        li.textContent = item?.name;
-        li.classList.add("dropdown-item", "drop-css");
-        li.addEventListener("click", function () {
-          input.value = item?.name;
-          suggestionsList.innerHTML = "";
-          suggestionsList.style.display = "none";
-        });
-        suggestionsList.appendChild(li);
-        suggestionsList.style.display = "block";
-      });
+      showResults(filteredData);
+    }
+  });
+
+  input.addEventListener("focus", function () {
+    if (input.value.trim() === "") {
+      showResults(projectList);
     }
   });
 
@@ -412,16 +418,4 @@ const projectDataListShow = () => {
       suggestionsList.style.display = "none";
     }
   });
-  // projectDataList.innerHTML = "";
-  // // let optionDefault = document.createElement("option");
-  // // optionDefault.textContent = "Seç";
-  // // optionDefault.setAttribute("defaultValue"," ");
-  // // projectDataList.append(optionDefault)
-  // projectList.map((project) => {
-  //   console.log(project);
-  //   let option = document.createElement("option");
-  //   option.textContent = project?.name;
-  //   projectDataList.append(option);
-  // });
-  // $(projectDataList).selectpicker("refresh");
 };

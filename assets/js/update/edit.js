@@ -74,8 +74,8 @@ tagInput.addEventListener("keypress", function (e) {
 
 function addTag() {
   const newTag = tagInput.value.trim();
-  if (newTag !== "" && !tagsArray.includes(newTag)) {
-    tagsArray.push(newTag);
+  if (newTag !== "" && !tagsArray?.includes(newTag)) {
+    tagsArray?.push(newTag);
     displayTags();
     tagInput.value = "";
   }
@@ -94,7 +94,7 @@ function displayTags() {
     removeBtnIcon.classList.add("fas", "fa-times");
     removeBtn.append(removeBtnIcon);
     removeBtn.onclick = function () {
-      tagsArray.splice(index, 1);
+      tagsArray?.splice(index, 1);
       displayTags();
     };
 
@@ -165,7 +165,7 @@ document.getElementById("addRoleButton").addEventListener("click", function () {
 form.addEventListener("submit", function (event) {
   event.preventDefault();
 
-  const tagsString = tagsArray.join(", ");
+  const tagsString = tagsArray?.join(", ");
   console.log(tagsString);
 
   const sira = parseInt(siraInput.value);
