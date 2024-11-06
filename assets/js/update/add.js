@@ -278,16 +278,10 @@ const getDocuments = async () => {
         data = res.data;
         senedNovuList = res.parametrs.senedNovu;
         businessProcesses = res.parametrs.businessProcess;
-        projectList = res.parametrs.projectList;
-        // let count = 1;
+        projectList = res.parametrs.projectList;  
         for (let dataId in data) {
-          // if (!projectList.find((p) => p.name == data[dataId].layihe)) {
-          //   projectList.push({
-          //     id: count,
-          //     name: data[dataId].layihe,
-          //   });
-          //   count++;
-          // }
+          console.log(data[dataId]);
+          
           let terefler = data[dataId].terefler;
           terefler?.map((teref) => {
             if (!terefList.includes(teref.role)) {
@@ -322,8 +316,6 @@ const getDocuments = async () => {
 getDocuments();
 
 const mainDocumentOption = () => {
-  // console.log(mainDocumentList);
-
   reletedDocSelect.innerHTML = "";
   const optionDefault = document.createElement("option");
   optionDefault.value = "";
@@ -340,13 +332,11 @@ const mainDocumentOption = () => {
   $(reletedDocSelect).selectpicker("refresh");
 };
 const senedNovuFilterOption = () => {
-  typeSelect.innerHTML = ""; // Clear existing options
+  typeSelect.innerHTML = ""; 
   const optionDefault = document.createElement("option");
   optionDefault.value = "";
   optionDefault.textContent = "Hamısını Göstər";
   typeSelect.append(optionDefault);
-
-  // console.log(senedNovuList);
 
   senedNovuList.forEach((role) => {
     const option = document.createElement("option");
@@ -358,10 +348,7 @@ const senedNovuFilterOption = () => {
   $(typeSelect).selectpicker("refresh");
 };
 const businessProcessesOption = () => {
-  // console.log(businessSelect);
-  // console.log(businessProcesses);
-
-  businessSelect.innerHTML = ""; // Clear existing options
+  businessSelect.innerHTML = ""; 
   const optionDefault = document.createElement("option");
   optionDefault.value = "";
   optionDefault.textContent = "Hamısını Göstər";

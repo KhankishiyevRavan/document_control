@@ -26,6 +26,8 @@ const dataRef = ref(database, "/documents/parametrs");
 const senedNovuTable = document.querySelector("#senedNovuTable tbody");
 const senedNovuBtn = document.querySelector("#senedNovuBtn");
 
+const docTypeInput = document.querySelector("#document-type-input");
+
 let senedNovuList = [];
 
 const getDocuments = async () => {
@@ -82,5 +84,21 @@ getDocuments();
 
 senedNovuBtn.addEventListener("click", (e) => {
   e.preventDefault();
-  
+
+  if (!docTypeInput.value) return;
+  let id = senedNovuList.length;
+  let addDocType = {
+    name: docTypeInput.value,
+    id: id + 1,
+  };
+
+  set(ref(database, "/documents/parametrs/senedNovu/" + id), addDocType)
+    .then(() => {
+      alert("Data successfully written!");
+      location.reload();
+    })
+    .catch((error) => {
+      alert("Error writing data: ", error);
+    });
+  console.log("test");
 });
