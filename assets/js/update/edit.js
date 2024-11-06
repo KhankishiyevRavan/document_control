@@ -42,6 +42,7 @@ let datas = [];
 let senedNovuList = [];
 let businessProcesses = [];
 let mainDocumentList = [];
+let projectList = [];
 let siraCount = null;
 
 const form = document.getElementById("document-form");
@@ -353,7 +354,7 @@ const getDocuments = async () => {
         datas = res.data;
         senedNovuList = res.parametrs.senedNovu;
         businessProcesses = res.parametrs.businessProcess;
-
+        projectList = res.parametrs.projectList;
         for (let resId in datas) {
           if (datas[resId].mainDocument) {
             mainDocumentList.push(datas[resId].senedNomresi);
@@ -362,6 +363,7 @@ const getDocuments = async () => {
         mainDocumentOption();
         senedNovuFilterOption();
         businessProcessesOption();
+        projectDataListShow();
         // console.log(mainDocumentList);
       } else {
         console.log("No data available");
@@ -434,4 +436,59 @@ const businessProcessesOption = () => {
   document.getElementById("business-prosess").value = data.businessProcess;
 
   $(businessSelect).selectpicker("refresh");
+};
+const suggestionsList = document.getElementById("suggestions");
+const createSuggestionItem = (item, input) => {
+  const li = document.createElement("li");
+  li.textContent = item?.name;
+  li.classList.add("dropdown-item", "drop-css");
+  li.addEventListener("click", function () {
+    input.value = item?.name;
+    suggestionsList.innerHTML = "";
+    suggestionsList.style.display = "none";
+  });
+  return li;
+};
+
+const input = document.getElementById("layihe");
+
+const showResults = (data) => {
+  suggestionsList.innerHTML = "";
+  data.forEach((item) => {
+    const li = createSuggestionItem(item, input);
+    suggestionsList.appendChild(li);
+  });
+  suggestionsList.style.display = data.length > 0 ? "block" : "none";
+};
+const projectDataListShow = () => {
+  input.addEventListener("input", function () {
+    const searchQuery = input.value.toLowerCase();
+    if (searchQuery.length >= 0) {
+      const filteredData = projectList.filter((item) =>
+        item.name.toLowerCase().includes(searchQuery)
+      );
+      showResults(filteredData);
+    }
+  });
+
+  input.addEventListener("focus", function () {
+    // if (input.value.trim() === "") {
+    const searchQuery = input.value.toLowerCase();
+    if (searchQuery.length > 0) {
+      const filteredData = projectList.filter((item) =>
+        item.name.toLowerCase().includes(searchQuery)
+      );
+      showResults(filteredData);
+    } else {
+      showResults(projectList);
+    }
+    // }
+  });
+
+  document.addEventListener("click", function (e) {
+    if (e.target !== input) {
+      suggestionsList.innerHTML = "";
+      suggestionsList.style.display = "none";
+    }
+  });
 };
