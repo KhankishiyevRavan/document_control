@@ -121,10 +121,9 @@ function addRoleInput(roleName = "", role = "") {
   const suggestionsListRole = document.createElement("ul");
   suggestionsListRole.classList.add("dropdown-menu", "inner");
   suggestionsListRole.setAttribute("role", "presentation");
-  // id="suggestions"
-  // style="width: 100%;"
-  // class="suggestions dropdown-menu inner"
-  // role="presentation"
+  suggestionsListRole.style.overflowY="scroll";
+  suggestionsListRole.style.maxHeight="-webkit-fill-available";
+
 
   const roleNameSelect = document.createElement("select");
   roleNameSelect.classList.add("roleName");
@@ -300,14 +299,11 @@ const getDocuments = async () => {
             mainDocumentList.push(data[dataId].senedNomresi);
           }
         }
-        // console.log(projectList);
-        // console.log(terefList);
 
         mainDocumentOption();
         senedNovuFilterOption();
         businessProcessesOption();
         projectDataListShow();
-        // console.log(mainDocumentList);
 
         const nestedObjects = Object.values(data);
 
@@ -398,8 +394,6 @@ const createSuggestionItem = (item, input) => {
     li.addEventListener("click", function () {
       console.log(li);
       console.log(input);
-      
-      
       input.value = item;
       suggestionsList.innerHTML = "";
       suggestionsList.style.display = "none";
@@ -472,7 +466,7 @@ const terefDataListShow = (input, suggestionsListRole) => {
       const filteredData = terefList.filter((item) =>
         item.toLowerCase().includes(searchQuery)
       );
-      console.log(filteredData);44
+      console.log(filteredData);
       
       showResults(filteredData, suggestionsListRole,input);
     } else {

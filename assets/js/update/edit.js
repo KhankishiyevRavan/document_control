@@ -43,6 +43,7 @@ let senedNovuList = [];
 let businessProcesses = [];
 let mainDocumentList = [];
 let projectList = [];
+let terefList = [];
 let siraCount = null;
 
 const form = document.getElementById("document-form");
@@ -125,6 +126,12 @@ function addRoleInput(roleName = "", role = "") {
   const roleDiv = document.createElement("div");
   roleDiv.classList.add("role-input", "col-xl-6", "mb-3");
 
+  const suggestionsListRole = document.createElement("ul");
+  suggestionsListRole.classList.add("dropdown-menu", "inner");
+  suggestionsListRole.setAttribute("role", "presentation");
+  suggestionsListRole.style.overflowY="scroll";
+  suggestionsListRole.style.maxHeight="-webkit-fill-available";
+
   const roleNameSelect = document.createElement("select");
   roleNameSelect.classList.add("roleName");
   roleNames?.forEach((name) => {
@@ -137,15 +144,17 @@ function addRoleInput(roleName = "", role = "") {
     roleNameSelect.appendChild(option);
   });
 
+  const roleInputDiv = document.createElement("div");
+  roleInputDiv.style.width = "-webkit-fill-available";
   const roleInput = document.createElement("input");
   roleInput.type = "text";
-  roleInput.placeholder = "Rol";
+  roleInput.placeholder = "Tərəf";
   roleInput.classList.add("role", "form-control");
   roleInput.value = role;
-
+  roleInputDiv.appendChild(roleInput);
   roleDiv.appendChild(roleNameSelect);
-  roleDiv.appendChild(roleInput);
-
+  roleDiv.appendChild(roleInputDiv);
+  roleInputDiv.appendChild(suggestionsListRole);
   rolesContainer.appendChild(roleDiv);
   $(roleNameSelect).selectpicker("refresh");
 
@@ -156,7 +165,7 @@ function addRoleInput(roleName = "", role = "") {
   deleteButton.onclick = function () {
     roleDiv.remove();
   };
-
+  terefDataListShow(roleInput, suggestionsListRole);
   roleDiv.appendChild(deleteButton);
 }
 
@@ -355,7 +364,16 @@ const getDocuments = async () => {
         senedNovuList = res.parametrs.senedNovu;
         businessProcesses = res.parametrs.businessProcess;
         projectList = res.parametrs.projectList;
+        // console.log(datas);
+        
         for (let resId in datas) {
+          
+          let terefler = datas[resId].terefler;
+          terefler?.map((teref) => {
+            if (!terefList.includes(teref.role)) {
+              terefList.push(teref.role);
+            }
+          });
           if (datas[resId].mainDocument) {
             mainDocumentList.push(datas[resId].senedNomresi);
           }
@@ -440,19 +458,32 @@ const businessProcessesOption = () => {
 const suggestionsList = document.getElementById("suggestions");
 const createSuggestionItem = (item, input) => {
   const li = document.createElement("li");
-  li.textContent = item?.name;
-  li.classList.add("dropdown-item", "drop-css");
-  li.addEventListener("click", function () {
-    input.value = item?.name;
-    suggestionsList.innerHTML = "";
-    suggestionsList.style.display = "none";
-  });
+  if (item.name) {
+    li.textContent = item?.name;
+    li.classList.add("dropdown-item", "drop-css");
+    li.addEventListener("click", function () {
+      input.value = item?.name;
+      suggestionsList.innerHTML = "";
+      suggestionsList.style.display = "none";
+    });
+  } else {
+    li.textContent = item;
+    li.classList.add("dropdown-item", "drop-css");
+    li.addEventListener("click", function () {
+      console.log(li);
+      console.log(input);
+      input.value = item;
+      suggestionsList.innerHTML = "";
+      suggestionsList.style.display = "none";
+    });
+  }
   return li;
 };
-
 const input = document.getElementById("layihe");
 
-const showResults = (data) => {
+const showResults = (data, suggestionsList,input) => {
+  console.log(suggestionsList);
+
   suggestionsList.innerHTML = "";
   data.forEach((item) => {
     const li = createSuggestionItem(item, input);
@@ -467,7 +498,7 @@ const projectDataListShow = () => {
       const filteredData = projectList.filter((item) =>
         item.name.toLowerCase().includes(searchQuery)
       );
-      showResults(filteredData);
+      showResults(filteredData, suggestionsList,input);
     }
   });
 
@@ -478,9 +509,9 @@ const projectDataListShow = () => {
       const filteredData = projectList.filter((item) =>
         item.name.toLowerCase().includes(searchQuery)
       );
-      showResults(filteredData);
+      showResults(filteredData, suggestionsList,input);
     } else {
-      showResults(projectList);
+      showResults(projectList, suggestionsList,input);
     }
     // }
   });
@@ -489,6 +520,44 @@ const projectDataListShow = () => {
     if (e.target !== input) {
       suggestionsList.innerHTML = "";
       suggestionsList.style.display = "none";
+    }
+  });
+};
+const terefDataListShow = (input, suggestionsListRole) => {
+  input.addEventListener("input", function () {
+
+    const searchQuery = input.value.toLowerCase();
+    if (searchQuery.length >= 0) {
+      const filteredData = terefList.filter((item) =>
+        item.toLowerCase().includes(searchQuery)
+      );
+      console.log(filteredData);
+      
+      showResults(filteredData, suggestionsListRole,input);
+    }
+  });
+
+  input.addEventListener("focus", function () {
+    // if (input.value.trim() === "") {
+    const searchQuery = input.value.toLowerCase();
+    if (searchQuery.length > 0) {
+      const filteredData = terefList.filter((item) =>
+        item.toLowerCase().includes(searchQuery)
+      );
+      console.log(filteredData);
+      
+      showResults(filteredData, suggestionsListRole,input);
+    } else {
+      console.log(terefList);
+
+      showResults(terefList, suggestionsListRole,input);
+    }
+    // }
+  });
+  document.addEventListener("click", function (e) {
+    if (e.target !== input) {
+      suggestionsListRole.innerHTML = "";
+      suggestionsListRole.style.display = "none";
     }
   });
 };
