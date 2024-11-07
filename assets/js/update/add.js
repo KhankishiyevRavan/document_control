@@ -32,19 +32,14 @@ const dataRef = ref(database, "/documents");
 // const documentsRef = database().ref('/documents/data/');
 const documentsRef = ref(database, "/documents/data");
 
-onValue(documentsRef, (snapshot) => {
-  const data = snapshot.val();
-  const length = Object.keys(data).length; // Datanın uzunluğu
-  console.log("Verilənlərin uzunluğu: ", length);
-  siraCount = length + 1;
-});
+let siraCount = null;
+
 let data = [];
 
 let senedNovuList = [];
 let businessProcesses = [];
 let projectList = [];
 let terefList = [];
-let siraCount = null;
 
 let mainDocumentList = [];
 const form = document.getElementById("document-form");
@@ -477,3 +472,10 @@ const terefDataListShow = (input, suggestionsListRole) => {
     }
   });
 };
+onValue(documentsRef, (snapshot) => {
+  const data = snapshot.val();
+  const length = Object.keys(data).length; // Datanın uzunluğu
+  console.log("Verilənlərin uzunluğu: ", length);
+  siraCount = length + 1;
+  siraInput.value = siraCount;
+});
