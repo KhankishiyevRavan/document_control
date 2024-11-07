@@ -16,6 +16,7 @@ import {
   get,
   ref,
   set,
+  remove,
   push,
   update,
 } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-database.js";
@@ -72,7 +73,20 @@ const showSenedNovuList = () => {
     let iRemove = document.createElement("i");
     iRemove.classList.add("fa", "fa-solid", "fa-xmark", "text-danger");
     aRemove.append(iRemove);
-
+    aRemove.addEventListener("click", () => {
+      let itemKey = s.id - 1;
+      remove(ref(database, "/documents/parametrs/senedNovu/" + itemKey))
+        .then(() => {
+          console.log("Data successfully deleted!");
+          alert("Data successfully deleted!");
+          location.reload();
+        })
+        .catch((error) => {
+          console.error("Error deleting data: ", error);
+          alert("Error deleting data: " + error);
+          location.reload();
+        });
+    });
     span.append(aEdit, aRemove);
     tdAction.append(span);
 
@@ -86,13 +100,14 @@ senedNovuBtn.addEventListener("click", (e) => {
   e.preventDefault();
 
   if (!docTypeInput.value) return;
-  let id = senedNovuList.length;
+  let id = senedNovuList.length + 1;
+  let index = senedNovuList.length;
   let addDocType = {
     name: docTypeInput.value,
-    id: id + 1,
+    id: id,
   };
 
-  set(ref(database, "/documents/parametrs/senedNovu/" + id), addDocType)
+  set(ref(database, "/documents/parametrs/senedNovu/" + index), addDocType)
     .then(() => {
       alert("Data successfully written!");
       location.reload();
