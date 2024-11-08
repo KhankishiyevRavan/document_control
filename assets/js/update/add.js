@@ -476,11 +476,7 @@ onValue(documentsRef, (snapshot) => {
   const data = snapshot.val();
   const length = Object.keys(data).length; // Datanın uzunluğu
   console.log("Verilənlərin uzunluğu: ", length);
-  console.log(siraCount);
   siraCount = length + 1;
-  console.log(siraCount);
-  console.log(siraInput,siraInput.value);
   siraInput.value = siraCount;
-  console.log(siraInput,siraInput.value);
   
 });
