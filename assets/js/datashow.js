@@ -72,8 +72,6 @@ const cedveliGoster = () => {
     let businessProcessText = businessProcesses.find(
       (b) => b.id == data[dataId].businessProcess
     );
-    console.log(businessProcessText);
-
     newRow.innerHTML = `
             <td>${data[dataId].siraCount}</td>
             <td>${senedNovuText?.name}</td>
