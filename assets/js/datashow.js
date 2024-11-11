@@ -19,6 +19,9 @@ import {
   push,
   update,
 } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-database.js";
+
+
+
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 const dataRef = ref(database, "/documents");
