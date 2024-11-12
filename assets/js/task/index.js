@@ -43,6 +43,8 @@ function renderTasks() {
       tableContainer.innerHTML = `
         <div class="card-header flex-wrap d-flex justify-content-between px-3">
           <h4 class="card-title">${task.department}</h4>
+                        <button class="ms-2 btn light btn-primary addTrBtn">+</button>
+
         </div>
         <div class="tab-content" id="myTabContent-7">
             <div
@@ -73,7 +75,6 @@ function renderTasks() {
                               
                             </tbody>
                         </table>
-                        <button class="ms-2 mb-3 btn light btn-primary addTrBtn">+</button>
                     </div>
                 </div>
             </div>
@@ -111,18 +112,12 @@ function renderTasks() {
     tdStatus.append(spanStatus);
 
     let tdresponsibles = document.createElement("td");
-    // tdresponsibles.style.display="flex";
-    // console.log(task.responsibles);
     task?.responsibles?.map((re) => {
       let spanResponsible = document.createElement("span");
       spanResponsible.textContent = re;
       spanResponsible.classList.add("responsible_span");
       tdresponsibles.append(spanResponsible);
-      // console.log(re);
     });
-
-    // tdresponsibles.textContent = " ";
-
     let tdNote = document.createElement("td");
     tdNote.textContent = task?.note;
 
@@ -159,216 +154,7 @@ function renderTasks() {
 
     // document.querySelector(`#dep${task.shortName} tbody`).insertBefore(tr,[...document.querySelectorAll(`#dep${task.shortName} tbody tr`)].slice(-1)[0]);
   }
-  //   let addTr = document.createElement("tr");
-  let addTr = `
-  <tr class="add_tr">
-    <td scope="col">
-      <input type="text" />
-    </td>
-    <td scope="col">
-      <input type="text" />
-    </td>
-    <td scope="col">
-      <input type="text" />
-    </td>
-    <td scope="col">
-      <input type="text" />
-    </td>
-    <td scope="col">
-      <input type="text" />
-    </td>
-    <td>
-      <select id="multi-value-select" multiple="multiple">
-          <option selected="selected">orange</option>
-          <option>white</option>
-          <option selected="selected">purple</option>
-      </select>
-    </td>
-    <td scope="col">
-      <input type="text" />
-    </td>
-    <td scope="col">
-      <input type="text" />
-    </td>
-  </tr>
-  `;
-  let addTrBtns = tablesContainer.querySelectorAll(".addTrBtn");
-  [...addTrBtns].map((btn) => {
-    btn.addEventListener("click", () => {
-      btn.closest(".table-responsive").querySelector("tbody").innerHTML +=
-        addTr;
-
-        
-      const selectD = btn.closest(".table-responsive").querySelector("select");
-      $(selectD).selectpicker("refresh");
-      // let newtaskData = {
-      //   department: task.department,
-      //   name: inputs[1].value,
-      //   priority: inputs[2].value,
-      //   deadline: inputs[3].value,
-      //   status: inputs[4].value,
-      //   responsibles: inputs[5].value.split(", "), // Virgülle ayrılmış məsul şəxslər
-      //   note: inputs[6].value,
-      // };
-      // console.log(newtaskData);
-
-      //   btn.closest(".table-responsive").querySelector("tbody").append(addTr);
-    });
-  });
-  // Hər bir şöbə üçün cədvəlləri sıfırlamaq
-
-  //   document.getElementById("itTable").innerHTML =
-  //     "<tr><th>Tapşırıq adı</th><th>Prioritet</th><th>Son tarix</th><th>Vəziyyət</th><th>Məsul Şəxslər</th><th>Əməliyyatlar</th></tr>";
-  //   document.getElementById("hrTable").innerHTML =
-  //     "<tr><th>Tapşırıq adı</th><th>Prioritet</th><th>Son tarix</th><th>Vəziyyət</th><th>Məsul Şəxslər</th><th>Əməliyyatlar</th></tr>";
-  //   document.getElementById("marketingTable").innerHTML =
-  //     "<tr><th>Tapşırıq adı</th><th>Prioritet</th><th>Son tarix</th><th>Vəziyyət</th><th>Məsul Şəxslər</th><th>Əməliyyatlar</th></tr>";
-  //   document.getElementById("financeTable").innerHTML =
-  //     "<tr><th>Tapşırıq adı</th><th>Prioritet</th><th>Son tarix</th><th>Vəziyyət</th><th>Məsul Şəxslər</th><th>Əməliyyatlar</th></tr>";
-  //   for (let taskId in tasks) {
-  //     const row = `
-  //     <tr>
-  //     <td>${tasks[taskId].name}</td>
-  //     <td>${tasks[taskId].priority}</td>
-  //     <td>${tasks[taskId].deadline}</td>
-  //     <td>${tasks[taskId].status}</td>
-  //     <td>${tasks[taskId]?.responsibles?.join(", ")}</td>
-  //     <td>
-  //     <button onclick="editTask('${taskId}')">Redaktə et</button>
-  //     <button onclick="deleteTask('${taskId}')">Sil</button>
-  //     </td>
-  //     </tr>
-  //     `;
-
-  //     // Tapşırığı müvafiq şöbəyə əlavə edirik
-  //     if (tasks[taskId].department === "IT") {
-  //       document.getElementById("itTable").innerHTML += row;
-  //     } else if (tasks[taskId].department === "HR") {
-  //       document.getElementById("hrTable").innerHTML += row;
-  //     } else if (tasks[taskId].department === "Marketing") {
-  //       document.getElementById("marketingTable").innerHTML += row;
-  //     } else if (tasks[taskId].department === "Finance") {
-  //       document.getElementById("financeTable").innerHTML += row;
-  //     }
-  //   }
 }
-
-// // Add/Edit Task Function
-// window.editTask = function (taskId) {
-//   console.log(tasks);
-
-//   const task = tasks[taskId]; // Firebase-dən tapşırığı alırıq
-//   document.getElementById("taskName").value = task.name;
-//   document.getElementById("priority").value = task.priority;
-//   document.getElementById("deadline").value = task.deadline;
-//   document.getElementById("department").value = task.department;
-//   document.getElementById("status").value = task.status;
-//   document.getElementById("note").value = task.note;
-//   console.log(responsibles);
-
-//   responsibles = [...task.responsibles];
-//   renderResponsibles();
-//   console.log(taskId);
-
-//   editIndex = taskId; // Redaktə edilən tapşırığın ID-sini saxlayır
-//   document.getElementById("addTask").textContent = "Tapşırığı Redaktə et"; // Button mətnini dəyişir
-// };
-
-// document.getElementById("addTask").addEventListener("click", () => {
-//   const taskName = document.getElementById("taskName").value;
-//   const priority = document.getElementById("priority").value;
-//   const deadline = document.getElementById("deadline").value;
-//   const department = document.getElementById("department").value;
-//   const status = document.getElementById("status").value;
-//   const note = document.getElementById("note").value;
-
-//   if (taskName && deadline) {
-//     const newTask = {
-//       name: taskName,
-//       priority: priority,
-//       deadline: deadline,
-//       department: department,
-//       note: note,
-//       responsibles: [...responsibles],
-//       status: status,
-//       completed: false,
-//     };
-
-//     if (editIndex === -1) {
-//       // Yeni tapşırıq əlavə edir
-//       pushDocuments(newTask);
-//     } else {
-//       // Mövcud tapşırığı redaktə edir və Firebase-də yeniləyir
-//       const taskId = Object.keys(tasks)[editIndex];
-
-//       update(ref(database, "/tasks/" + editIndex), newTask)
-//         .then(() => {
-//           alert("Tapşırıq uğurla yeniləndi!");
-//         })
-//         .catch((error) => {
-//           console.error("Tapşırıq yenilənərkən səhv:", error);
-//         });
-
-//       editIndex = -1; // Redaktə rejimini sıfırlayır
-//       document.getElementById("addTask").textContent = "Tapşırıq əlavə et";
-//     }
-
-//     renderTasks();
-//     clearForm();
-//   } else {
-//     alert("Tapşırığın adı və son tarixi daxil edilməlidir!");
-//   }
-//   getDocuments();
-// });
-
-// // Delete Task Function
-// window.deleteTask = function (index) {
-//   const taskId = Object.keys(tasks)[index]; // Firebase-dən tapşırığın ID-sini götürür
-//   remove(ref(database, "/tasks/" + taskId))
-//     .then(() => {
-//       alert("Tapşırıq uğurla silindi!");
-//       tasks.splice(index, 1); // Massivdən tapşırığı çıxardır
-//       renderTasks(); // Siyahını yenidən render edir
-//     })
-//     .catch((error) => {
-//       console.error("Tapşırıq silinərkən səhv:", error);
-//     });
-// };
-
-// // Add Responsible Person
-// document.getElementById("addResponsible").addEventListener("click", () => {
-//   const responsiblePerson = document.getElementById("responsiblePerson").value;
-//   if (responsiblePerson) {
-//     responsibles.push(responsiblePerson); // Məsul şəxs siyahıya əlavə olunur
-//     renderResponsibles();
-//     document.getElementById("responsiblePerson").value = ""; // Input sahəsi təmizlənir
-//   }
-// });
-
-// // Render Responsible List
-// function renderResponsibles() {
-//   const responsibleList = document.getElementById("responsibleList");
-//   responsibleList.innerHTML = "";
-//   responsibles.forEach((person, index) => {
-//     const li = document.createElement("li");
-//     li.textContent = person;
-//     responsibleList.appendChild(li);
-//   });
-// }
-
-// // Function to clear the form
-// function clearForm() {
-//   document.getElementById("taskName").value = "";
-//   document.getElementById("priority").value = "Aşağı";
-//   document.getElementById("deadline").value = "";
-//   document.getElementById("department").value = "IT";
-//   document.getElementById("status").value = "Planlaşdırılır"; // Default status
-//   document.getElementById("note").value = "";
-//   responsibles = []; // Məsul şəxslər sıfırlanır
-//   renderResponsibles();
-//   editIndex = -1; // Redaktə rejimini sıfırlayır
-//   document.getElementById("addTask").textContent = "Tapşırıq əlavə et"; // Button mətnini yeniləyir
-// }
 
 renderTasks();
 
@@ -409,88 +195,3 @@ const getDocuments = async () => {
     });
 };
 getDocuments();
-/////////////////////////////////////////////////
-
-// let taskCol = document.createElement("div");
-// taskCol.classList.add("col-xl-12","card");
-// taskCol.setAttribute("id","bootstrap-table9");
-
-// <div class="col-xl-12 card" id="bootstrap-table9">
-//   <div class="card-header flex-wrap d-flex justify-content-between px-3">
-//     <h4 class="card-title">Tapşırıqlar</h4>
-//   </div>
-//   <div class="tab-content" id="myTabContent-7">
-//     <div
-//       class="tab-pane fade show active"
-//       id="solidbackground"
-//       role="tabpanel"
-//       aria-labelledby="home-tab-7"
-//     >
-//       <div class="card-body p-0">
-//         <div class="table-responsive">
-//
-//         </div>
-//       </div>
-//     </div>
-//   </div>
-// </div>;
-///////////////////////
-
-// <tbody>
-//                       <tr>
-//                         <td>Air Conditioner</td>
-//                         <td>
-//                           <div
-//                             class="progress"
-//                             style="background: rgba(127, 99, 244, 0.1)"
-//                           >
-//                             <div
-//                               class="progress-bar bg-primary"
-//                               style="width: 70%"
-//                               role="progressbar"
-//                             >
-//                               <span class="sr-only">70% Complete</span>
-//                             </div>
-//                           </div>
-//                         </td>
-//                         <td>Apr 20,2018</td>
-//                         <td>
-//                           <span class="badge badge-primary">70%</span>
-//                         </td>
-//                         <td>
-//                           <span
-//                             ><a
-//                               href="javascript:void(0);"
-//                               class="me-4"
-//                               data-bs-toggle="tooltip"
-//                               data-placement="top"
-//                               title="Edit"
-//                               ><i
-//                                 class="fa fa-pencil color-muted"
-//                               ></i> </a
-//                             ><a
-//                               href="javascript:void(0);"
-//                               data-bs-toggle="tooltip"
-//                               data-placement="top"
-//                               title="btn-close"
-//                               ><i
-//                                 class="fa-solid fa-xmark text-danger"
-//                               ></i></a
-//                           ></span>
-//                         </td>
-//                       </tr>
-//                     </tbody>
-////////////////////////////////
-
-{
-  /* <tr class='edit_tr'>
-                                <td scope="col"><input type="text"/></td>
-                                <td scope="col"><input type="text"/></td>
-                                <td scope="col"><input type="text"/></td>
-                                <td scope="col"><input type="text"/></td>
-                                <td scope="col"><input type="text"/></td>
-                                <td scope="col"><input type="text"/></td>
-                                <td scope="col"><input type="text"/></td>
-                                <td scope="col"><input type="text"/></td>
-                              </tr> */
-}
