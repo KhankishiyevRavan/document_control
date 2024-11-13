@@ -43,7 +43,9 @@ function renderTasks() {
       tableContainer.innerHTML = `
         <div class="card-header flex-wrap d-flex justify-content-between px-3">
           <h4 class="card-title">${task.department}</h4>
-                        <button class="ms-2 btn light btn-primary addTrBtn">+</button>
+            <button class="ms-2 btn light btn-primary addTrBtn">
+              <a class="add-task" href="./add-task.html"> + </a> 
+            </button>
 
         </div>
         <div class="tab-content" id="myTabContent-7">
