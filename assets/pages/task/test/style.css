@@ -162,3 +162,7 @@ th {
   background-color: #f4f4f4;
 }
 
+.task-form{
+  display: flex;
+  flex-direction: column;
+}

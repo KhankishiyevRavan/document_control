@@ -153,7 +153,7 @@
           <nav class="navbar navbar-expand">
             <div class="collapse navbar-collapse justify-content-between">
               <div class="header-left">
-                <div class="dashboard_bar">Yeni Sənəd Əlavəsi</div>
+                <div class="dashboard_bar">Yeni Tapşırıq Əlavəsi</div>
               </div>
               <ul class="navbar-nav header-right">
                 <li class="nav-item dropdown notification_dropdown all">
@@ -887,6 +887,9 @@
                 <li>
                   <a href="../task/tasks.html">Tapşırıqlar</a>
                 </li>
+                <li>
+                  <a href="../task/add-task.html">Tapşırıq Əlavə et</a>
+                </li>
               </ul>
             </li>
             <li>
@@ -1536,324 +1539,39 @@
                       <div class="row">
                         <div class="col-xl-6 col-sm-6">
                           <div class="mb-3">
-                            <label for="sira" class="form-label text-primary"
-                              >Sıra<span class="required">*</span></label
-                            >
-                            <input
-                              type="number"
-                              class="form-control"
-                              id="sira"
-                              name="sira"
-                              disabled
-                              required
-                            />
-                          </div>
-                          <div class="mb-3">
                             <label
-                              for="sened-novu"
+                              for="department"
                               class="form-label text-primary"
-                              >Sənəd Növü:<span class="required">*</span></label
                             >
-                            <select
-                              class="selectpicke w-100"
-                              id="sened-novu"
-                              name="sened-novu"
-                              required
-                            >
-                              <!-- <option value="">Seçin</option>
-                              <option value="Müqavilə">Müqavilə</option>
-                              <option value="Faktura">Faktura</option>
-                              <option value="Sertifikat">Sertifikat</option>
-                              <option value="Hesabat">Hesabat</option> -->
-                            </select>
-                          </div>
-                          <div class="mb-3">
-                            <label
-                              for="business-prosess"
-                              class="form-label text-primary"
-                              >Biznes prosesi:<span class="required"
-                                >*</span
-                              ></label
-                            >
-                            <select
-                              class="selectpicke w-100"
-                              id="business-prosess"
-                              name="business-prosess"
-                              required
-                            >
-                              <!-- <option value="">Seçin</option>
-                              <option value="Müqavilə">Müqavilə</option>
-                              <option value="Faktura">Faktura</option>
-                              <option value="Sertifikat">Sertifikat</option>
-                              <option value="Hesabat">Hesabat</option> -->
-                            </select>
-                          </div>
-                          <div class="mb-3">
-                            <label
-                              for="sened-nomresi"
-                              class="form-label text-primary"
-                              >Sənədin Nömrəsi:<span class="required"
-                                >*</span
-                              ></label
-                            >
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="sened-nomresi"
-                              name="sened-nomresi"
-                              required
-                            />
-                          </div>
-                          <div class="mb-3">
-                            <label
-                              class="form-label text-primary"
-                              for="datepicker"
-                              >Müqavilənin tarixi<span class="required"
-                                >*</span
-                              ></label
-                            >
-                            <div class="d-flex">
-                              <input
-                                type="text"
-                                class="form-control"
-                                placeholder="01/01/2024"
-                                id="datepicker"
-                                required
-                              />
-                            </div>
-                          </div>
-                          <div class="mb-3">
-                            <label for="movzu" class="form-label text-primary"
-                              >Mövzu:<span class="required">*</span></label
-                            >
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="movzu"
-                              name="movzu"
-                              required
-                            />
-                          </div>
-                          <div class="mb-3">
-                            <label for="kimde" class="form-label text-primary"
-                              >Kimdə:<span class="required">*</span></label
-                            >
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="kimde"
-                              name="kimde"
-                            />
-                          </div>
-                        </div>
-                        <div class="col-xl-6 col-sm-6">
-                          <div class="mb-3">
-                            <label for="layihe" class="form-label text-primary"
-                              >Layihə:<span class="required">*</span></label
-                            >
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="layihe"
-                              name="layihe"
-                              required
-                            />
-
-                            <ul
-                              id="suggestions"
-                              style="width: 100%"
-                              class="suggestions dropdown-menu inner"
-                              role="presentation"
-                            ></ul>
-                          </div>
-                          <div class="mb-3">
-                            <label for="qovluq" class="form-label text-primary">
-                              Qovluq:
+                              Şöbə:
                               <span class="required">*</span>
                             </label>
                             <select
                               class="selectpicke w-100"
-                              id="qovluq"
-                              name="qovluq"
+                              id="department"
+                              name="department"
+                              data-live-search="true"
                               required
                             >
                               <option value="">Seçin</option>
-                              <option value="01">01</option>
-                              <option value="02">02</option>
-                              <option value="03">03</option>
-                              <option value="04">04</option>
-                              <option value="05">05</option>
-                              <option value="06">06</option>
-                              <option value="07">07</option>
-                              <option value="08">08</option>
-                              <option value="09">09</option>
-                              <option value="10">10</option>
-                              <option value="11">11</option>
-                              <option value="12">12</option>
-                              <option value="13">13</option>
-                              <option value="14">14</option>
-                              <option value="15">15</option>
-                              <option value="16">16</option>
-                              <option value="17">17</option>
-                              <option value="18">18</option>
-                              <option value="19">19</option>
-                              <option value="20">20</option>
-                              <option value="21">21</option>
-                              <option value="22">22</option>
-                              <option value="23">23</option>
-                              <option value="24">24</option>
-                              <option value="25">25</option>
-                              <option value="26">26</option>
-                              <option value="27">27</option>
-                              <option value="28">28</option>
-                              <option value="29">29</option>
-                              <option value="30">30</option>
+                              <option value="01">IT</option>
+                              <option value="02">HR</option>
+                              <option value="03">Marketing</option>
+                              <option value="03">Finance</option>
                             </select>
                           </div>
-                          <div class="mb-3">
-                            <label
-                              for="sened-sira-nomresi"
-                              class="form-label text-primary"
-                              >Sənədin Sıra Nömrəsi:<span class="required"
-                                >*</span
-                              ></label
-                            >
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="sened-sira-nomresi"
-                              name="sened-sira-nomresi"
-                              required
-                            />
-                          </div>
-                          <div class="mb-3">
-                            <label for="qeyd" class="form-label text-primary"
-                              >Qeyd:<span class="required">*</span></label
-                            >
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="qeyd"
-                              name="qeyd"
-                              required
-                            />
-                          </div>
-                          <div class="mb-3">
-                            <label
-                              for="reletedDoc"
-                              class="form-label text-primary"
-                              >Əlaqəli sənədin nömrəsi:</label
-                            >
-                            <select
-                              class="selectpicke w-100"
-                              id="reletedDoc"
-                              name="reletedDoc"
-                            ></select>
-                          </div>
-                          <div class="mb-3">
-                            <label
-                              for="tag-input"
-                              class="form-label text-primary"
-                              >Tag əlavə edin:<span class="required"
-                                >*</span
-                              ></label
-                            >
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="tag-input"
-                              name="tag-input"
-                              placeholder="Tag əlavə edin"
-                            />
-                            <div id="tag-container"></div>
-                            <!-- <button
-                              type="button"
-                              id="add-tag-btn"
-                              class="btn btn-primary mt-3"
-                            >
-                              Tag Əlavə Et
-                            </button> -->
-                          </div>
                         </div>
+                        <div class="col-xl-6 col-sm-6"></div>
                       </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-12">
-              <div class="card">
-                <div class="card-header">
-                  <h5 class="mb-0">Tərəflər Siyahısı</h5>
-                </div>
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col-xl-12 col-sm-12">
-                      <div class="mb-3">
-                        <label for="terefler" class="form-label text-primary"
-                          >Tərəflər<span class="required">*</span></label
-                        >
-                        <!-- <input
-                          type="text"
-                          class="form-control"
-                          id="terefler"
-                          placeholder="ND Company"
-                        /> -->
-                        <div id="rolesContainer" class="row">
-                          <!-- Dynamic role inputs will be appended here -->
-                        </div>
-                        <button
-                          class="btn btn-primary"
-                          type="button"
-                          id="addRoleButton"
-                        >
-                          +
+                      <div class="">
+                        <button class="btn btn-outline-primary me-3">
+                          Save as Draft
+                        </button>
+                        <button class="btn btn-primary" type="submit">
+                          Save
                         </button>
                       </div>
                     </div>
-
-                    <!-- <div class="col-xl-6 col-sm-6">
-                      
-                      <label class="form-label text-primary"
-                        >Payments<span class="required">*</span></label
-                      >
-                      <div class="d-flex align-items-center">
-                        <div class="form-check">
-                          <input
-                            class="form-check-input"
-                            type="checkbox"
-                            value=""
-                            id="flexCheckDefault"
-                          />
-                          <label
-                            class="form-check-label font-w500"
-                            for="flexCheckDefault"
-                          >
-                            Cash
-                          </label>
-                        </div>
-                        <div class="form-check ms-3">
-                          <input
-                            class="form-check-input"
-                            type="checkbox"
-                            value=""
-                            id="flexCheckDefault1"
-                          />
-                          <label
-                            class="form-check-label font-w500"
-                            for="flexCheckDefault1"
-                          >
-                            Debits
-                          </label>
-                        </div>
-                      </div>
-                    </div> -->
-                  </div>
-                  <div class="">
-                    <button class="btn btn-outline-primary me-3">
-                      Save as Draft
-                    </button>
-                    <button class="btn btn-primary" type="submit">Save</button>
                   </div>
                 </div>
               </div>
@@ -1873,7 +1591,7 @@
     <!--**********************************
         Scripts
     ***********************************-->
-    <script type="module" src="../../js/update/add.js"></script>
+    <!-- <script type="module" src="../../js/update/add.js"></script> -->
     <script type="module" src="../../js/auth/checker.js"></script>
     <!-- Required vendors -->
     <script src="../../vendor/global/global.min.js"></script>
