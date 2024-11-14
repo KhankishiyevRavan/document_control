@@ -129,8 +129,8 @@ function addRoleInput(roleName = "", role = "") {
   const suggestionsListRole = document.createElement("ul");
   suggestionsListRole.classList.add("dropdown-menu", "inner");
   suggestionsListRole.setAttribute("role", "presentation");
-  suggestionsListRole.style.overflowY="scroll";
-  suggestionsListRole.style.maxHeight="-webkit-fill-available";
+  suggestionsListRole.style.overflowY = "scroll";
+  suggestionsListRole.style.maxHeight = "-webkit-fill-available";
 
   const roleNameSelect = document.createElement("select");
   roleNameSelect.classList.add("roleName");
@@ -345,7 +345,7 @@ const editDataShow = () => {
   });
   ////////////////////
   tagContainer.innerHTML = "";
-  tagsArray = data?.tagsArray;
+  tagsArray = data.tagsArray ? data.tagsArray : [];
 
   displayTags();
 
@@ -365,9 +365,8 @@ const getDocuments = async () => {
         businessProcesses = res.parametrs.businessProcess;
         projectList = res.parametrs.projectList;
         // console.log(datas);
-        
+
         for (let resId in datas) {
-          
           let terefler = datas[resId].terefler;
           terefler?.map((teref) => {
             if (!terefList.includes(teref.role)) {
@@ -421,7 +420,7 @@ const senedNovuFilterOption = () => {
   optionDefault.textContent = "Hamısını Göstər";
   typeSelect.append(optionDefault);
 
-  console.log(senedNovuList);
+  // console.log(senedNovuList);
 
   senedNovuList.forEach((role) => {
     const option = document.createElement("option");
@@ -435,8 +434,8 @@ const senedNovuFilterOption = () => {
   $(typeSelect).selectpicker("refresh");
 };
 const businessProcessesOption = () => {
-  console.log(businessSelect);
-  console.log(businessProcesses);
+  // console.log(businessSelect);
+  // console.log(businessProcesses);
 
   businessSelect.innerHTML = ""; // Clear existing options
   const optionDefault = document.createElement("option");
@@ -481,7 +480,7 @@ const createSuggestionItem = (item, input) => {
 };
 const input = document.getElementById("layihe");
 
-const showResults = (data, suggestionsList,input) => {
+const showResults = (data, suggestionsList, input) => {
   console.log(suggestionsList);
 
   suggestionsList.innerHTML = "";
@@ -498,7 +497,7 @@ const projectDataListShow = () => {
       const filteredData = projectList.filter((item) =>
         item.name.toLowerCase().includes(searchQuery)
       );
-      showResults(filteredData, suggestionsList,input);
+      showResults(filteredData, suggestionsList, input);
     }
   });
 
@@ -509,9 +508,9 @@ const projectDataListShow = () => {
       const filteredData = projectList.filter((item) =>
         item.name.toLowerCase().includes(searchQuery)
       );
-      showResults(filteredData, suggestionsList,input);
+      showResults(filteredData, suggestionsList, input);
     } else {
-      showResults(projectList, suggestionsList,input);
+      showResults(projectList, suggestionsList, input);
     }
     // }
   });
@@ -525,15 +524,14 @@ const projectDataListShow = () => {
 };
 const terefDataListShow = (input, suggestionsListRole) => {
   input.addEventListener("input", function () {
-
     const searchQuery = input.value.toLowerCase();
     if (searchQuery.length >= 0) {
       const filteredData = terefList.filter((item) =>
         item.toLowerCase().includes(searchQuery)
       );
       console.log(filteredData);
-      
-      showResults(filteredData, suggestionsListRole,input);
+
+      showResults(filteredData, suggestionsListRole, input);
     }
   });
 
@@ -545,12 +543,12 @@ const terefDataListShow = (input, suggestionsListRole) => {
         item.toLowerCase().includes(searchQuery)
       );
       console.log(filteredData);
-      
-      showResults(filteredData, suggestionsListRole,input);
+
+      showResults(filteredData, suggestionsListRole, input);
     } else {
       console.log(terefList);
 
-      showResults(terefList, suggestionsListRole,input);
+      showResults(terefList, suggestionsListRole, input);
     }
     // }
   });
