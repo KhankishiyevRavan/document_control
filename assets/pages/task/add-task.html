@@ -11,6 +11,7 @@
     <title>Sənəd Əlavə et</title>
 
     <!-- FAVICONS ICON -->
+
     <link
       rel="shortcut icon"
       type="image/png"
@@ -39,7 +40,50 @@
       rel="stylesheet"
     />
     <!--swiper-slider-->
+    <!--  -->
+    <link
+      href="../../vendor/bootstrap-daterangepicker/daterangepicker.css"
+      rel="stylesheet"
+    />
+    <!-- Clockpicker -->
+    <link
+      href="../../vendor/clockpicker/css/bootstrap-clockpicker.min.css"
+      rel="stylesheet"
+    />
+    <!-- asColorpicker -->
+    <link
+      href="../../vendor/jquery-asColorPicker/css/asColorPicker.min.css"
+      rel="stylesheet"
+    />
+    <!-- Material color picker -->
+    <link
+      href="../../vendor/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css"
+      rel="stylesheet"
+    />
 
+    <!-- Pick date -->
+    <link rel="stylesheet" href="../../vendor/pickadate/themes/default.css" />
+    <link
+      rel="stylesheet"
+      href="../../vendor/pickadate/themes/default.date.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link
+      href="../../vendor/bootstrap-select/dist/css/bootstrap-select.min.css"
+      rel="stylesheet"
+    />
+    <!-- Custom Stylesheet -->
+    <link
+      href="../../vendor/jquery-nice-select/css/nice-select.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Icons"
+      rel="stylesheet"
+    />
     <!-- Style css -->
     <link
       href="https://fonts.googleapis.com/css2?family=Material+Icons"
@@ -1540,7 +1584,9 @@
                         <div class="col-xl-6 col-sm-6">
                           <div class="mb-3">
                             <label for="name" class="form-label text-primary"
-                              >Tapşırığın adı:<span class="required">*</span></label
+                              >Tapşırığın adı:<span class="required"
+                                >*</span
+                              ></label
                             >
                             <input
                               type="text"
@@ -1557,6 +1603,33 @@
                               class="form-label text-primary"
                             >
                               Prioritet:
+                              <span class="required">*</span>
+                            </label>
+                            <select
+                              class="selectpicke w-100"
+                              id="priority"
+                              name="priority"
+                              data-live-search="true"
+                              required
+                            >
+                              <option value="">Seçin</option>
+                              <option value="Aşağı Prioritet">
+                                Aşağı Prioritet
+                              </option>
+                              <option value="Orta Prioritet">
+                                Orta Prioritet
+                              </option>
+                              <option value="Yüksək Prioritet">
+                                Yüksək Prioritet
+                              </option>
+                            </select>
+                          </div>
+                          <div class="mb-3">
+                            <label
+                              for="priority"
+                              class="form-label text-primary"
+                            >
+                              Mövcud vəziyyət:
                               <span class="required">*</span>
                             </label>
                             <select
@@ -1618,7 +1691,12 @@
                                 id="datepicker"
                                 required
                               /> -->
-                              <input class="form-control input-daterange-datepicker" type="text" name="daterange" value="01/01/2015 - 01/31/2015">
+                              <input
+                                class="form-control input-daterange-datepicker"
+                                type="text"
+                                name="daterange"
+                                value="01/01/2015 - 01/31/2015"
+                              />
                             </div>
                           </div>
                         </div>
@@ -1651,23 +1729,36 @@
     <!--**********************************
         Scripts
     ***********************************-->
-    <!-- <script type="module" src="../../js/update/add.js"></script> -->
-    <script type="module" src="../../js/auth/checker.js"></script>
-    <!-- Required vendors -->
-    <script src="../../vendor/global/global.min.js"></script>
-    <script src="../../vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
-    <script src="../../vendor/moment/moment.min.js"></script>
+  <!-- Required vendors -->
+<script src="../../vendor/global/global.min.js"></script>
+<script src="../../vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
 
-    <script src="../../vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
+<!-- Daterangepicker -->
+<script src="../../vendor/moment/moment.min.js"></script>
+<script src="../../vendor/bootstrap-daterangepicker/daterangepicker.js"></script>
+<script src="../../js/libraries/bs-daterange-picker-init.js"></script>
 
-    <script src="../../vendor/bootstrap-datepicker-master/js/bootstrap-datepicker.min.js"></script>
-    <script src="../../vendor/wow-master/dist/wow.min.js"></script>
-    <script src="../../js/libraries/custom.min.js"></script>
-    <script src="../../js/libraries/dlabnav-init.js"></script>
-    <script src="../../js/libraries/demo.js"></script>
-    <script src="../../js/libraries/styleSwitcher.js"></script>
-    <script type="module" src="../ ../js/auth/logOut.js"></script>
-    <script>
+<!-- Material color picker -->
+<script src="../../vendor/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
+<script src="../../js/libraries/material-date-picker-init.js"></script>
+
+
+<!-- Other UI libraries -->
+<script src="../../vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
+<script src="../../vendor/bootstrap-datepicker-master/js/bootstrap-datepicker.min.js"></script>
+<script src="../../vendor/wow-master/dist/wow.min.js"></script>
+
+<!-- Custom scripts -->
+<script src="../../js/libraries/custom.min.js"></script>
+<script src="../../js/libraries/dlabnav-init.js"></script>
+<script src="../../js/libraries/demo.js"></script>
+<script src="../../js/libraries/styleSwitcher.js"></script>
+
+<!-- Additional modules -->
+<script type="module" src="../../js/auth/checker.js"></script>
+
+    <script type="module" src="../../js/auth/logOut.js"></script>
+    <!-- <script>
       $(function () {
         $("#datepicker")
           .datepicker({
@@ -1676,7 +1767,7 @@
           })
           .datepicker("update", new Date());
       });
-    </script>
+    </script> -->
   </body>
 </html>
 <!-- 2594 -->
