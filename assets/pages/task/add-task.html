@@ -1552,30 +1552,7 @@
               <div class="card">
                 <div class="card-header">
                   <h5 class="mb-0">Tapşırıq detalları</h5>
-                  <div class="">
-                    <!-- <label
-                      class="form-label text-primary"
-                      for="flexCheckDefault"
-                      style="display: none"
-                      >Tapşırıq sənəd<span class="required">*</span></label
-                    > -->
-                    <!-- <div class="d-flex align-items-center">
-                      <div class="form-check">
-                        <input
-                          class="form-check-input"
-                          type="checkbox"
-                          value=""
-                          id="flexCheckDefault"
-                        />
-                        <label
-                          class="form-check-label font-w500"
-                          for="flexCheckDefault"
-                        >
-                          Əsas sənəd
-                        </label>
-                      </div>
-                    </div> -->
-                  </div>
+                  <div class=""></div>
                 </div>
                 <div action="" class="card-body">
                   <div class="row">
@@ -1625,31 +1602,37 @@
                             </select>
                           </div>
                           <div class="mb-3">
-                            <label
-                              for="priority"
-                              class="form-label text-primary"
-                            >
+                            <label for="status" class="form-label text-primary">
                               Mövcud vəziyyət:
                               <span class="required">*</span>
                             </label>
                             <select
                               class="selectpicke w-100"
-                              id="priority"
-                              name="priority"
+                              id="status"
+                              name="status"
                               data-live-search="true"
                               required
                             >
                               <option value="">Seçin</option>
-                              <option value="Aşağı Prioritet">
-                                Aşağı Prioritet
-                              </option>
-                              <option value="Orta Prioritet">
-                                Orta Prioritet
-                              </option>
-                              <option value="Yüksək Prioritet">
-                                Yüksək Prioritet
-                              </option>
+                              <option value="6">Başlanılmayıb</option>
+                              <option value="2">Üzerinde işlənir</option>
+                              <option value="3">Dayanıb</option>
+                              <option value="1">Bitib</option>
+                              <option value="5">Daimi</option>
+                              <option value="4">Leğv edilib</option>
                             </select>
+                          </div>
+                          <div class="mb-3">
+                            <label for="note" class="form-label text-primary">
+                              Qeyd:
+                              <span class="required">*</span>
+                            </label>
+                            <textarea
+                              class="form-control"
+                              rows="7"
+                              id="note"
+                              name="note"
+                            ></textarea>
                           </div>
                         </div>
                         <div class="col-xl-6 col-sm-6">
@@ -1669,16 +1652,16 @@
                               required
                             >
                               <option value="">Seçin</option>
-                              <option value="01">IT</option>
-                              <option value="02">HR</option>
-                              <option value="03">Marketing</option>
-                              <option value="03">Finance</option>
+                              <option value="1">IT</option>
+                              <option value="2">HR</option>
+                              <option value="3">Marketing</option>
+                              <option value="4">Finance</option>
                             </select>
                           </div>
                           <div class="mb-3">
                             <label
                               class="form-label text-primary"
-                              for="datepicker"
+                              for="deadline"
                               >Deadline müddəti<span class="required"
                                 >*</span
                               ></label
@@ -1694,10 +1677,35 @@
                               <input
                                 class="form-control input-daterange-datepicker"
                                 type="text"
-                                name="daterange"
+                                id="deadline"
+                                name="deadline"
                                 value="01/01/2015 - 01/31/2015"
                               />
                             </div>
+                          </div>
+                          <div class="mb-3">
+                            <label
+                              for="tag-input"
+                              class="form-label text-primary"
+                              >Tag əlavə edin:<span class="required"
+                                >*</span
+                              ></label
+                            >
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="tag-input"
+                              name="tag-input"
+                              placeholder="Tag əlavə edin"
+                            />
+                            <div id="tag-container"></div>
+                            <!-- <button
+                              type="button"
+                              id="add-tag-btn"
+                              class="btn btn-primary mt-3"
+                            >
+                              Tag Əlavə Et
+                            </button> -->
                           </div>
                         </div>
                       </div>
@@ -1729,34 +1737,33 @@
     <!--**********************************
         Scripts
     ***********************************-->
-  <!-- Required vendors -->
-<script src="../../vendor/global/global.min.js"></script>
-<script src="../../vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+    <!-- Required vendors -->
+    <script src="../../vendor/global/global.min.js"></script>
+    <script src="../../vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
 
-<!-- Daterangepicker -->
-<script src="../../vendor/moment/moment.min.js"></script>
-<script src="../../vendor/bootstrap-daterangepicker/daterangepicker.js"></script>
-<script src="../../js/libraries/bs-daterange-picker-init.js"></script>
+    <!-- Daterangepicker -->
+    <script src="../../vendor/moment/moment.min.js"></script>
+    <script src="../../vendor/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <script src="../../js/libraries/bs-daterange-picker-init.js"></script>
 
-<!-- Material color picker -->
-<script src="../../vendor/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
-<script src="../../js/libraries/material-date-picker-init.js"></script>
+    <!-- Material color picker -->
+    <script src="../../vendor/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
+    <script src="../../js/libraries/material-date-picker-init.js"></script>
 
+    <!-- Other UI libraries -->
+    <script src="../../vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
+    <script src="../../vendor/bootstrap-datepicker-master/js/bootstrap-datepicker.min.js"></script>
+    <script src="../../vendor/wow-master/dist/wow.min.js"></script>
 
-<!-- Other UI libraries -->
-<script src="../../vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
-<script src="../../vendor/bootstrap-datepicker-master/js/bootstrap-datepicker.min.js"></script>
-<script src="../../vendor/wow-master/dist/wow.min.js"></script>
+    <!-- Custom scripts -->
+    <script src="../../js/libraries/custom.min.js"></script>
+    <script src="../../js/libraries/dlabnav-init.js"></script>
+    <script src="../../js/libraries/demo.js"></script>
+    <script src="../../js/libraries/styleSwitcher.js"></script>
 
-<!-- Custom scripts -->
-<script src="../../js/libraries/custom.min.js"></script>
-<script src="../../js/libraries/dlabnav-init.js"></script>
-<script src="../../js/libraries/demo.js"></script>
-<script src="../../js/libraries/styleSwitcher.js"></script>
-
-<!-- Additional modules -->
-<script type="module" src="../../js/auth/checker.js"></script>
-
+    <!-- Additional modules -->
+    <script type="module" src="../../js/auth/checker.js"></script>
+    <script type="module" src="../../js/task/add.js"></script>
     <script type="module" src="../../js/auth/logOut.js"></script>
     <!-- <script>
       $(function () {

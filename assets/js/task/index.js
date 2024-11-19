@@ -26,6 +26,7 @@ const dataRef = ref(database, "/tasks");
 const tablesContainer = document.getElementById("tables_container");
 let tasks = [];
 let taskStatus = [];
+let taskDepartments = [];
 let editIndex = -1; // Redaktə edilən tapşırığın indeksi
 let responsibles = []; // Məsul şəxslərin siyahısı
 let departments = [];
@@ -37,12 +38,19 @@ function renderTasks() {
     if (!departments.includes(task.department)) {
       departments.push(task.department);
       counters[task.department] = 1;
+      console.log(taskDepartments);
+      
+      let departmentText = taskDepartments.find(
+        (s) => s.id == task.department
+      );
+      console.log(departmentText);
+      
       let tableContainer = document.createElement("div");
       tableContainer.classList.add("col-xl-12", "card");
       tableContainer.setAttribute("id", "bootstrap-table9");
       tableContainer.innerHTML = `
         <div class="card-header flex-wrap d-flex justify-content-between px-3">
-          <h4 class="card-title">${task.department}</h4>
+          <h4 class="card-title">${departmentText?.name}</h4>
             <button class="ms-2 btn light btn-primary addTrBtn">
               <a class="add-task" href="./add-task.html"> + </a> 
             </button>
@@ -59,7 +67,7 @@ function renderTasks() {
                     <div class="table-responsive">
                         <table
                             class="table table-bordered table-striped verticle-middle table-responsive-sm"
-                            id='dep${task.shortName}'
+                            id='dep${task.department}'
                         >
                             <thead>
                               <tr>
@@ -103,13 +111,12 @@ function renderTasks() {
 
     let tdStatus = document.createElement("td");
     let taskText = taskStatus.find((s) => s.degree == task.status);
-    // console.log(taskText);
+
     let spanStatus = document.createElement("span");
     spanStatus.classList.add("badge", "light");
     spanStatus.style.color = "white";
     spanStatus.style.backgroundColor = taskText.color;
     spanStatus.textContent = taskText.name;
-    // <span class="badge light badge-success">Successful</span>
 
     tdStatus.append(spanStatus);
 
@@ -152,29 +159,13 @@ function renderTasks() {
       tdNote,
       tdAction
     );
-    document.querySelector(`#dep${task.shortName} tbody`).append(tr);
+    // console.log(task);
 
-    // document.querySelector(`#dep${task.shortName} tbody`).insertBefore(tr,[...document.querySelectorAll(`#dep${task.shortName} tbody tr`)].slice(-1)[0]);
+    document.querySelector(`#dep${task.department} tbody`).append(tr);
   }
 }
 
 renderTasks();
-
-const pushDocuments = async (newDocument) => {
-  var objKey = push(dataRef).key;
-  console.log(newDocument);
-
-  set(ref(database, "/tasks/" + objKey), {
-    ...newDocument,
-  })
-    .then(() => {
-      alert("Data successfully written!");
-      // window.location.pathname = "/assets/pages/document/document-page.html";
-    })
-    .catch((error) => {
-      alert("Error writing data: ", error);
-    });
-};
 
 const getDocuments = async () => {
   get(dataRef)
@@ -183,6 +174,7 @@ const getDocuments = async () => {
         const res = snapshot.val();
         // console.log(res);
         taskStatus = res.parametrs.status;
+        taskDepartments = res.parametrs.departments;
         // console.log(taskStatus);
 
         tasks = res?.data;
