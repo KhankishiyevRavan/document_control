@@ -19,6 +19,7 @@ import {
   set,
   push,
   update,
+  remove,
 } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-database.js";
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
@@ -38,13 +39,8 @@ function renderTasks() {
     if (!departments.includes(task.department)) {
       departments.push(task.department);
       counters[task.department] = 1;
-      console.log(taskDepartments);
-      
-      let departmentText = taskDepartments.find(
-        (s) => s.id == task.department
-      );
-      console.log(departmentText);
-      
+
+      let departmentText = taskDepartments.find((s) => s.id == task.department);
       let tableContainer = document.createElement("div");
       tableContainer.classList.add("col-xl-12", "card");
       tableContainer.setAttribute("id", "bootstrap-table9");
@@ -143,6 +139,7 @@ function renderTasks() {
         <a
             href="javascript:void(0);"
             title="btn-close"
+            class="btn-closee"
         >
             <i class="fa-solid fa-xmark text-danger"></i>
         </a>
@@ -159,6 +156,22 @@ function renderTasks() {
       tdNote,
       tdAction
     );
+
+    const delBtn = tr.querySelector(".btn-closee");
+    delBtn.addEventListener("click", () => {
+      const itemKey = taskId
+      const itemRef = ref(database, `/tasks/data/${itemKey}`);
+      remove(itemRef)
+        .then(() => {
+          alert("Item removed successfully.");
+          window.location.reload();
+        })
+        .catch((error) => {
+          
+          alert("Error removing item: ", error);
+          console.error("Error removing item: ", error);
+        });
+    });
     // console.log(task);
 
     document.querySelector(`#dep${task.department} tbody`).append(tr);
