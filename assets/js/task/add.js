@@ -35,7 +35,7 @@ const form = document.getElementById("document-form");
 // const documentsRef = ref(database, "/task/data");
 
 let data = [];
-
+let departmentList = [];
 const getTasksParametrs = async () => {
   get(taskParamsRef)
     .then((snapshot) => {
@@ -43,6 +43,8 @@ const getTasksParametrs = async () => {
         const res = snapshot.val();
         // data = res.data;
         console.log(res);
+        departmentList = res.departments;
+        departmentOption();
       } else {
         console.log("No data available");
       }
@@ -83,7 +85,7 @@ form.addEventListener("submit", function (event) {
     note: note,
     department: department,
     deadline: deadline,
-    responsibles:tagsArray,
+    responsibles: tagsArray,
   };
   pushTasks(newTask);
   form.reset();
@@ -97,10 +99,6 @@ tagInput.addEventListener("keypress", function (e) {
     addTag();
   }
 });
-
-// addTagBtn.addEventListener("click", function () {
-//   addTag();
-// });
 
 function addTag() {
   const newTag = tagInput.value.trim();
@@ -131,3 +129,20 @@ function displayTags() {
     tagContainer.appendChild(tagElement);
   });
 }
+const departmentSelect = document.getElementById("department");
+const departmentOption = () => {
+  departmentSelect.innerHTML = "";
+  const optionDefault = document.createElement("option");
+  optionDefault.value = "";
+  optionDefault.textContent = "Hamısını Göstər";
+  departmentSelect.append(optionDefault);
+
+  departmentList.forEach((role) => {
+    const option = document.createElement("option");
+    option.value = role.id;
+    option.textContent = role.name;
+    departmentSelect.append(option);
+  });
+
+  $(departmentSelect).selectpicker("refresh");
+};

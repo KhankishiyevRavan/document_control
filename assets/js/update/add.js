@@ -99,7 +99,7 @@ function displayTags() {
     tagContainer.appendChild(tagElement);
   });
 }
-let editingIndex = null;
+
 siraInput.value = siraCount;
 
 let rolesArray = [];

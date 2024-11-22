@@ -34,67 +34,22 @@ let departments = [];
 let counters = {};
 // Function to render the tasks and update department tables
 function renderTasks() {
+  // console.log(counters);
+  createDepartmentsTr();
+  console.log(counters);
   for (let taskId in tasks) {
     let task = tasks[taskId];
-    if (!departments.includes(task.department)) {
-      departments.push(task.department);
-      counters[task.department] = 1;
-
-      let departmentText = taskDepartments.find((s) => s.id == task.department);
-      let tableContainer = document.createElement("div");
-      tableContainer.classList.add("col-xl-12", "card");
-      tableContainer.setAttribute("id", "bootstrap-table9");
-      tableContainer.innerHTML = `
-        <div class="card-header flex-wrap d-flex justify-content-between px-3">
-          <h4 class="card-title">${departmentText?.name}</h4>
-            <button class="ms-2 btn light btn-primary addTrBtn">
-              <a class="add-task" href="./add-task.html"> + </a> 
-            </button>
-
-        </div>
-        <div class="tab-content" id="myTabContent-7">
-            <div
-                class="tab-pane fade show active"
-                id="solidbackground"
-                role="tabpanel"
-                aria-labelledby="home-tab-7"
-            >
-                <div class="card-body p-0">
-                    <div class="table-responsive">
-                        <table
-                            class="table table-bordered table-striped verticle-middle table-responsive-sm"
-                            id='dep${task.department}'
-                        >
-                            <thead>
-                              <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Task</th>
-                                <th scope="col">Prioritet</th>
-                                <th scope="col">Deadline</th>
-                                <th scope="col">Status</th>
-                                <th scope="col">Məsul şəxslər</th>
-                                <th scope="col">Note</th>
-                                <th scope="col">Action</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>`;
-
-      tablesContainer.append(tableContainer);
-    }
 
     let tr = document.createElement("tr");
     tr.classList.add("tr_table");
 
     let tdCount = document.createElement("td");
-    tdCount.textContent = counters[task.department];
-    counters[task.department]++;
+    // console.log(counters);
+    let departmentText = taskDepartments.find((s) => s.id == task.department);
+    tdCount.textContent = counters[departmentText.name];
+    // console.log(task.department);
+    counters[departmentText.name]++;
+    // console.log(counters);
 
     let tdName = document.createElement("td");
     tdName.textContent = task?.name;
@@ -134,7 +89,7 @@ function renderTasks() {
             class="me-4"
             title="Edit"
         >
-            <i class="fa fa-pencil color-muted"></i> 
+            <i class="fa fa-pencil color-muted"></i>
         </a>
         <a
             href="javascript:void(0);"
@@ -159,7 +114,7 @@ function renderTasks() {
 
     const delBtn = tr.querySelector(".btn-closee");
     delBtn.addEventListener("click", () => {
-      const itemKey = taskId
+      const itemKey = taskId;
       const itemRef = ref(database, `/tasks/data/${itemKey}`);
       remove(itemRef)
         .then(() => {
@@ -167,31 +122,22 @@ function renderTasks() {
           window.location.reload();
         })
         .catch((error) => {
-          
           alert("Error removing item: ", error);
           console.error("Error removing item: ", error);
         });
     });
-    // console.log(task);
-
     document.querySelector(`#dep${task.department} tbody`).append(tr);
   }
 }
-
-renderTasks();
 
 const getDocuments = async () => {
   get(dataRef)
     .then((snapshot) => {
       if (snapshot.exists()) {
         const res = snapshot.val();
-        // console.log(res);
         taskStatus = res.parametrs.status;
         taskDepartments = res.parametrs.departments;
-        // console.log(taskStatus);
-
         tasks = res?.data;
-
         renderTasks();
       } else {
         console.log("No data available");
@@ -202,3 +148,61 @@ const getDocuments = async () => {
     });
 };
 getDocuments();
+const createDepartmentsTr = () => {
+  // console.log(counters);
+  // console.log(taskDepartments);
+  
+  taskDepartments.map((taskDepartment) => {
+    console.log(taskDepartment.name);
+    counters[taskDepartment.name] = 1;
+    console.log(counters);
+    
+    let tableContainer = document.createElement("div");
+    tableContainer.classList.add("col-xl-12", "card");
+    tableContainer.setAttribute("id", "bootstrap-table9");
+    tableContainer.innerHTML = `
+    <div class="card-header flex-wrap d-flex justify-content-between px-3">
+      <h4 class="card-title">${taskDepartment?.name}</h4>
+        <button class="ms-2 btn light btn-primary addTrBtn">
+          <a class="add-task" href="./add-task.html"> + </a> 
+        </button>
+
+    </div>
+    <div class="tab-content" id="myTabContent-7">
+        <div
+            class="tab-pane fade show active"
+            id="solidbackground"
+            role="tabpanel"
+            aria-labelledby="home-tab-7"
+        >
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table
+                        class="table table-bordered table-striped verticle-middle table-responsive-sm"
+                        id='dep${taskDepartment.id}'
+                    >
+                        <thead>
+                          <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Task</th>
+                            <th scope="col">Prioritet</th>
+                            <th scope="col">Deadline</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Məsul şəxslər</th>
+                            <th scope="col">Note</th>
+                            <th scope="col">Action</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>`;
+
+    tablesContainer.append(tableContainer);
+  });
+};
+// renderTasks();
