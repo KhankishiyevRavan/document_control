@@ -86,7 +86,7 @@ function renderTasks() {
     <span>
         <a
             href="javascript:void(0);"
-            class="me-4"
+            class="me-4 btn-editt"
             title="Edit"
         >
             <i class="fa fa-pencil color-muted"></i>
@@ -125,6 +125,11 @@ function renderTasks() {
           alert("Error removing item: ", error);
           console.error("Error removing item: ", error);
         });
+    });
+    const editBtn = tr.querySelector(".btn-editt")
+    editBtn.addEventListener("click", () => {
+      window.location.href =
+      "/assets/pages/task/edit-task.html?id=" + taskId;
     });
     document.querySelector(`#dep${task.department} tbody`).append(tr);
   }
