@@ -168,6 +168,8 @@ const editDataShow = () => {
   document.getElementById("note").value = data.note;
   document.getElementById("department").value = data.department;
   document.getElementById("deadline").value = data.deadline;
+  console.log(data.status);
+  
   $(departmentSelect).selectpicker("refresh");
   $(prioritySelect).selectpicker("refresh");
   $(statusSelect).selectpicker("refresh");
@@ -219,7 +221,11 @@ const statusOption = () => {
 
   statusList.forEach((role) => {
     const option = document.createElement("option");
-    option.value = role.id;
+    
+    console.log(role);
+    option.value = Number(role.degree);
+    console.log(typeof option.value);
+
     option.textContent = role.name;
     statusSelect.append(option);
   });

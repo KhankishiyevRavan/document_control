@@ -179,7 +179,7 @@ const statusOption = () => {
 
   statusList.forEach((role) => {
     const option = document.createElement("option");
-    option.value = role.id;
+    option.value = role.degree;
     option.textContent = role.name;
     statusSelect.append(option);
   });
