@@ -34,6 +34,8 @@ const dataRef = ref(database, `/tasks/data/${taskId}`);
 const taskParamsRef = ref(database, "/tasks/parametrs");
 const form = document.getElementById("document-form");
 let departmentList = [];
+let priorityList = [];
+let statusList = [];
 let data = {};
 const getDocuments = async () => {
   console.log(taskId);
@@ -44,11 +46,6 @@ const getDocuments = async () => {
         console.log(res);
         data = res;
         editDataShow();
-
-        //   taskStatus = res.parametrs.status;
-        //   taskDepartments = res.parametrs.departments;
-        //   tasks = res?.data;
-        //   renderTasks();
       } else {
         console.log("No data available");
       }
@@ -66,7 +63,11 @@ const getTasksParametrs = async () => {
         // data = res.data;
         console.log(res);
         departmentList = res.departments;
+        priorityList = res.priority;
+        statusList = res.status;
         departmentOption();
+        priorityOption();
+        statusOption();
         getDocuments();
       } else {
         console.log("No data available");
@@ -83,9 +84,6 @@ const pushTasks = async (editTask) => {
   update(ref(database, "/tasks/data/" + id), updatedDocument)
     .then(() => {
       alert(" successfully updated!");
-      // data[editingIndex] =
-      // editingIndex = null;
-      // window.location.pathname = "/assets/pages/document/document-page.html";
     })
     .catch((error) => {
       console.error("Error updating data: ", error);
@@ -170,8 +168,9 @@ const editDataShow = () => {
   document.getElementById("note").value = data.note;
   document.getElementById("department").value = data.department;
   document.getElementById("deadline").value = data.deadline;
-  console.log(data.department);
-  console.log(document.getElementById("department").value);
+  $(departmentSelect).selectpicker("refresh");
+  $(prioritySelect).selectpicker("refresh");
+  $(statusSelect).selectpicker("refresh");
 };
 const departmentSelect = document.getElementById("department");
 const departmentOption = () => {
@@ -190,6 +189,40 @@ const departmentOption = () => {
     departmentSelect.append(option);
   });
 
-  $(departmentSelect).selectpicker("refresh");
+  // $(departmentSelect).selectpicker("refresh");
   console.log(document.getElementById("department").value);
+};
+const prioritySelect = document.getElementById("priority");
+const priorityOption = () => {
+  prioritySelect.innerHTML = "";
+  const optionDefault = document.createElement("option");
+  optionDefault.value = "";
+  optionDefault.textContent = "Hamısını Göstər";
+  prioritySelect.append(optionDefault);
+
+  priorityList.forEach((role) => {
+    const option = document.createElement("option");
+    option.value = role.id;
+    option.textContent = role.name;
+    prioritySelect.append(option);
+  });
+
+  $(prioritySelect).selectpicker("refresh");
+};
+const statusSelect = document.getElementById("status");
+const statusOption = () => {
+  statusSelect.innerHTML = "";
+  const optionDefault = document.createElement("option");
+  optionDefault.value = "";
+  optionDefault.textContent = "Hamısını Göstər";
+  statusSelect.append(optionDefault);
+
+  statusList.forEach((role) => {
+    const option = document.createElement("option");
+    option.value = role.id;
+    option.textContent = role.name;
+    statusSelect.append(option);
+  });
+
+  $(statusSelect).selectpicker("refresh");
 };

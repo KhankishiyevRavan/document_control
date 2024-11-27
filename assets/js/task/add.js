@@ -36,6 +36,8 @@ const form = document.getElementById("document-form");
 
 let data = [];
 let departmentList = [];
+let priorityList = [];
+let statusList = [];
 const getTasksParametrs = async () => {
   get(taskParamsRef)
     .then((snapshot) => {
@@ -44,7 +46,11 @@ const getTasksParametrs = async () => {
         // data = res.data;
         console.log(res);
         departmentList = res.departments;
+        priorityList = res.priority;
+        statusList = res.status;
         departmentOption();
+        priorityOption();
+        statusOption();
       } else {
         console.log("No data available");
       }
@@ -145,4 +151,38 @@ const departmentOption = () => {
   });
 
   $(departmentSelect).selectpicker("refresh");
+};
+const prioritySelect = document.getElementById("priority");
+const priorityOption = () => {
+  prioritySelect.innerHTML = "";
+  const optionDefault = document.createElement("option");
+  optionDefault.value = "";
+  optionDefault.textContent = "Hamısını Göstər";
+  prioritySelect.append(optionDefault);
+
+  priorityList.forEach((role) => {
+    const option = document.createElement("option");
+    option.value = role.id;
+    option.textContent = role.name;
+    prioritySelect.append(option);
+  });
+
+  $(prioritySelect).selectpicker("refresh");
+};
+const statusSelect = document.getElementById("status");
+const statusOption = () => {
+  statusSelect.innerHTML = "";
+  const optionDefault = document.createElement("option");
+  optionDefault.value = "";
+  optionDefault.textContent = "Hamısını Göstər";
+  statusSelect.append(optionDefault);
+
+  statusList.forEach((role) => {
+    const option = document.createElement("option");
+    option.value = role.id;
+    option.textContent = role.name;
+    statusSelect.append(option);
+  });
+
+  $(statusSelect).selectpicker("refresh");
 };
