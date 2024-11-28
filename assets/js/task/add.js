@@ -69,6 +69,7 @@ const pushTasks = async (newTask) => {
   })
     .then(() => {
       alert("Data successfully written!");
+      window.location.pathname = "/assets/pages/task/tasks.html";
       // window.location.pathname = "/assets/pages/document/document-page.html";
     })
     .catch((error) => {

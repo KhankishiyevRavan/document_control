@@ -78,10 +78,10 @@ const getTasksParametrs = async () => {
     });
 };
 getTasksParametrs();
-const pushTasks = async (editTask) => {
+const pushTasks = async (editTask, taskId) => {
   //   var objKey = push(newDataRef).key;
   console.log(editTask);
-  update(ref(database, "/tasks/data/" + id), updatedDocument)
+  update(ref(database, "/tasks/data/" + taskId), editTask)
     .then(() => {
       alert(" successfully updated!");
     })
@@ -90,16 +90,16 @@ const pushTasks = async (editTask) => {
       alert("Error updating data: ", error);
       return;
     });
-  set(ref(database, "/tasks/data/" + objKey), {
-    ...editTask,
-  })
-    .then(() => {
-      alert("Data successfully written!");
-      // window.location.pathname = "/assets/pages/document/document-page.html";
-    })
-    .catch((error) => {
-      alert("Error writing data: ", error);
-    });
+  // set(ref(database, "/tasks/data/" + objKey), {
+  //   ...editTask,
+  // })
+  //   .then(() => {
+  //     alert("Data successfully written!");
+  //     // window.location.pathname = "/assets/pages/document/document-page.html";
+  //   })
+  //   .catch((error) => {
+  //     alert("Error writing data: ", error);
+  //   });
 };
 form.addEventListener("submit", function (event) {
   event.preventDefault();
@@ -141,6 +141,8 @@ function addTag() {
 }
 function displayTags() {
   tagContainer.innerHTML = "";
+  console.log(tagsArray);
+  
   tagsArray?.forEach((tag, index) => {
     const tagElement = document.createElement("span");
     tagElement.classList.add("tag", "btn", "btn-danger", "mt-2");
@@ -161,15 +163,16 @@ function displayTags() {
   });
 }
 const editDataShow = () => {
-  console.log(data);
   document.getElementById("name").value = data.name;
   document.getElementById("priority").value = data.priority;
   document.getElementById("status").value = data.status;
   document.getElementById("note").value = data.note;
   document.getElementById("department").value = data.department;
   document.getElementById("deadline").value = data.deadline;
-  console.log(data.status);
-  
+  tagsArray = data.responsibles;
+  console.log(data.responsibles);
+
+  displayTags();
   $(departmentSelect).selectpicker("refresh");
   $(prioritySelect).selectpicker("refresh");
   $(statusSelect).selectpicker("refresh");
@@ -221,11 +224,7 @@ const statusOption = () => {
 
   statusList.forEach((role) => {
     const option = document.createElement("option");
-    
-    console.log(role);
     option.value = Number(role.degree);
-    console.log(typeof option.value);
-
     option.textContent = role.name;
     statusSelect.append(option);
   });
