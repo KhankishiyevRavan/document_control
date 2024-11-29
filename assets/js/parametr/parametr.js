@@ -30,7 +30,9 @@ const senedNovuBtn = document.querySelector("#senedNovuBtn");
 const docTypeInput = document.querySelector("#document-type-input");
 
 let senedNovuList = [];
-
+let parametrsRef = {
+  docType: "senedNovu",
+};
 const getDocumentsParametrs = async () => {
   get(dataRef)
     .then((snapshot) => {
@@ -47,7 +49,9 @@ const getDocumentsParametrs = async () => {
       console.error("Error reading data: ", error);
     });
 };
-const createTr = (s, parametrsRef) => {
+const createTr = (s, parametrRef) => {
+  console.log(parametrRef);
+  
   let tr = document.createElement("tr");
   // ID
   let tdId = document.createElement("td");
@@ -73,7 +77,7 @@ const createTr = (s, parametrsRef) => {
   aRemove.append(iRemove);
   aRemove.addEventListener("click", () => {
     let itemKey = s.id - 1;
-    remove(ref(database, `/documents/parametrs/${parametrsRef}/` + itemKey))
+    remove(ref(database, `/documents/parametrs/${parametrRef}/` + itemKey))
       .then(() => {
         console.log("Data successfully deleted!");
         alert("Data successfully deleted!");
@@ -91,10 +95,19 @@ const createTr = (s, parametrsRef) => {
   tr.append(tdId, tdName, tdAction);
   senedNovuTable.append(tr);
 };
+const addParametrData = (id, parametrData) => {
+  set(ref(database, "/documents/parametrs/senedNovu/" + id), parametrData)
+    .then(() => {
+      alert("Data successfully written!");
+      location.reload();
+    })
+    .catch((error) => {
+      alert("Error writing data: ", error);
+    });
+};
 const showSenedNovuList = () => {
-  let parametrsRef = "senedNovu";
   senedNovuList.map((s) => {
-    createTr(s, parametrsRef);
+    createTr(s, parametrsRef.docType);
   });
 };
 getDocumentsParametrs();
@@ -109,14 +122,6 @@ senedNovuBtn.addEventListener("click", (e) => {
     name: docTypeInput.value,
     id: id,
   };
-
-  set(ref(database, "/documents/parametrs/senedNovu/" + index), addDocType)
-    .then(() => {
-      alert("Data successfully written!");
-      location.reload();
-    })
-    .catch((error) => {
-      alert("Error writing data: ", error);
-    });
+  addParametrData(index,addDocType);
   console.log("test");
 });
