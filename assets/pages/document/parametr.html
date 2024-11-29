@@ -943,12 +943,8 @@
               </a>
               <ul aria-expanded="false">
                 <li>
-                  <a
-                    href="../task/tasks.html"
-                    >Tapşırıqlar</a
-                  >
+                  <a href="../task/tasks.html">Tapşırıqlar</a>
                 </li>
-                
               </ul>
             </li>
 
@@ -1237,12 +1233,17 @@
                           type="text"
                           class="form-control mb-2"
                           id="document-type-input"
+                          name="senedNovu"
                           placeholder="Sənəd tipin yaz"
                         />
                       </div>
 
                       <div class="col-12 mt-3">
-                        <button id="senedNovuBtn" type="submit" class="btn btn-primary mb-2">
+                        <button
+                          id="senedNovuBtn"
+                          type="submit"
+                          class="btn btn-primary mb-2"
+                        >
                           Əlavə et
                         </button>
                       </div>
@@ -1265,9 +1266,9 @@
                               >
                                 <thead>
                                   <tr>
-                                    <th style="width: 60px;">ID</th>
+                                    <th style="width: 60px">ID</th>
                                     <th>Adı</th>
-                                    <th style="width: 120px;">Action</th>
+                                    <th style="width: 120px">Action</th>
                                   </tr>
                                 </thead>
                                 <tbody>
@@ -1301,17 +1302,18 @@
             <div class="col-xl-6 col-lg-12">
               <div class="card">
                 <div class="card-header">
-                  <h4 class="card-title">Sənəd tipləri</h4>
+                  <h4 class="card-title">Biznes prosesləri</h4>
                 </div>
                 <div class="card-body">
                   <div class="basic-form">
                     <form>
                       <div class="col-auto">
-                        <label class="sr-only">Sənəd tipi</label>
+                        <label class="sr-only">Biznes prosesi əlavə edin</label>
                         <input
                           type="text"
                           class="form-control mb-2"
-                          placeholder="Sənəd tipin yaz"
+                          placeholder="Biznes prosesi əlavə edin"
+                          id=""
                         />
                       </div>
 
@@ -1321,6 +1323,53 @@
                         </button>
                       </div>
                     </form>
+                  </div>
+                  <div class="col-xl-12 mt-3">
+                    <div class="card" id="bootstrap-table9">
+                      <div class="tab-content" id="myTabContent-7">
+                        <div
+                          class="tab-pane fade show active"
+                          id="solidbackground"
+                          role="tabpanel"
+                          aria-labelledby="home-tab-7"
+                        >
+                          <div class="card-body p-0">
+                            <div class="table-responsive">
+                              <table
+                                id="businessProcessTable"
+                                class="table table-bordered table-striped verticle-middle table-responsive-sm"
+                              >
+                                <thead>
+                                  <tr>
+                                    <th style="width: 60px">ID</th>
+                                    <th>Adı</th>
+                                    <th style="width: 120px">Action</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <!-- <tr>
+                                    <td>1</td>
+                                    <td>Air Conditioner</td>
+                                    <td>
+                                      <span
+                                        ><a class="me-4"
+                                          ><i
+                                            class="fa fa-pencil color-muted"
+                                          ></i> </a
+                                        ><a
+                                          ><i
+                                            class="fa-solid fa-xmark text-danger"
+                                          ></i></a
+                                      ></span>
+                                    </td>
+                                  </tr> -->
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

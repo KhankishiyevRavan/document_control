@@ -25,21 +25,27 @@ const database = getDatabase(app);
 const dataRef = ref(database, "/documents/parametrs");
 
 const senedNovuTable = document.querySelector("#senedNovuTable tbody");
-const senedNovuBtn = document.querySelector("#senedNovuBtn");
+const businessProcessTable = document.querySelector(
+  "#businessProcessTable tbody"
+);
+// const senedNovuBtn = document.querySelector("#senedNovuBtn");
 
-const docTypeInput = document.querySelector("#document-type-input");
+// const docTypeInput = document.querySelector("#document-type-input");
 
 let senedNovuList = [];
+let businessProcessesList = [];
 let parametrsRef = {
   docType: "senedNovu",
+  businessProcess: "businessProcess",
 };
 const getDocumentsParametrs = async () => {
   get(dataRef)
     .then((snapshot) => {
       if (snapshot.exists()) {
         const res = snapshot.val();
+        // console.log(res);
         senedNovuList = res?.senedNovu;
-        console.log(res);
+        businessProcessesList = res?.businessProcess;
         showSenedNovuList();
       } else {
         console.log("No data available");
@@ -49,9 +55,9 @@ const getDocumentsParametrs = async () => {
       console.error("Error reading data: ", error);
     });
 };
-const createTr = (s, parametrRef) => {
-  console.log(parametrRef);
-  
+const createTr = (s, parametrRef, table) => {
+  // console.log(parametrRef);
+
   let tr = document.createElement("tr");
   // ID
   let tdId = document.createElement("td");
@@ -93,7 +99,9 @@ const createTr = (s, parametrRef) => {
   tdAction.append(span);
 
   tr.append(tdId, tdName, tdAction);
-  senedNovuTable.append(tr);
+  // console.log(table);
+  
+  table?.append(tr);
 };
 const addParametrData = (id, parametrData) => {
   set(ref(database, "/documents/parametrs/senedNovu/" + id), parametrData)
@@ -107,21 +115,33 @@ const addParametrData = (id, parametrData) => {
 };
 const showSenedNovuList = () => {
   senedNovuList.map((s) => {
-    createTr(s, parametrsRef.docType);
+    createTr(s, parametrsRef.docType, senedNovuTable);
+  });
+  businessProcessesList.map((bp) => {
+    createTr(bp, parametrsRef.businessProcess, businessProcessTable);
   });
 };
 getDocumentsParametrs();
+[...document.querySelectorAll("button")].map((btn) => {
+  btn.addEventListener("click", (e) => {
+    e.preventDefault();
+    console.log();
+    let input = e.target.closest(".row")?.querySelector("input");
+    console.log(input.name);
 
-senedNovuBtn.addEventListener("click", (e) => {
-  e.preventDefault();
+    if (!input.value) return;
+    let id = "";
+    let index = "";
+    let data = {};
+    if (input.name === "senedNovu") {
+      id = senedNovuList.length + 1;
+      index = senedNovuList.length;
 
-  if (!docTypeInput.value) return;
-  let id = senedNovuList.length + 1;
-  let index = senedNovuList.length;
-  let addDocType = {
-    name: docTypeInput.value,
-    id: id,
-  };
-  addParametrData(index,addDocType);
-  console.log("test");
+      data = {
+        name: input.value,
+        id: id,
+      };
+    }
+    addParametrData(index, data);
+  });
 });
