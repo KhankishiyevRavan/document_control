@@ -31,7 +31,7 @@ const docTypeInput = document.querySelector("#document-type-input");
 
 let senedNovuList = [];
 
-const getDocuments = async () => {
+const getDocumentsParametrs = async () => {
   get(dataRef)
     .then((snapshot) => {
       if (snapshot.exists()) {
@@ -47,54 +47,57 @@ const getDocuments = async () => {
       console.error("Error reading data: ", error);
     });
 };
+const createTr = (s, parametrsRef) => {
+  let tr = document.createElement("tr");
+  // ID
+  let tdId = document.createElement("td");
+  tdId.style.textAlign = "center";
+  tdId.textContent = s.id;
+  // Adı
+  let tdName = document.createElement("td");
+  tdName.textContent = s.name;
+  // Action
+  let tdAction = document.createElement("td");
+  let span = document.createElement("span");
+  // //Edit
+  let aEdit = document.createElement("a");
+  aEdit.classList.add("me-4");
+  let iEdit = document.createElement("i");
+  iEdit.classList.add("fa", "fa-pencil", "color-muted");
+  aEdit.append(iEdit);
+  // //Remove
+  let aRemove = document.createElement("a");
+  aRemove.classList.add("me-4");
+  let iRemove = document.createElement("i");
+  iRemove.classList.add("fa", "fa-solid", "fa-xmark", "text-danger");
+  aRemove.append(iRemove);
+  aRemove.addEventListener("click", () => {
+    let itemKey = s.id - 1;
+    remove(ref(database, `/documents/parametrs/${parametrsRef}/` + itemKey))
+      .then(() => {
+        console.log("Data successfully deleted!");
+        alert("Data successfully deleted!");
+        location.reload();
+      })
+      .catch((error) => {
+        console.error("Error deleting data: ", error);
+        alert("Error deleting data: " + error);
+        location.reload();
+      });
+  });
+  span.append(aEdit, aRemove);
+  tdAction.append(span);
 
+  tr.append(tdId, tdName, tdAction);
+  senedNovuTable.append(tr);
+};
 const showSenedNovuList = () => {
+  let parametrsRef = "senedNovu";
   senedNovuList.map((s) => {
-    let tr = document.createElement("tr");
-    // ID
-    let tdId = document.createElement("td");
-    tdId.style.textAlign = "center";
-    tdId.textContent = s.id;
-    // Adı
-    let tdName = document.createElement("td");
-    tdName.textContent = s.name;
-    // Action
-    let tdAction = document.createElement("td");
-    let span = document.createElement("span");
-    // //Edit
-    let aEdit = document.createElement("a");
-    aEdit.classList.add("me-4");
-    let iEdit = document.createElement("i");
-    iEdit.classList.add("fa", "fa-pencil", "color-muted");
-    aEdit.append(iEdit);
-    // //Remove
-    let aRemove = document.createElement("a");
-    aRemove.classList.add("me-4");
-    let iRemove = document.createElement("i");
-    iRemove.classList.add("fa", "fa-solid", "fa-xmark", "text-danger");
-    aRemove.append(iRemove);
-    aRemove.addEventListener("click", () => {
-      let itemKey = s.id - 1;
-      remove(ref(database, "/documents/parametrs/senedNovu/" + itemKey))
-        .then(() => {
-          console.log("Data successfully deleted!");
-          alert("Data successfully deleted!");
-          location.reload();
-        })
-        .catch((error) => {
-          console.error("Error deleting data: ", error);
-          alert("Error deleting data: " + error);
-          location.reload();
-        });
-    });
-    span.append(aEdit, aRemove);
-    tdAction.append(span);
-
-    tr.append(tdId, tdName, tdAction);
-    senedNovuTable.append(tr);
+    createTr(s, parametrsRef);
   });
 };
-getDocuments();
+getDocumentsParametrs();
 
 senedNovuBtn.addEventListener("click", (e) => {
   e.preventDefault();
