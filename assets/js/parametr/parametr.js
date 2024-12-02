@@ -28,24 +28,28 @@ const senedNovuTable = document.querySelector("#senedNovuTable tbody");
 const businessProcessTable = document.querySelector(
   "#businessProcessTable tbody"
 );
+const projectListTable = document.querySelector("#projectListTable tbody");
 // const senedNovuBtn = document.querySelector("#senedNovuBtn");
 
 // const docTypeInput = document.querySelector("#document-type-input");
 
 let senedNovuList = [];
 let businessProcessesList = [];
+let projectList = [];
 let parametrsRef = {
   docType: "senedNovu",
   businessProcess: "businessProcess",
+  projectList: "projectList",
 };
 const getDocumentsParametrs = async () => {
   get(dataRef)
     .then((snapshot) => {
       if (snapshot.exists()) {
         const res = snapshot.val();
-        // console.log(res);
+        console.log(res);
         senedNovuList = res?.senedNovu;
         businessProcessesList = res?.businessProcess;
+        projectList = res?.projectList;
         showSenedNovuList();
       } else {
         console.log("No data available");
@@ -100,11 +104,11 @@ const createTr = (s, parametrRef, table) => {
 
   tr.append(tdId, tdName, tdAction);
   // console.log(table);
-  
+
   table?.append(tr);
 };
-const addParametrData = (id, parametrData) => {
-  set(ref(database, "/documents/parametrs/senedNovu/" + id), parametrData)
+const addParametrData = (id, parametrData, path) => {
+  set(ref(database, "/documents/parametrs/" + path + "/" + id), parametrData)
     .then(() => {
       alert("Data successfully written!");
       location.reload();
@@ -113,35 +117,65 @@ const addParametrData = (id, parametrData) => {
       alert("Error writing data: ", error);
     });
 };
+// const addParametrData = (parametrData, path) => {
+//   var objKey = push(dataRef).key;
+//   set(ref(database, `/documents/parametrs/${path}/${objKey}`), parametrData)
+//     .then(() => {
+//       alert("Data successfully written!");
+//       location.reload();
+//     })
+//     .catch((error) => {
+//       alert("Error writing data: ", error);
+//     });
+// };
 const showSenedNovuList = () => {
+  // for (const senedNovuId in senedNovuList) {
+  //   createTr(senedNovuList[senedNovuId], parametrsRef.docType, senedNovuTable);
+  // }
   senedNovuList.map((s) => {
     createTr(s, parametrsRef.docType, senedNovuTable);
   });
   businessProcessesList.map((bp) => {
     createTr(bp, parametrsRef.businessProcess, businessProcessTable);
   });
+  // projectList.map((p) => {
+  //   createTr(p, parametrsRef.projectList, projectListTable);
+  // });
+  for (const projectListId in projectList) {
+    createTr(
+      projectList[projectListId],
+      parametrsRef.docType,
+      projectListTable
+    );
+  }
 };
 getDocumentsParametrs();
 [...document.querySelectorAll("button")].map((btn) => {
   btn.addEventListener("click", (e) => {
     e.preventDefault();
     console.log();
-    let input = e.target.closest(".row")?.querySelector("input");
+    let input = e.target.closest("form")?.querySelector("input");
     console.log(input.name);
 
     if (!input.value) return;
     let id = "";
     let index = "";
     let data = {};
+    let path = input.name;
     if (input.name === "senedNovu") {
       id = senedNovuList.length + 1;
       index = senedNovuList.length;
-
-      data = {
-        name: input.value,
-        id: id,
-      };
+    } else if (input.name === "businessProcess") {
+      id = businessProcessesList.length + 1;
+      index = businessProcessesList.length;
+    } else if (input.name === "projectList") {      
+      id = Object.keys(projectList).length + 1;
+      index = push(ref(database, "/documents/parametrs/" + input.name)).key;
     }
-    addParametrData(index, data);
+    data = {
+      name: input.value,
+      id: id,
+    };
+    addParametrData(index, data, path);
   });
 });
