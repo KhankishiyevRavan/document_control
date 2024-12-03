@@ -20,8 +20,6 @@ import {
   update,
 } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-database.js";
 
-
-
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 const dataRef = ref(database, "/documents");
@@ -69,10 +67,14 @@ const cedveliGoster = () => {
     senedNovuFilterOption();
     layiheFilterOption();
     terefFilterOption();
-    let senedNovuText = senedNovuList.find(
+    let senedNovuArray = Object.values(senedNovuList);
+
+
+    let senedNovuText = senedNovuArray.find(
       (s) => s.id == data[dataId].senedNovu
     );
-    let businessProcessText = businessProcesses.find(
+    let businessProcessArray = Object.values(businessProcesses);
+    let businessProcessText = businessProcessArray.find(
       (b) => b.id == data[dataId].businessProcess
     );
     newRow.innerHTML = `
@@ -145,7 +147,7 @@ const getDocuments = async () => {
         data = res.data;
         senedNovuList = res.parametrs.senedNovu;
         businessProcesses = res.parametrs.businessProcess;
-        // console.log(senedNovuList);
+        console.log(senedNovuList);
 
         const nestedObjects = Object.values(data);
         const lastObject = nestedObjects[nestedObjects.length - 1];
@@ -257,6 +259,7 @@ const terefFilterOption = () => {
   optionDefault.value = "";
   optionDefault.textContent = "Hamısını Göstər";
   partyFilter.append(optionDefault);
+  // console.log(terefList);
 
   terefList.forEach((role) => {
     const option = document.createElement("option");
@@ -274,12 +277,13 @@ const senedNovuFilterOption = () => {
   optionDefault.textContent = "Hamısını Göstər";
   typeFilter.append(optionDefault);
 
-  senedNovuList.forEach((role) => {
+  for (const sId in senedNovuList) {
+    let role = senedNovuList[sId];
     const option = document.createElement("option");
     option.value = role.name;
     option.textContent = role.name;
     typeFilter.append(option);
-  });
+  }
 
   $(typeFilter).selectpicker("refresh");
 };

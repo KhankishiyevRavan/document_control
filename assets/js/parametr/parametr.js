@@ -107,8 +107,12 @@ const createTr = (s, parametrRef, table) => {
 
   table?.append(tr);
 };
-const addParametrData = (id, parametrData, path) => {
-  set(ref(database, "/documents/parametrs/" + path + "/" + id), parametrData)
+const addParametrData = (parametrData, path) => {
+  let objKey = push(ref(database, "/documents/parametrs/" + path)).key;
+  set(
+    ref(database, "/documents/parametrs/" + path + "/" + objKey),
+    parametrData
+  )
     .then(() => {
       alert("Data successfully written!");
       location.reload();
@@ -129,17 +133,21 @@ const addParametrData = (id, parametrData, path) => {
 //     });
 // };
 const showSenedNovuList = () => {
-  // for (const senedNovuId in senedNovuList) {
-  //   createTr(senedNovuList[senedNovuId], parametrsRef.docType, senedNovuTable);
-  // }
-  senedNovuList.map((s) => {
-    createTr(s, parametrsRef.docType, senedNovuTable);
-  });
-  businessProcessesList.map((bp) => {
-    createTr(bp, parametrsRef.businessProcess, businessProcessTable);
-  });
-  // projectList.map((p) => {
-  //   createTr(p, parametrsRef.projectList, projectListTable);
+  for (const senedNovuId in senedNovuList) {
+    createTr(senedNovuList[senedNovuId], parametrsRef.docType, senedNovuTable);
+  }
+  // senedNovuList.map((s) => {
+  //   createTr(s, parametrsRef.docType, senedNovuTable);
+  // });
+  for (const businessProcessesId in businessProcessesList) {
+    createTr(
+      businessProcessesList[businessProcessesId],
+      parametrsRef.businessProcess,
+      businessProcessTable
+    );
+  }
+  // businessProcessesList.map((bp) => {
+  //   createTr(bp, parametrsRef.businessProcess, businessProcessTable);
   // });
   for (const projectListId in projectList) {
     createTr(
@@ -148,6 +156,9 @@ const showSenedNovuList = () => {
       projectListTable
     );
   }
+  // projectList.map((p) => {
+  //   createTr(p, parametrsRef.projectList, projectListTable);
+  // });
 };
 getDocumentsParametrs();
 [...document.querySelectorAll("button")].map((btn) => {
@@ -164,18 +175,18 @@ getDocumentsParametrs();
     let path = input.name;
     if (input.name === "senedNovu") {
       id = senedNovuList.length + 1;
-      index = senedNovuList.length;
+      // index = senedNovuList.length;
     } else if (input.name === "businessProcess") {
       id = businessProcessesList.length + 1;
-      index = businessProcessesList.length;
-    } else if (input.name === "projectList") {      
+      // index = businessProcessesList.length;
+    } else if (input.name === "projectList") {
       id = Object.keys(projectList).length + 1;
-      index = push(ref(database, "/documents/parametrs/" + input.name)).key;
     }
+
     data = {
       name: input.value,
       id: id,
     };
-    addParametrData(index, data, path);
+    addParametrData(data, path);
   });
 });
