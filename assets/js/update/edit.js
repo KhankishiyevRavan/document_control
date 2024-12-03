@@ -420,14 +420,13 @@ const senedNovuFilterOption = () => {
   optionDefault.textContent = "Hamısını Göstər";
   typeSelect.append(optionDefault);
 
-  // console.log(senedNovuList);
-
-  senedNovuList.forEach((role) => {
+  for (const sId in senedNovuList) {
+    let role = senedNovuList[sId];
     const option = document.createElement("option");
     option.value = role.id;
     option.textContent = role.name;
     typeSelect.append(option);
-  });
+  }
 
   document.getElementById("sened-novu").value = data.senedNovu;
 
@@ -435,7 +434,6 @@ const senedNovuFilterOption = () => {
 };
 const businessProcessesOption = () => {
   // console.log(businessSelect);
-  // console.log(businessProcesses);
 
   businessSelect.innerHTML = ""; // Clear existing options
   const optionDefault = document.createElement("option");
@@ -443,12 +441,13 @@ const businessProcessesOption = () => {
   optionDefault.textContent = "Hamısını Göstər";
   businessSelect.append(optionDefault);
 
-  businessProcesses.forEach((role) => {
+  for (const bId in businessProcesses) {
+    let role = businessProcesses[bId];
     const option = document.createElement("option");
     option.value = role.id;
     option.textContent = role.name;
     businessSelect.append(option);
-  });
+  }
 
   document.getElementById("business-prosess").value = data.businessProcess;
 
