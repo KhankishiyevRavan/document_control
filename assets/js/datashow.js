@@ -69,7 +69,6 @@ const cedveliGoster = () => {
     terefFilterOption();
     let senedNovuArray = Object.values(senedNovuList);
 
-
     let senedNovuText = senedNovuArray.find(
       (s) => s.id == data[dataId].senedNovu
     );
@@ -80,13 +79,21 @@ const cedveliGoster = () => {
     newRow.innerHTML = `
             <td>${data[dataId].siraCount}</td>
             <td>${senedNovuText?.name}</td>
-            <td>${data[dataId].senedNomresi}</td>
+            <td style="max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" 
+            title = '${data[dataId].senedNomresi}'>${
+      data[dataId].senedNomresi
+    }</td>
             <td>${data[dataId].tarix ? data[dataId].tarix : ""}</td>
-            <td>${
+            <td
+            style="max-width: 60px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" 
+            title = '${
               businessProcessText?.name ? businessProcessText?.name : ""
-            }</td>
-            <td>${data[dataId].movzu}</td>
-            <td>${data[dataId].layihe}</td>
+            }'
+            >${businessProcessText?.name ? businessProcessText?.name : ""}</td>
+            <td style="max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" 
+            title = '${data[dataId].movzu}'>${data[dataId].movzu}</td>
+            <td style="max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" 
+            title = '${data[dataId].layihe}'>${data[dataId].layihe}</td>
             <td>
                 ${
                   data[dataId].terefler
@@ -111,14 +118,15 @@ const cedveliGoster = () => {
             <td>${
               data[dataId].elaqeliSened ? data[dataId].elaqeliSened : ""
             }</td>
-            <td>${data[dataId].qeyd}</td>
+            <td style="max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" 
+            title = '${data[dataId].qeyd}'>${data[dataId].qeyd}</td>
             <td>
                 <div class="d-flex">
 			    	<button class="btn btn-primary shadow btn-xs sharp me-1 edit-btn"><i class="fa fa-pencil"></i></button>
             </div>
             </td>
             `;
-			    	// <button class="btn btn-danger shadow btn-xs sharp delete-btn"><i class="fa fa-trash"></i></button>
+    // <button class="btn btn-danger shadow btn-xs sharp delete-btn"><i class="fa fa-trash"></i></button>
 
     documentTableBody.appendChild(newRow);
 
