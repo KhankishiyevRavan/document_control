@@ -115,18 +115,18 @@ const cedveliGoster = () => {
             <td>
                 <div class="d-flex">
 			    	<button class="btn btn-primary shadow btn-xs sharp me-1 edit-btn"><i class="fa fa-pencil"></i></button>
-			    	<button class="btn btn-danger shadow btn-xs sharp delete-btn"><i class="fa fa-trash"></i></button>
-			    </div>
+            </div>
             </td>
             `;
+			    	// <button class="btn btn-danger shadow btn-xs sharp delete-btn"><i class="fa fa-trash"></i></button>
 
     documentTableBody.appendChild(newRow);
 
-    const deleteBtn = newRow.querySelector(".delete-btn");
-    deleteBtn.addEventListener("click", function () {
-      data = data.filter((_, i) => i !== dataId);
-      cedveliGoster();
-    });
+    // const deleteBtn = newRow.querySelector(".delete-btn");
+    // deleteBtn.addEventListener("click", function () {
+    //   data = data.filter((_, i) => i !== dataId);
+    //   cedveliGoster();
+    // });
 
     const editBtn = newRow.querySelector(".edit-btn");
     editBtn.addEventListener("click", function () {
