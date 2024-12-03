@@ -265,6 +265,7 @@ const pushDocuments = async (newDocument) => {
     ...newDocument,
   })
     .then(() => {
+      console.log(newDocument);
       alert("Data successfully written!");
       window.location.pathname = "/assets/pages/document/document-page.html";
     })
@@ -340,12 +341,13 @@ const senedNovuFilterOption = () => {
   optionDefault.textContent = "Hamısını Göstər";
   typeSelect.append(optionDefault);
 
-  senedNovuList.forEach((role) => {
+  for (const sId in senedNovuList) {
+    let role = senedNovuList[sId];
     const option = document.createElement("option");
     option.value = role.id;
     option.textContent = role.name;
     typeSelect.append(option);
-  });
+  }
 
   $(typeSelect).selectpicker("refresh");
 };
@@ -356,12 +358,13 @@ const businessProcessesOption = () => {
   optionDefault.textContent = "Hamısını Göstər";
   businessSelect.append(optionDefault);
 
-  businessProcesses.forEach((role) => {
+  for (const bId in businessProcesses) {
+    let role = businessProcesses[bId];
     const option = document.createElement("option");
     option.value = role.id;
     option.textContent = role.name;
     businessSelect.append(option);
-  });
+  }
 
   $(businessSelect).selectpicker("refresh");
 };
@@ -478,5 +481,4 @@ onValue(documentsRef, (snapshot) => {
   console.log("Verilənlərin uzunluğu: ", length);
   siraCount = length + 1;
   siraInput.value = siraCount;
-  
 });
