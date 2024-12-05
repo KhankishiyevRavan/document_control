@@ -69,6 +69,7 @@ const createTr = (s, parametrRef, table, id) => {
   tdId.textContent = s.id;
   // Adı
   let tdName = document.createElement("td");
+  tdName.style.whiteSpace="wrap"
   tdName.textContent = s.name;
   // Action
   let tdAction = document.createElement("td");
@@ -134,14 +135,16 @@ const showSenedNovuList = () => {
     createTr(
       businessProcessesList[businessProcessesId],
       parametrsRef.businessProcess,
-      businessProcessTable
+      businessProcessTable,
+      businessProcessesId
     );
   }
   for (const projectListId in projectList) {
     createTr(
       projectList[projectListId],
       parametrsRef.docType,
-      projectListTable
+      projectListTable,
+      projectListId
     );
   }
 };
@@ -164,7 +167,6 @@ getDocumentsParametrs();
     } else if (input.name === "projectList") {
       id = Object.keys(projectList).length + 1;
     }
-
     data = {
       name: input.value,
       id: id,

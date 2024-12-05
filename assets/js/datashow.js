@@ -64,9 +64,7 @@ const cedveliGoster = () => {
         terefList.push(teref.role);
       }
     });
-    senedNovuFilterOption();
-    layiheFilterOption();
-    terefFilterOption();
+  
     let senedNovuArray = Object.values(senedNovuList);
 
     let senedNovuText = senedNovuArray.find(
@@ -142,7 +140,9 @@ const cedveliGoster = () => {
         "/assets/pages/document/document-edit.html?id=" + dataId;
     });
   }
-
+  senedNovuFilterOption();
+    layiheFilterOption();
+    terefFilterOption();
   // console.log(layiheList);
 };
 const getDocuments = async () => {
@@ -194,8 +194,8 @@ function filterDocuments() {
     let matchesLayihe = true;
 
     // Sənəd növü filtr
-    console.log(cells[1]);
-    console.log(typeValue);
+    // console.log(cells[1]);
+    // console.log(typeValue);
 
     if (typeValue) {
       matchesType = cells[1].textContent.includes(typeValue); // 1-ci sütun (Sənəd Növü)
@@ -251,7 +251,7 @@ const layiheFilterOption = () => {
   optionDefault.textContent = "Hamısını Göstər";
   layiheFilter.append(optionDefault);
 
-  layiheList.map((project) => {
+  layiheList.map((project, index) => {
     const option = document.createElement("option");
     option.value = project;
     option.textContent = project;
