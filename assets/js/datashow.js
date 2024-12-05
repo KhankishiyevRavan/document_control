@@ -73,6 +73,10 @@ const cedveliGoster = () => {
     let businessProcessText = businessProcessArray.find(
       (b) => b.id == data[dataId].businessProcess
     );
+
+    let projectListArray = Object.values(projectList);
+    let projectName = projectListArray.find((p) => p.id == data[dataId].layihe);
+
     newRow.innerHTML = `
             <td>${data[dataId].siraCount}</td>
             <td>${senedNovuText?.name}</td>
@@ -90,7 +94,7 @@ const cedveliGoster = () => {
             <td style="max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" 
             title = '${data[dataId].movzu}'>${data[dataId].movzu}</td>
             <td style="max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" 
-            title = '${data[dataId].layihe}'>${data[dataId].layihe}</td>
+            title = '${projectName?.name}'>${projectName?.name}</td>
             <td>
                 ${
                   data[dataId].terefler
@@ -198,6 +202,8 @@ function filterDocuments() {
     // console.log(typeValue);
 
     if (typeValue) {
+      console.log(typeValue);
+
       matchesType = cells[1].textContent.includes(typeValue); // 1-ci sütun (Sənəd Növü)
     }
 
@@ -220,6 +226,8 @@ function filterDocuments() {
 
     // Layihe filtr
     if (layiheValue) {
+      console.log(layiheValue);
+
       matchesLayihe = cells[6].textContent === layiheValue; // 3-cü sütun (Layihə)
     }
 
@@ -262,7 +270,7 @@ const layiheFilterOption = () => {
   for (const projectId in projectList) {
     let project = projectList[projectId];
     const option = document.createElement("option");
-    option.value = project.id;
+    option.value = project.name;
     option.textContent = project.name;
     layiheFilter.append(option);
   }
