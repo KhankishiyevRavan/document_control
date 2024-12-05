@@ -59,7 +59,7 @@ const getDocumentsParametrs = async () => {
       console.error("Error reading data: ", error);
     });
 };
-const createTr = (s, parametrRef, table) => {
+const createTr = (s, parametrRef, table, id) => {
   // console.log(parametrRef);
 
   let tr = document.createElement("tr");
@@ -86,8 +86,8 @@ const createTr = (s, parametrRef, table) => {
   iRemove.classList.add("fa", "fa-solid", "fa-xmark", "text-danger");
   aRemove.append(iRemove);
   aRemove.addEventListener("click", () => {
-    let itemKey = s.id - 1;
-    remove(ref(database, `/documents/parametrs/${parametrRef}/` + itemKey))
+    // let itemKey = s.id - 1;
+    remove(ref(database, `/documents/parametrs/${parametrRef}/` + id))
       .then(() => {
         console.log("Data successfully deleted!");
         alert("Data successfully deleted!");
@@ -103,7 +103,6 @@ const createTr = (s, parametrRef, table) => {
   tdAction.append(span);
 
   tr.append(tdId, tdName, tdAction);
-  // console.log(table);
 
   table?.append(tr);
 };
@@ -121,24 +120,16 @@ const addParametrData = (parametrData, path) => {
       alert("Error writing data: ", error);
     });
 };
-// const addParametrData = (parametrData, path) => {
-//   var objKey = push(dataRef).key;
-//   set(ref(database, `/documents/parametrs/${path}/${objKey}`), parametrData)
-//     .then(() => {
-//       alert("Data successfully written!");
-//       location.reload();
-//     })
-//     .catch((error) => {
-//       alert("Error writing data: ", error);
-//     });
-// };
+
 const showSenedNovuList = () => {
   for (const senedNovuId in senedNovuList) {
-    createTr(senedNovuList[senedNovuId], parametrsRef.docType, senedNovuTable);
+    createTr(
+      senedNovuList[senedNovuId],
+      parametrsRef.docType,
+      senedNovuTable,
+      senedNovuId
+    );
   }
-  // senedNovuList.map((s) => {
-  //   createTr(s, parametrsRef.docType, senedNovuTable);
-  // });
   for (const businessProcessesId in businessProcessesList) {
     createTr(
       businessProcessesList[businessProcessesId],
@@ -146,9 +137,6 @@ const showSenedNovuList = () => {
       businessProcessTable
     );
   }
-  // businessProcessesList.map((bp) => {
-  //   createTr(bp, parametrsRef.businessProcess, businessProcessTable);
-  // });
   for (const projectListId in projectList) {
     createTr(
       projectList[projectListId],
@@ -156,9 +144,6 @@ const showSenedNovuList = () => {
       projectListTable
     );
   }
-  // projectList.map((p) => {
-  //   createTr(p, parametrsRef.projectList, projectListTable);
-  // });
 };
 getDocumentsParametrs();
 [...document.querySelectorAll("button")].map((btn) => {
@@ -170,15 +155,12 @@ getDocumentsParametrs();
 
     if (!input.value) return;
     let id = "";
-    let index = "";
     let data = {};
     let path = input.name;
     if (input.name === "senedNovu") {
-      id = senedNovuList.length + 1;
-      // index = senedNovuList.length;
+      id = Object.keys(senedNovuList).length + 1;
     } else if (input.name === "businessProcess") {
-      id = businessProcessesList.length + 1;
-      // index = businessProcessesList.length;
+      id = Object.keys(businessProcessesList).length + 1;
     } else if (input.name === "projectList") {
       id = Object.keys(projectList).length + 1;
     }
