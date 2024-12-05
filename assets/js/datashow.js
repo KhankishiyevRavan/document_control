@@ -30,7 +30,7 @@ let data = [];
 let rolesArray = [];
 let senedNovuList = [];
 let businessProcesses = [];
-let layiheList = [];
+let projectList = [];
 let terefList = [];
 const roleNames = [
   "Müəllim",
@@ -42,7 +42,6 @@ const roleNames = [
 ];
 const cedveliGoster = () => {
   documentTableBody.innerHTML = "";
-  layiheList = [];
   terefList = [];
   // data.forEach((d, index) => {
   //   console.log(d);
@@ -51,10 +50,10 @@ const cedveliGoster = () => {
     const newRow = document.createElement("tr");
     // console.log(data[dataId]);
 
-    let layiheName = data[dataId].layihe;
-    if (!layiheList.includes(layiheName)) {
-      layiheList.push(layiheName);
-    }
+    // let layiheName = data[dataId].layihe;
+    // if (!projectList.includes(layiheName)) {
+    //   projectList.push(layiheName);
+    // }
 
     let terefler = data[dataId].terefler;
     terefler?.map((teref) => {
@@ -64,7 +63,7 @@ const cedveliGoster = () => {
         terefList.push(teref.role);
       }
     });
-  
+
     let senedNovuArray = Object.values(senedNovuList);
 
     let senedNovuText = senedNovuArray.find(
@@ -141,9 +140,8 @@ const cedveliGoster = () => {
     });
   }
   senedNovuFilterOption();
-    layiheFilterOption();
-    terefFilterOption();
-  // console.log(layiheList);
+  layiheFilterOption();
+  terefFilterOption();
 };
 const getDocuments = async () => {
   get(dataRef)
@@ -155,7 +153,9 @@ const getDocuments = async () => {
         data = res.data;
         senedNovuList = res.parametrs.senedNovu;
         businessProcesses = res.parametrs.businessProcess;
-        console.log(senedNovuList);
+        projectList = res.parametrs.projectList;
+        // console.log(senedNovuList);
+        console.log(projectList);
 
         const nestedObjects = Object.values(data);
         const lastObject = nestedObjects[nestedObjects.length - 1];
@@ -184,7 +184,7 @@ function filterDocuments() {
   const layiheValue = layiheFilter.value;
 
   const rows = documentTableBody.getElementsByTagName("tr");
-
+  let count = 0;
   for (let i = 0; i < rows.length; i++) {
     const cells = rows[i].getElementsByTagName("td");
     let matchesType = true;
@@ -220,10 +220,19 @@ function filterDocuments() {
 
     // Layihe filtr
     if (layiheValue) {
-      matchesLayihe = cells[6].textContent.includes(layiheValue); // 3-cü sütun (Layihə)
+      matchesLayihe = cells[6].textContent === layiheValue; // 3-cü sütun (Layihə)
     }
 
     // Bütün kriteriyalar uyğun gəlirsə, satırı göstərin
+    if (
+      matchesType &&
+      matchesSearch &&
+      matchesFolder &&
+      matchesParty &&
+      matchesLayihe
+    ) {
+      count++;
+    }
     rows[i].style.display =
       matchesType &&
       matchesSearch &&
@@ -233,6 +242,7 @@ function filterDocuments() {
         ? ""
         : "none";
   }
+  console.log(count);
 }
 
 // Filtr inputlarına hadisə dinləyiciləri əlavə edin
@@ -243,21 +253,19 @@ partyFilter.addEventListener("change", filterDocuments);
 layiheFilter.addEventListener("change", filterDocuments);
 
 const layiheFilterOption = () => {
-  // console.log(layiheList);
-
   layiheFilter.innerHTML = "";
   const optionDefault = document.createElement("option");
   optionDefault.value = "";
   optionDefault.textContent = "Hamısını Göstər";
   layiheFilter.append(optionDefault);
-
-  layiheList.map((project, index) => {
+  console.log(projectList);
+  for (const projectId in projectList) {
+    let project = projectList[projectId];
     const option = document.createElement("option");
-    option.value = project;
-    option.textContent = project;
+    option.value = project.id;
+    option.textContent = project.name;
     layiheFilter.append(option);
-  });
-
+  }
   $(layiheFilter).selectpicker("refresh");
 };
 const terefFilterOption = () => {

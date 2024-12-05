@@ -152,7 +152,6 @@ getDocumentsParametrs();
 [...document.querySelectorAll("button")].map((btn) => {
   btn.addEventListener("click", (e) => {
     e.preventDefault();
-    console.log();
     let input = e.target.closest("form")?.querySelector("input");
     console.log(input.name);
 
