@@ -27,6 +27,7 @@ let siraCount = 1;
 const form = document.getElementById("document-form");
 const documentTableBody = document.querySelector("#document-table tbody");
 let data = [];
+let showData = [];
 let rolesArray = [];
 let senedNovuList = [];
 let businessProcesses = [];
@@ -46,6 +47,10 @@ const cedveliGoster = () => {
   // data.forEach((d, index) => {
   //   console.log(d);
   // });
+  // let showData = data.slice()
+  // const paginatedData = paginate(data);
+  // console.log(paginatedData);
+
   for (let dataId in data) {
     const newRow = document.createElement("tr");
     // console.log(data[dataId]);
@@ -131,12 +136,6 @@ const cedveliGoster = () => {
 
     documentTableBody.appendChild(newRow);
 
-    // const deleteBtn = newRow.querySelector(".delete-btn");
-    // deleteBtn.addEventListener("click", function () {
-    //   data = data.filter((_, i) => i !== dataId);
-    //   cedveliGoster();
-    // });
-
     const editBtn = newRow.querySelector(".edit-btn");
     editBtn.addEventListener("click", function () {
       window.location.href =
@@ -165,7 +164,7 @@ const getDocuments = async () => {
         const lastObject = nestedObjects[nestedObjects.length - 1];
         siraCount = Number(lastObject.siraCount) + 1;
         window.localStorage.setItem("siraCount", siraCount);
-        cedveliGoster();
+        cedveliGoster(1);
       } else {
         console.log("No data available");
       }
@@ -314,23 +313,30 @@ const senedNovuFilterOption = () => {
 // Call this function after you have fetched and populated terefList
 
 getDocuments();
-// const partySearchInput = document.getElementById("partySearchInput");
+function paginate(object = {}, pageSize = 10, currentPage = 1) {
+  // object: Data to paginate (should be an object)
+  // pageSize: Number of items per page
+  // currentPage: The current page to display (1-indexed)
 
-// // Function to filter party options based on the search input
-// function filterPartyOptions() {
-//   const searchValue = partySearchInput.value.toLowerCase(); // Get the input value
-//   const options = partyFilter.getElementsByTagName("option");
-//   console.log(options);
+  const keys = Object.keys(object); // Get all keys of the object
+  const totalItems = keys.length; // Total number of items
+  const startIndex = (currentPage - 1) * pageSize; // Calculate the start index
+  const endIndex = startIndex + pageSize; // Calculate the end index
 
-//   for (let i = 0; i < options.length; i++) {
-//     const option = options[i];
-//     console.log(option.textContent.toLowerCase().includes(searchValue));
+  const paginatedKeys = keys.slice(startIndex, endIndex); // Slice the keys for the current page
+  const data = paginatedKeys.reduce((result, key) => {
+    result[key] = object[key];
+    return result;
+  }, {}); // Create a new object for the current page
 
-//     // Show or hide option based on search value
-//     option.style.display = option.textContent.toLowerCase().includes(searchValue) ? "" : "none";
-//   }
-//   $(partyFilter).selectpicker("refresh");
-// }
+  return {
+    currentPage: currentPage,
+    pageSize: pageSize,
+    totalItems: totalItems,
+    totalPages: Math.ceil(totalItems / pageSize),
+    data: data, // Return the sliced data as an object for the current page
+  };
+}
+const selectPage = ()=>{
 
-// // Add event listener for the party search input
-// partySearchInput.addEventListener("input", filterPartyOptions);
+}
