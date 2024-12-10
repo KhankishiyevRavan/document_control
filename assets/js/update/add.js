@@ -57,6 +57,7 @@ const reletedDocSelect = document.querySelector("#reletedDoc");
 
 const typeSelect = document.querySelector("#sened-novu");
 const businessSelect = document.querySelector("#business-prosess");
+const projectListSelect = document.querySelector("#project-list")
 
 tagInput.addEventListener("keypress", function (e) {
   if (e.key === "Enter") {
@@ -300,7 +301,8 @@ const getDocuments = async () => {
         mainDocumentOption();
         senedNovuFilterOption();
         businessProcessesOption();
-        projectDataListShow();
+        projectListOption();
+        // projectDataListShow();
 
         const nestedObjects = Object.values(data);
 
@@ -368,6 +370,23 @@ const businessProcessesOption = () => {
 
   $(businessSelect).selectpicker("refresh");
 };
+const projectListOption = () => {
+  projectListSelect.innerHTML = "";
+  const optionDefault = document.createElement("option");
+  optionDefault.value = "";
+  optionDefault.textContent = "Hamısını Göstər";
+  projectListSelect.append(optionDefault);
+
+  for (const bId in projectList) {
+    let role = projectList[bId];
+    const option = document.createElement("option");
+    option.value = role.id;
+    option.textContent = role.name;
+    projectListSelect.append(option);
+  }
+
+  $(projectListSelect).selectpicker("refresh");
+};
 const suggestionsList = document.getElementById("suggestions");
 
 const createSuggestionItem = (item, input) => {
@@ -406,38 +425,38 @@ const showResults = (data, suggestionsList, input) => {
   });
   suggestionsList.style.display = data.length > 0 ? "block" : "none";
 };
-const projectDataListShow = () => {
-  input.addEventListener("input", function () {
-    const searchQuery = input.value.toLowerCase();
-    if (searchQuery.length >= 0) {
-      const filteredData = projectList.filter((item) =>
-        item.name.toLowerCase().includes(searchQuery)
-      );
-      showResults(filteredData, suggestionsList, input);
-    }
-  });
+// const projectDataListShow = () => {
+//   input.addEventListener("input", function () {
+//     const searchQuery = input.value.toLowerCase();
+//     if (searchQuery.length >= 0) {
+//       const filteredData = projectList.filter((item) =>
+//         item.name.toLowerCase().includes(searchQuery)
+//       );
+//       showResults(filteredData, suggestionsList, input);
+//     }
+//   });
 
-  input.addEventListener("focus", function () {
-    // if (input.value.trim() === "") {
-    const searchQuery = input.value.toLowerCase();
-    if (searchQuery.length > 0) {
-      const filteredData = projectList.filter((item) =>
-        item.name.toLowerCase().includes(searchQuery)
-      );
-      showResults(filteredData, suggestionsList, input);
-    } else {
-      showResults(projectList, suggestionsList, input);
-    }
-    // }
-  });
+//   input.addEventListener("focus", function () {
+//     // if (input.value.trim() === "") {
+//     const searchQuery = input.value.toLowerCase();
+//     if (searchQuery.length > 0) {
+//       const filteredData = projectList.filter((item) =>
+//         item.name.toLowerCase().includes(searchQuery)
+//       );
+//       showResults(filteredData, suggestionsList, input);
+//     } else {
+//       showResults(projectList, suggestionsList, input);
+//     }
+//     // }
+//   });
 
-  document.addEventListener("click", function (e) {
-    if (e.target !== input) {
-      suggestionsList.innerHTML = "";
-      suggestionsList.style.display = "none";
-    }
-  });
-};
+//   document.addEventListener("click", function (e) {
+//     if (e.target !== input) {
+//       suggestionsList.innerHTML = "";
+//       suggestionsList.style.display = "none";
+//     }
+//   });
+// };
 const terefDataListShow = (input, suggestionsListRole) => {
   input.addEventListener("input", function () {
     console.log(input.value);

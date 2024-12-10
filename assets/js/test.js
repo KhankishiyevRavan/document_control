@@ -229,7 +229,7 @@ const filterDocuments = () => {
       //   console.log(searchValue);
       //   searchInObject(dataValue, searchValue);
       matchesSearch = searchInObject(dataValue, searchValue);
-      console.log(matchesSearch);
+      console.log(matchesSearch);   
     }
     // // Qovluq filtr
     if (folderValue) {

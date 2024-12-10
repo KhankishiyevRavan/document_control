@@ -885,10 +885,7 @@
               </a>
               <ul aria-expanded="false">
                 <li>
-                  <a
-                    href="../task/tasks.html"
-                    >Tapşırıqlar</a
-                  >
+                  <a href="../task/tasks.html">Tapşırıqlar</a>
                 </li>
                 <li>
                   <a href="../task/add-task.html">Tapşırıq Əlavə et</a>
@@ -1657,7 +1654,19 @@
                             <label for="layihe" class="form-label text-primary"
                               >Layihə:<span class="required">*</span></label
                             >
-                            <input
+                            <select
+                              class="selectpicke w-100"
+                              id="project-list"
+                              name="project-list"
+                              required
+                            >
+                              <!-- <option value="">Seçin</option>
+                            <option value="Müqavilə">Müqavilə</option>
+                            <option value="Faktura">Faktura</option>
+                            <option value="Sertifikat">Sertifikat</option>
+                            <option value="Hesabat">Hesabat</option> -->
+                            </select>
+                            <!-- <input
                               type="text"
                               class="form-control"
                               id="layihe"
@@ -1670,7 +1679,7 @@
                               style="width: 100%;"
                               class="suggestions dropdown-menu inner"
                               role="presentation"
-                            ></ul>
+                            ></ul> -->
                           </div>
                           <div class="mb-3">
                             <label for="qovluq" class="form-label text-primary">
