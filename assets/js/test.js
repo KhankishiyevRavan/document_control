@@ -48,7 +48,6 @@ const cedveliGoster = (d = showData, p = 10, c = 1) => {
   //   console.log(d);
   // });
   // let showData = data.slice()
-  console.log(showData);
 
   const paginatedData = paginate(d, p, c);
   console.log(paginatedData);
@@ -136,7 +135,6 @@ const cedveliGoster = (d = showData, p = 10, c = 1) => {
     // <button class="btn btn-danger shadow btn-xs sharp delete-btn"><i class="fa fa-trash"></i></button>
 
     documentTableBody.appendChild(newRow);
-console.log(dataId);
 
     const editBtn = newRow.querySelector(".edit-btn");
     editBtn.addEventListener("click", function () {
@@ -152,10 +150,18 @@ const getDocuments = async () => {
         const res = snapshot.val();
         // console.log(res);
 
-        data = res.data;
+        // data = res.data;
+        data = Object.entries(res.data)
+          .reverse() // Massivi tərsinə çevirir
+          .reduce((acc, [key, value]) => {
+            acc[key] = value; // Yenidən obyekt yaradır
+            return acc;
+          }, {});
+        // console.log(data.sort());
+
         for (const key in data) {
           let terefler = data[key]?.terefler;
-        //   console.log(terefler);
+          //   console.log(terefler);
           terefler &&
             terefler?.map((t) => {
               if (!terefList?.includes(t.role)) {
@@ -166,7 +172,7 @@ const getDocuments = async () => {
           //     projectList.push(layiheName);
           //   }
         }
-        console.log(projectList);
+        // console.log(projectList);
 
         senedNovuList = res.parametrs.senedNovu;
         businessProcesses = res.parametrs.businessProcess;
@@ -202,7 +208,7 @@ const filterDocuments = () => {
   const folderValue = folderFilter.value; // Qovluq seçimi
   const partyValue = partyFilter.value; // Tərəf seçimi
   const layiheValue = layiheFilter.value;
-  console.log(data);
+//   console.log(data);
 
   let count = 0;
   for (const dataId in data) {
@@ -230,7 +236,7 @@ const filterDocuments = () => {
       //   console.log(searchValue);
       //   searchInObject(dataValue, searchValue);
       matchesSearch = searchInObject(dataValue, searchValue);
-      console.log(matchesSearch);   
+    //   console.log(matchesSearch);
     }
     // // Qovluq filtr
     if (folderValue) {
@@ -240,7 +246,7 @@ const filterDocuments = () => {
 
     // Layihe filtr
     if (layiheValue) {
-      console.log(layiheValue);
+    //   console.log(layiheValue);
       matchesLayihe = dataValue.layihe == layiheValue;
       //   matchesLayihe = cells[6].textContent === layiheValue; // 3-cü sütun (Layihə)
     }
@@ -433,7 +439,7 @@ function paginate(object = {}, pageSize = 10, currentPage = 1) {
     endPageIndex = totalPages;
     startPageIndex = Math.max(endPageIndex - visiblePages + 1, 1);
   }
-  console.log(startPageIndex, endPageIndex);
+//   console.log(startPageIndex, endPageIndex);
   paginationUl.innerHTML = "";
   for (let i = startPageIndex; i <= endPageIndex; i++) {
     let li = document.createElement("li");
