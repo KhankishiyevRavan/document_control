@@ -63,6 +63,8 @@ const mainDocumentCheckbox = document.querySelector("#flexCheckDefault");
 const typeSelect = document.querySelector("#sened-novu");
 const businessSelect = document.querySelector("#business-prosess");
 
+const projectListSelect = document.querySelector("#layihe");
+
 tagInput.addEventListener("keypress", function (e) {
   if (e.key === "Enter") {
     e.preventDefault();
@@ -285,6 +287,7 @@ const getDocument = async () => {
 
         mainDocumentOption();
         senedNovuFilterOption();
+        projectListOption();
         businessProcessesOption();
         editDataShow();
         docNameDetails.textContent =
@@ -322,6 +325,7 @@ const putDocuments = async (id, updatedDocument) => {
 const editDataShow = () => {
   document.getElementById("sened-novu").value = data.senedNovu;
   document.getElementById("business-prosess").value = data.businessProcess;
+
   document.getElementById("reletedDoc").value = data.elaqeliSened;
   // console.log(data.elaqeliSened);
   // console.log(document.getElementById("reletedDoc").value);
@@ -379,8 +383,9 @@ const getDocuments = async () => {
         }
         mainDocumentOption();
         senedNovuFilterOption();
+        projectListOption();
         businessProcessesOption();
-        projectDataListShow();
+        // projectDataListShow();
         // console.log(mainDocumentList);
       } else {
         console.log("No data available");
@@ -409,7 +414,6 @@ const mainDocumentOption = () => {
   // console.log(data);
 
   document.getElementById("reletedDoc").value = data.elaqeliSened;
-
   $(reletedDocSelect).selectpicker("refresh"); // Refresh to display the options
 };
 
@@ -419,6 +423,8 @@ const senedNovuFilterOption = () => {
   optionDefault.value = "";
   optionDefault.textContent = "Hamısını Göstər";
   typeSelect.append(optionDefault);
+
+  // console.log(senedNovuList);
 
   for (const sId in senedNovuList) {
     let role = senedNovuList[sId];
@@ -434,6 +440,7 @@ const senedNovuFilterOption = () => {
 };
 const businessProcessesOption = () => {
   // console.log(businessSelect);
+  // console.log(businessProcesses);
 
   businessSelect.innerHTML = ""; // Clear existing options
   const optionDefault = document.createElement("option");
@@ -489,38 +496,56 @@ const showResults = (data, suggestionsList, input) => {
   });
   suggestionsList.style.display = data.length > 0 ? "block" : "none";
 };
-const projectDataListShow = () => {
-  input.addEventListener("input", function () {
-    const searchQuery = input.value.toLowerCase();
-    if (searchQuery.length >= 0) {
-      const filteredData = projectList.filter((item) =>
-        item.name.toLowerCase().includes(searchQuery)
-      );
-      showResults(filteredData, suggestionsList, input);
-    }
-  });
+const projectListOption = () => {
+  projectListSelect.innerHTML = "";
+  const optionDefault = document.createElement("option");
+  optionDefault.value = "";
+  optionDefault.textContent = "Hamısını Göstər";
+  projectListSelect.append(optionDefault);
 
-  input.addEventListener("focus", function () {
-    // if (input.value.trim() === "") {
-    const searchQuery = input.value.toLowerCase();
-    if (searchQuery.length > 0) {
-      const filteredData = projectList.filter((item) =>
-        item.name.toLowerCase().includes(searchQuery)
-      );
-      showResults(filteredData, suggestionsList, input);
-    } else {
-      showResults(projectList, suggestionsList, input);
-    }
-    // }
-  });
+  for (const bId in projectList) {
+    let role = projectList[bId];
+    const option = document.createElement("option");
+    option.value = role.id;
+    option.textContent = role.name;
+    projectListSelect.append(option);
+  }
+  document.getElementById("layihe").value = data.layihe;
 
-  document.addEventListener("click", function (e) {
-    if (e.target !== input) {
-      suggestionsList.innerHTML = "";
-      suggestionsList.style.display = "none";
-    }
-  });
+  $(projectListSelect).selectpicker("refresh");
 };
+// const projectDataListShow = () => {
+//   input.addEventListener("input", function () {
+//     const searchQuery = input.value.toLowerCase();
+//     if (searchQuery.length >= 0) {
+//       const filteredData = projectList.filter((item) =>
+//         item.name.toLowerCase().includes(searchQuery)
+//       );
+//       showResults(filteredData, suggestionsList, input);
+//     }
+//   });
+
+//   input.addEventListener("focus", function () {
+//     // if (input.value.trim() === "") {
+//     const searchQuery = input.value.toLowerCase();
+//     if (searchQuery.length > 0) {
+//       const filteredData = projectList.filter((item) =>
+//         item.name.toLowerCase().includes(searchQuery)
+//       );
+//       showResults(filteredData, suggestionsList, input);
+//     } else {
+//       showResults(projectList, suggestionsList, input);
+//     }
+//     // }
+//   });
+
+//   document.addEventListener("click", function (e) {
+//     if (e.target !== input) {
+//       suggestionsList.innerHTML = "";
+//       suggestionsList.style.display = "none";
+//     }
+//   });
+// };
 const terefDataListShow = (input, suggestionsListRole) => {
   input.addEventListener("input", function () {
     const searchQuery = input.value.toLowerCase();

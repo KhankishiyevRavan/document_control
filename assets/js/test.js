@@ -136,11 +136,12 @@ const cedveliGoster = (d = showData, p = 10, c = 1) => {
     // <button class="btn btn-danger shadow btn-xs sharp delete-btn"><i class="fa fa-trash"></i></button>
 
     documentTableBody.appendChild(newRow);
+console.log(dataId);
 
     const editBtn = newRow.querySelector(".edit-btn");
     editBtn.addEventListener("click", function () {
       window.location.href =
-        "/assets/pages/document/document-edit.html?id=" + dataId;
+        "/assets/pages/document/document-edit.html?id=" + dataValue.id;
     });
   }
 };
@@ -154,7 +155,7 @@ const getDocuments = async () => {
         data = res.data;
         for (const key in data) {
           let terefler = data[key]?.terefler;
-          console.log(terefler);
+        //   console.log(terefler);
           terefler &&
             terefler?.map((t) => {
               if (!terefList?.includes(t.role)) {
@@ -257,6 +258,7 @@ const filterDocuments = () => {
       matchesLayihe
     ) {
       count++;
+      dataValue.id = dataId;
       showData.push(dataValue);
     }
   }

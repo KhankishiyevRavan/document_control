@@ -57,7 +57,7 @@ const reletedDocSelect = document.querySelector("#reletedDoc");
 
 const typeSelect = document.querySelector("#sened-novu");
 const businessSelect = document.querySelector("#business-prosess");
-const projectListSelect = document.querySelector("#project-list")
+const projectListSelect = document.querySelector("#layihe")
 
 tagInput.addEventListener("keypress", function (e) {
   if (e.key === "Enter") {
