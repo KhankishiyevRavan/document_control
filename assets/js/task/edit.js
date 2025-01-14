@@ -84,6 +84,7 @@ const pushTasks = async (editTask, taskId) => {
   update(ref(database, "/tasks/data/" + taskId), editTask)
     .then(() => {
       alert(" successfully updated!");
+      window.location.pathname = "/assets/pages/task/tasks.html";
     })
     .catch((error) => {
       console.error("Error updating data: ", error);
@@ -142,7 +143,7 @@ function addTag() {
 function displayTags() {
   tagContainer.innerHTML = "";
   console.log(tagsArray);
-  
+
   tagsArray?.forEach((tag, index) => {
     const tagElement = document.createElement("span");
     tagElement.classList.add("tag", "btn", "btn-danger", "mt-2");

@@ -126,10 +126,9 @@ function renderTasks() {
           console.error("Error removing item: ", error);
         });
     });
-    const editBtn = tr.querySelector(".btn-editt")
+    const editBtn = tr.querySelector(".btn-editt");
     editBtn.addEventListener("click", () => {
-      window.location.href =
-      "/assets/pages/task/edit-task.html?id=" + taskId;
+      window.location.href = "/assets/pages/task/edit-task.html?id=" + taskId;
     });
     document.querySelector(`#dep${task.department} tbody`).append(tr);
   }
@@ -156,21 +155,22 @@ getDocuments();
 const createDepartmentsTr = () => {
   // console.log(counters);
   // console.log(taskDepartments);
-  
+
   taskDepartments.map((taskDepartment) => {
     console.log(taskDepartment.name);
     counters[taskDepartment.name] = 1;
     console.log(counters);
-    
+
     let tableContainer = document.createElement("div");
     tableContainer.classList.add("col-xl-12", "card");
     tableContainer.setAttribute("id", "bootstrap-table9");
+    // <button class="ms-2 btn light btn-primary addTrBtn">
+    //   <a class="add-task" href="./add-task.html"> + </a>
+    // </button>
     tableContainer.innerHTML = `
     <div class="card-header flex-wrap d-flex justify-content-between px-3">
       <h4 class="card-title">${taskDepartment?.name}</h4>
-        <button class="ms-2 btn light btn-primary addTrBtn">
-          <a class="add-task" href="./add-task.html"> + </a> 
-        </button>
+       
 
     </div>
     <div class="tab-content" id="myTabContent-7">
