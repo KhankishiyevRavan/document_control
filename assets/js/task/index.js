@@ -186,21 +186,21 @@ const createDepartmentsTr = () => {
                         class="table table-bordered table-striped verticle-middle table-responsive-sm"
                         id='dep${taskDepartment.id}'
                     >
-                        <thead>
-                          <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Task</th>
-                            <th scope="col">Prioritet</th>
-                            <th scope="col">Deadline</th>
-                            <th scope="col">Status</th>
-                            <th scope="col">Məsul şəxslər</th>
-                            <th scope="col">Note</th>
-                            <th scope="col">Action</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          
-                        </tbody>
+                      <thead>
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">Task</th>
+                          <th scope="col">Prioritet</th>
+                          <th scope="col">Deadline</th>
+                          <th scope="col">Status</th>
+                          <th scope="col">Məsul şəxslər</th>
+                          <th scope="col">Note</th>
+                          <th scope="col">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        
+                      </tbody>
                     </table>
                 </div>
             </div>
