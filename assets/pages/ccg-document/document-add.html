@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- All Meta -->
     <meta charset="utf-8" />
+
+    <!-- Mobile Specific -->
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <!-- Page Title Here -->
-    <title>Tapşırıqlar</title>
+    <title>Sənəd Əlavə et</title>
 
     <!-- FAVICONS ICON -->
     <link
@@ -13,9 +15,8 @@
       type="image/png"
       href="../../images/nd/favicon.png"
     />
-    <!-- Custom Stylesheet -->
     <link
-      href="../../vendor/jquery-nice-select/css/nice-select.css"
+      href="../../vendor/wow-master/css/libs/animate.css"
       rel="stylesheet"
     />
     <link
@@ -23,31 +24,40 @@
       rel="stylesheet"
     />
     <link
+      rel="stylesheet"
+      href="../../vendor/jquery-nice-select/css/nice-select.css"
+    />
+
+    <link
+      href="../../vendor/bootstrap-datepicker-master/css/bootstrap-datepicker.min.css"
+      rel="stylesheet"
+    />
+
+    <link
+      href="../../vendor/datatables/css/jquery.dataTables.min.css"
+      rel="stylesheet"
+    />
+    <!--swiper-slider-->
+
+    <!-- Style css -->
+    <link
       href="https://fonts.googleapis.com/css2?family=Material+Icons"
       rel="stylesheet"
     />
     <link href="../../css/style.css" rel="stylesheet" />
     <style>
-      .responsible_span {
-        margin: 0 5px;
-        border-radius: 20px;
-        padding: 5px 15px !important;
-        display: inline-block;
-        color: rgb(106, 102, 102);
-        background-color: #cce5ff !important;
-        /* color: ; */
+      .tag {
+        overflow: hidden;
       }
-      .add-task {
-        height: 100%;
-        width: 100%;
-        color: var(--primary);
+      .role-input {
+        display: flex;
       }
-      .addTrBtn:hover .add-task {
-        color: white;
-      }
+      /* .btn-icon-end,
+      .{
+        padding: 1rem 1.25rem;
+      } */
     </style>
   </head>
-
   <body>
     <!--*******************
         Preloader start
@@ -75,23 +85,23 @@
       <!--**********************************
             Nav header start
         ***********************************-->
-        <div class="nav-header">
-          <a
-            href="/index.html"
-            class="brand-logo"
-            style="display: flex; flex-direction: column; align-items: center"
-          >
-            <img
-              style="
-                margin-top: 10px;
-                width: 40%;
-                height: calc(100% - 35px);
-                object-fit: contain;
-              "
-              src="../../images/logo/elta-icon.png"
-              alt=""
-            />
-            <!-- <svg
+      <div class="nav-header">
+        <a
+          href="/index.html"
+          class="brand-logo"
+          style="display: flex; flex-direction: column; align-items: center"
+        >
+          <img
+            style="
+              margin-top: 10px;
+              width: 40%;
+              height: calc(100% - 35px);
+              object-fit: contain;
+            "
+            src="../../images/logo/caspian-icon.png"
+            alt=""
+          />
+          <!-- <svg
               class="logo-abbr"
               width="40"
               height="40"
@@ -105,16 +115,16 @@
                 fill="white"
               />
             </svg> -->
-            <div
-              class="brand-title"
-              style="margin: 0; max-width: max-content; width: auto"
-            >
-              <img
-                style="width: 100%"
-                src="../../images/logo/elta_white-text.png"
-                alt=""
-              />
-              <!-- <svg
+          <div
+            class="brand-title"
+            style="margin: 0; max-width: max-content; width: auto"
+          >
+            <img
+              style="width: 100%"
+              src="../../images/logo/caspian-text.png"
+              alt=""
+            />
+            <!-- <svg
                 width="140"
                 height="30"
                 viewBox="0 0 167 30"
@@ -126,37 +136,36 @@
                   fill="white"
                 />
               </svg> -->
-            </div>
-          </a>
-  
-          <div class="nav-control">
-            <div class="hamburger">
-              <span class="line"></span><span class="line"></span
-              ><span class="line"></span>
-              <svg
-                width="26"
-                height="26"
-                viewBox="0 0 26 26"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect x="22" y="11" width="4" height="4" rx="2" fill="#2A353A" />
-                <rect x="11" width="4" height="4" rx="2" fill="#2A353A" />
-                <rect x="22" width="4" height="4" rx="2" fill="#2A353A" />
-                <rect x="11" y="11" width="4" height="4" rx="2" fill="#2A353A" />
-                <rect x="11" y="22" width="4" height="4" rx="2" fill="#2A353A" />
-                <rect width="4" height="4" rx="2" fill="#2A353A" />
-                <rect y="11" width="4" height="4" rx="2" fill="#2A353A" />
-                <rect x="22" y="22" width="4" height="4" rx="2" fill="#2A353A" />
-                <rect y="22" width="4" height="4" rx="2" fill="#2A353A" />
-              </svg>
-            </div>
+          </div>
+        </a>
+
+        <div class="nav-control">
+          <div class="hamburger">
+            <span class="line"></span><span class="line"></span
+            ><span class="line"></span>
+            <svg
+              width="26"
+              height="26"
+              viewBox="0 0 26 26"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect x="22" y="11" width="4" height="4" rx="2" fill="#2A353A" />
+              <rect x="11" width="4" height="4" rx="2" fill="#2A353A" />
+              <rect x="22" width="4" height="4" rx="2" fill="#2A353A" />
+              <rect x="11" y="11" width="4" height="4" rx="2" fill="#2A353A" />
+              <rect x="11" y="22" width="4" height="4" rx="2" fill="#2A353A" />
+              <rect width="4" height="4" rx="2" fill="#2A353A" />
+              <rect y="11" width="4" height="4" rx="2" fill="#2A353A" />
+              <rect x="22" y="22" width="4" height="4" rx="2" fill="#2A353A" />
+              <rect y="22" width="4" height="4" rx="2" fill="#2A353A" />
+            </svg>
           </div>
         </div>
+      </div>
       <!--**********************************
             Nav header end
         ***********************************-->
-
       <!--**********************************
             Header start
         ***********************************-->
@@ -165,7 +174,7 @@
           <nav class="navbar navbar-expand">
             <div class="collapse navbar-collapse justify-content-between">
               <div class="header-left">
-                <div class="dashboard_bar">Tapşırıqların idarə edilməsi</div>
+                <div class="dashboard_bar">Yeni Sənəd Əlavəsi - CCG</div>
               </div>
               <ul class="navbar-nav header-right">
                 <li class="nav-item dropdown notification_dropdown all">
@@ -324,77 +333,6 @@
                     </div>
                   </div>
                 </li>
-                <li
-                  class="nav-item dropdown notification_dropdown search-area-header"
-                >
-                  <a
-                    class="nav-link"
-                    href="javascript:void(0);"
-                    role="button"
-                    data-bs-toggle="dropdown"
-                  >
-                    <svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 32 32"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M27.6 25.8L22 20.2C23.3 18.5 24.1 16.4 24.1 14.1C24.1 8.60001 19.6 4.10001 14.1 4.10001C8.6 4.10001 4 8.60001 4 14.1C4 19.6 8.5 24.1 14 24.1C16.3 24.1 18.5 23.3 20.2 21.9L25.8 27.5C26 27.7 26.4 27.9 26.7 27.9C27 27.9 27.3 27.8 27.6 27.5C28.1 27.1 28.1 26.3 27.6 25.8ZM6.5 14.1C6.5 10 9.9 6.60001 14 6.60001C18.1 6.60001 21.5 10 21.5 14.1C21.5 18.2 18.1 21.6 14 21.6C9.9 21.6 6.5 18.3 6.5 14.1Z"
-                        fill="#A098AE"
-                      />
-                    </svg>
-                  </a>
-                  <div class="dropdown-menu dropdown-menu-end p-0 rounded">
-                    <div class="card mb-0">
-                      <div class="card-body px-0">
-                        <div class="px-3">
-                          <div class="input-group search-area w-100">
-                            <input
-                              type="text"
-                              class="form-control"
-                              placeholder="Search here..."
-                            />
-                            <span class="input-group-text"
-                              ><a href="javascript:void(0)">
-                                <svg
-                                  width="15"
-                                  height="15"
-                                  viewBox="0 0 18 18"
-                                  fill="none"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path
-                                    d="M17.5605 15.4395L13.7527 11.6317C14.5395 10.446 15 9.02625 15 7.5C15 3.3645 11.6355 0 7.5 0C3.3645 0 0 3.3645 0 7.5C0 11.6355 3.3645 15 7.5 15C9.02625 15 10.446 14.5395 11.6317 13.7527L15.4395 17.5605C16.0245 18.1462 16.9755 18.1462 17.5605 17.5605C18.1462 16.9747 18.1462 16.0252 17.5605 15.4395V15.4395ZM2.25 7.5C2.25 4.605 4.605 2.25 7.5 2.25C10.395 2.25 12.75 4.605 12.75 7.5C12.75 10.395 10.395 12.75 7.5 12.75C4.605 12.75 2.25 10.395 2.25 7.5V7.5Z"
-                                    fill="#01A3FF"
-                                  ></path>
-                                </svg> </a
-                            ></span>
-                          </div>
-                          <h6 class="my-2 mt-3">Recently Searched:</h6>
-                        </div>
-                        <div class="dlab-scroll px-3 mt-3 height300">
-                          <ul class="d-flex align-items-center mb-3">
-                            <li>
-                              <img
-                                src="../../images/avatar/1.jpg"
-                                class="avatar avatar-sm"
-                                alt=""
-                              />
-                              <a href="javascript:void(0);" class="ms-2"
-                                >Benjamin</a
-                              >
-                            </li>
-                            <li class="ms-auto">
-                              <i class="fa-solid fa-trash"></i>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </li>
 
                 <li class="nav-item dropdown notification_dropdown">
                   <a
@@ -427,15 +365,11 @@
                         <line x1="1" y1="12" x2="3" y2="12"></line>
                         <line x1="21" y1="12" x2="23" y2="12"></line>
                         <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                        <line
-                          x1="18.36"
-                          y1="5.64"
-                          x2="19.78"
-                          y2="4.22"
-                        ></line></svg
-                    ></i>
-                    <i id="icon-dark-1"
-                      ><svg
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                      </svg>
+                    </i>
+                    <i id="icon-dark-1">
+                      <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
                         height="24"
@@ -449,8 +383,9 @@
                       >
                         <path
                           d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
-                        ></path></svg
-                    ></i>
+                        ></path>
+                      </svg>
+                    </i>
                   </a>
                 </li>
                 <li class="nav-item dropdown notification_dropdown">
@@ -493,6 +428,130 @@
                       ></path>
                     </svg>
                   </a>
+                </li>
+                <li
+                  class="nav-item bell-icon blink dropdown notification_dropdown"
+                >
+                  <a
+                    class="nav-link"
+                    href="javascript:void(0);"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                  >
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 32 32"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M25.3677 18.9391V9.86768C25.3677 4.70215 21.1655 0.5 16 0.5C10.8345 0.5 6.63232 4.70215 6.63232 9.86768V18.9397C4.96704 19.4224 3.73828 20.9544 3.73828 22.8374C3.73828 25.0386 5.5293 26.8296 7.73096 26.8296H11.377V26.877C11.377 29.4263 13.4507 31.5 16 31.5C18.5493 31.5 20.6231 29.4263 20.6231 26.8769V26.8296H24.2691C26.4707 26.8296 28.2617 25.0386 28.2617 22.7583C28.2617 20.9406 27.033 19.4198 25.3677 18.9391ZM9.63232 9.86768C9.63232 6.35645 12.4888 3.5 16 3.5C19.5112 3.5 22.3677 6.35645 22.3677 9.86768V18.7661H9.63232V9.86768ZM17.6231 26.8769C17.6231 27.772 16.895 28.5 16 28.5C15.105 28.5 14.377 27.772 14.377 26.8769V26.8296H17.623V26.8769H17.6231ZM24.269 23.8296H7.73096C7.1836 23.8296 6.73828 23.3843 6.73828 22.7583C6.73828 22.2114 7.18359 21.7661 7.73096 21.7661H24.2691C24.8164 21.7661 25.2617 22.2114 25.2617 22.8374C25.2617 23.3843 24.8164 23.8296 24.269 23.8296Z"
+                        fill="#A098AE"
+                      />
+                    </svg>
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-end of-visible">
+                    <div class="dropdown-header">
+                      <h4 class="title mb-0">Notification</h4>
+                      <a href="javascript:void(0);" class="d-none"
+                        ><i class="flaticon-381-settings-6"></i
+                      ></a>
+                    </div>
+                    <div
+                      id="DZ_W_Notification1"
+                      class="widget-media dlab-scroll p-3"
+                      style="height: 380px"
+                    >
+                      <ul class="timeline">
+                        <li>
+                          <div class="timeline-panel">
+                            <div class="media me-2">
+                              <img
+                                alt="image"
+                                width="50"
+                                src="../../images/avatar/1.jpg"
+                              />
+                            </div>
+                            <div class="media-body">
+                              <h6 class="mb-1">Dr sultads Send you Photo</h6>
+                              <small class="d-block"
+                                >29 July 2020 - 02:26 PM</small
+                              >
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="timeline-panel">
+                            <div class="media me-2 media-info">KG</div>
+                            <div class="media-body">
+                              <h6 class="mb-1">Resport created successfully</h6>
+                              <small class="d-block"
+                                >29 July 2020 - 02:26 PM</small
+                              >
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="timeline-panel">
+                            <div class="media me-2 media-success">
+                              <i class="fa fa-home"></i>
+                            </div>
+                            <div class="media-body">
+                              <h6 class="mb-1">Reminder : Treatment Time!</h6>
+                              <small class="d-block"
+                                >29 July 2020 - 02:26 PM</small
+                              >
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="timeline-panel">
+                            <div class="media me-2">
+                              <img
+                                alt="image"
+                                width="50"
+                                src="../../images/avatar/1.jpg"
+                              />
+                            </div>
+                            <div class="media-body">
+                              <h6 class="mb-1">Dr sultads Send you Photo</h6>
+                              <small class="d-block"
+                                >29 July 2020 - 02:26 PM</small
+                              >
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="timeline-panel">
+                            <div class="media me-2 media-danger">KG</div>
+                            <div class="media-body">
+                              <h6 class="mb-1">Resport created successfully</h6>
+                              <small class="d-block"
+                                >29 July 2020 - 02:26 PM</small
+                              >
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="timeline-panel">
+                            <div class="media me-2 media-primary">
+                              <i class="fa fa-home"></i>
+                            </div>
+                            <div class="media-body">
+                              <h6 class="mb-1">Reminder : Treatment Time!</h6>
+                              <small class="d-block"
+                                >29 July 2020 - 02:26 PM</small
+                              >
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                    <a class="all-notification" href="javascript:void(0);"
+                      >See all notifications <i class="ti-arrow-end"></i
+                    ></a>
+                  </div>
                 </li>
 
                 <li class="nav-item dropdown notification_dropdown">
@@ -673,7 +732,10 @@
                             </svg>
                             <span class="ms-2">Profile </span>
                           </a>
-                          <a href="chat.html" class="dropdown-item ai-icon">
+                          <a
+                            href="https://akademi.dexignlab.com/xhtml/chat.html"
+                            class="dropdown-item ai-icon"
+                          >
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -771,7 +833,7 @@
                         <div class="card-footer text-center p-3">
                           <a
                             id="logout"
-                            href="page-login.html"
+                            href="#"
                             class="dropdown-item ai-icon btn btn-primary light"
                           >
                             <svg
@@ -803,7 +865,6 @@
           </nav>
         </div>
       </div>
-
       <!--**********************************
             Header end ti-comment-alt
         ***********************************-->
@@ -813,7 +874,7 @@
         ***********************************-->
       <div class="dlabnav">
         <div class="dlabnav-scroll">
-          <ul class="metismenu" id="menu">
+          <ul class="metismenu mt-3" id="menu">
             <li>
               <a
                 class="has-arrow"
@@ -824,11 +885,13 @@
                 <span class="nav-text">Sənəd</span>
               </a>
               <ul aria-expanded="false">
-                <li><a href="../document/document-page.html">Sənədlər</a></li>
                 <li>
-                  <a href="../document/document-add.html">Sənəd Əlavə et</a>
+                  <a href="../ccg-document/document-page.html">Sənədlər</a>
                 </li>
-                <li><a href="../document/parametr.html">Parametrlər</a></li>
+                <li>
+                  <a href="../ccg-document/document-add.html">Sənəd Əlavə et</a>
+                </li>
+                <li><a href="../ccg-document/parametr.html">Parametrlər</a></li>
               </ul>
             </li>
             <li>
@@ -849,257 +912,6 @@
                 </li>
               </ul>
             </li>
-            <!-- <li>
-              <a
-                class="has-arrow"
-                href="javascript:void(0);"
-                aria-expanded="false"
-              >
-                <i class="material-symbols-outlined">school</i>
-                <span class="nav-text">Student</span>
-              </a>
-              <ul aria-expanded="false">
-                <li><a href="student.html">Student</a></li>
-                <li><a href="student-detail.html">Student Detail</a></li>
-                <li><a href="add-student.html">Add New Student</a></li>
-              </ul>
-            </li>
-            <li>
-              <a
-                class="has-arrow"
-                href="javascript:void(0);"
-                aria-expanded="false"
-              >
-                <i class="material-symbols-outlined">person</i>
-                <span class="nav-text">Teacher</span>
-              </a>
-              <ul aria-expanded="false">
-                <li><a href="teacher.html">Teacher</a></li>
-                <li><a href="teacher-detail.html">Teacher Detail</a></li>
-                <li><a href="add-teacher.html">Add New Teacher</a></li>
-              </ul>
-            </li>
-            <li>
-              <a
-                class="has-arrow"
-                href="javascript:void(0);"
-                aria-expanded="false"
-              >
-                <i class="material-symbols-outlined">restaurant_menu</i>
-                <span class="nav-text">Food</span>
-              </a>
-              <ul aria-expanded="false">
-                <li><a href="food.html">Food menu</a></li>
-                <li><a href="food-details.html">Food Detail</a></li>
-              </ul>
-            </li>
-            <li>
-              <a
-                class="has-arrow"
-                href="javascript:void(0);"
-                aria-expanded="false"
-              >
-                <i class="material-icons">folder</i>
-                <span class="nav-text">File Manager</span>
-              </a>
-              <ul aria-expanded="false">
-                <li><a href="file-manager.html">File Manager</a></li>
-                <li><a href="user.html">User</a></li>
-                <li><a href="celandar.html">Calendar</a></li>
-                <li><a href="chat.html">Chat</a></li>
-                <li><a href="activity.html">Activity</a></li>
-              </ul>
-            </li>
-            <li>
-              <a
-                class="has-arrow"
-                href="javascript:void(0);"
-                aria-expanded="false"
-              >
-                <i class="material-icons"> app_registration </i>
-                <span class="nav-text">Apps</span>
-              </a>
-              <ul aria-expanded="false">
-                <li><a href="app-profile.html">Profile</a></li>
-                <li><a href="edit-profile.html">Edit Profile</a></li>
-                <li><a href="post-details.html">Post Details</a></li>
-                <li>
-                  <a
-                    class="has-arrow"
-                    href="javascript:void(0);"
-                    aria-expanded="false"
-                    >Email</a
-                  >
-                  <ul aria-expanded="false">
-                    <li><a href="email-compose.html">Compose</a></li>
-                    <li><a href="email-inbox.html">Inbox</a></li>
-                    <li><a href="email-read.html">Read</a></li>
-                  </ul>
-                </li>
-                <li><a href="app-calender.html">Calendar</a></li>
-                <li>
-                  <a
-                    class="has-arrow"
-                    href="javascript:void(0);"
-                    aria-expanded="false"
-                    >Shop</a
-                  >
-                  <ul aria-expanded="false">
-                    <li><a href="ecom-product-grid.html">Product Grid</a></li>
-                    <li><a href="ecom-product-list.html">Product List</a></li>
-                    <li>
-                      <a href="ecom-product-detail.html">Product Details</a>
-                    </li>
-                    <li><a href="ecom-product-order.html">Order</a></li>
-                    <li><a href="ecom-checkout.html">Checkout</a></li>
-                    <li><a href="ecom-invoice.html">Invoice</a></li>
-                    <li><a href="ecom-customers.html">Customers</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <a
-                class="has-arrow"
-                href="javascript:void(0);"
-                aria-expanded="false"
-              >
-                <i class="material-icons"> assessment </i>
-                <span class="nav-text">Charts</span>
-              </a>
-              <ul aria-expanded="false">
-                <li><a href="chart-flot.html">Flot</a></li>
-                <li><a href="chart-morris.html">Morris</a></li>
-                <li><a href="chart-chartjs.html">Chartjs</a></li>
-                <li><a href="chart-chartist.html">Chartist</a></li>
-                <li><a href="chart-sparkline.html">Sparkline</a></li>
-                <li><a href="chart-peity.html">Peity</a></li>
-              </ul>
-            </li>
-            <li>
-              <a
-                class="has-arrow"
-                href="javascript:void(0);"
-                aria-expanded="false"
-              >
-                <i class="material-icons"> favorite </i>
-                <span class="nav-text">Bootstrap</span>
-              </a>
-              <ul aria-expanded="false">
-                <li><a href="ui-accordion.html">Accordion</a></li>
-                <li><a href="ui-alert.html">Alert</a></li>
-                <li><a href="ui-badge.html">Badge</a></li>
-                <li><a href="ui-button.html">Button</a></li>
-                <li><a href="ui-modal.html">Modal</a></li>
-                <li><a href="ui-button-group.html">Button Group</a></li>
-                <li><a href="ui-list-group.html">List Group</a></li>
-                <li><a href="ui-card.html">Cards</a></li>
-                <li><a href="ui-carousel.html">Carousel</a></li>
-                <li><a href="ui-dropdown.html">Dropdown</a></li>
-                <li><a href="ui-popover.html">Popover</a></li>
-                <li><a href="ui-progressbar.html">Progressbar</a></li>
-                <li><a href="ui-tab.html">Tab</a></li>
-                <li><a href="ui-typography.html">Typography</a></li>
-                <li><a href="ui-pagination.html">Pagination</a></li>
-                <li><a href="ui-grid.html">Grid</a></li>
-              </ul>
-            </li>
-            <li>
-              <a
-                class="has-arrow"
-                href="javascript:void(0);"
-                aria-expanded="false"
-              >
-                <i class="material-icons"> extension </i>
-                <span class="nav-text">Plugins</span>
-              </a>
-              <ul aria-expanded="false">
-                <li><a href="uc-select2.html">Select 2</a></li>
-                <li><a href="uc-nestable.html">Nestedable</a></li>
-                <li><a href="uc-noui-slider.html">Noui Slider</a></li>
-                <li><a href="uc-sweetalert.html">Sweet Alert</a></li>
-                <li><a href="uc-toastr.html">Toastr</a></li>
-                <li><a href="map-jqvmap.html">Jqv Map</a></li>
-                <li><a href="uc-lightgallery.html">Light Gallery</a></li>
-              </ul>
-            </li>
-            <li>
-              <a
-                class="has-arrow"
-                href="javascript:void(0);"
-                aria-expanded="false"
-              >
-                <i class="material-icons"> widgets </i>
-                <span class="nav-text">Widget</span>
-              </a>
-              <ul aria-expanded="false">
-                <li><a href="widget-chart.html">Chart</a></li>
-                <li><a href="widget-card.html">Card</a></li>
-                <li><a href="widget-list.html">List</a></li>
-              </ul>
-            </li>
-            <li>
-              <a
-                class="has-arrow"
-                href="javascript:void(0);"
-                aria-expanded="false"
-              >
-                <i class="material-icons"> insert_drive_file </i>
-                <span class="nav-text">Forms</span>
-              </a>
-              <ul aria-expanded="false">
-                <li><a href="form-element.html">Form Elements</a></li>
-                <li><a href="form-wizard.html">Wizard</a></li>
-                <li><a href="form-ckeditor.html">CkEditor</a></li>
-                <li><a href="form-pickers.html">Pickers</a></li>
-                <li><a href="form-validation.html">Form Validate</a></li>
-              </ul>
-            </li>
-            <li>
-              <a
-                class="has-arrow"
-                href="javascript:void(0);"
-                aria-expanded="false"
-              >
-                <i class="material-icons"> table_chart </i>
-                <span class="nav-text">Table</span>
-              </a>
-              <ul aria-expanded="false">
-                <li><a href="table-bootstrap-basic.html">Bootstrap</a></li>
-                <li><a href="table-datatable-basic.html">Datatable</a></li>
-              </ul>
-            </li>
-            <li>
-              <a
-                class="has-arrow"
-                href="javascript:void(0);"
-                aria-expanded="false"
-              >
-                <i class="material-icons">article</i>
-                <span class="nav-text">Pages</span>
-              </a>
-              <ul aria-expanded="false">
-                <li><a href="page-login.html">Login</a></li>
-                <li><a href="page-register.html">Register</a></li>
-                <li>
-                  <a
-                    class="has-arrow"
-                    href="javascript:void(0);"
-                    aria-expanded="false"
-                    >Error</a
-                  >
-                  <ul aria-expanded="false">
-                    <li><a href="page-error-400.html">Error 400</a></li>
-                    <li><a href="page-error-403.html">Error 403</a></li>
-                    <li><a href="page-error-404.html">Error 404</a></li>
-                    <li><a href="page-error-500.html">Error 500</a></li>
-                    <li><a href="page-error-503.html">Error 503</a></li>
-                  </ul>
-                </li>
-                <li><a href="page-lock-screen.html">Lock Screen</a></li>
-                <li><a href="empty-page.html">Empty Page</a></li>
-              </ul>
-            </li> -->
           </ul>
           <div class="copyright">
             <p style="text-align: center"><strong>Control System</strong></p>
@@ -1120,52 +932,347 @@
             Content body start
         ***********************************-->
       <div class="content-body">
-        <!-- container starts -->
         <div class="container-fluid">
-          <!-- row -->
-          <div class="element-area">
-            <div class="demo-view" style="width: 100%">
-              <div id="status_show"></div>
-              <div
-                class="container-fluid pt-0 ps-0 pe-lg-4 pe-0"
-                style="padding-right: 0px !important"
-                id="tables_container"
-              >
-                <button class="btn btn-primary">Yeni Tender Əlavə et</button>
-                <div class="col-xl-12 card mt-3" id="default_table_head">
-                  <div
-                    class="card-header flex-wrap d-flex justify-content-between px-3"
-                  >
-                    <h4 class="card-title" style="width: 100%">
-                      Tender adı ...
-                    </h4>
+          <form class="row" id="document-form">
+            <div class="col-xl-12">
+              <div class="card">
+                <div class="card-header">
+                  <h5 class="mb-0">Sənəd detalları</h5>
+                  <div class="">
+                    <label
+                      class="form-label text-primary"
+                      for="flexCheckDefault"
+                      style="display: none"
+                      >Əsas sənəd<span class="required">*</span></label
+                    >
+                    <div class="d-flex align-items-center">
+                      <div class="form-check">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          value=""
+                          id="flexCheckDefault"
+                        />
+                        <label
+                          class="form-check-label font-w500"
+                          for="flexCheckDefault"
+                        >
+                          Əsas sənəd
+                        </label>
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <!-- Tasks show -->
+                <div action="" class="card-body">
+                  <div class="row">
+                    <div class="col-xl-12 col-lg-12">
+                      <div class="row">
+                        <div class="col-xl-6 col-sm-6">
+                          <div class="mb-3">
+                            <label for="sira" class="form-label text-primary"
+                              >Sıra<span class="required">*</span></label
+                            >
+                            <input
+                              type="number"
+                              class="form-control"
+                              id="sira"
+                              name="sira"
+                              disabled
+                              required
+                            />
+                          </div>
+                          <div class="mb-3">
+                            <label
+                              for="sened-novu"
+                              class="form-label text-primary"
+                              >Sənəd Növü:<span class="required">*</span></label
+                            >
+                            <select
+                              class="selectpicke w-100"
+                              id="sened-novu"
+                              name="sened-novu"
+                              required
+                            >
+                              <!-- <option value="">Seçin</option>
+                              <option value="Müqavilə">Müqavilə</option>
+                              <option value="Faktura">Faktura</option>
+                              <option value="Sertifikat">Sertifikat</option>
+                              <option value="Hesabat">Hesabat</option> -->
+                            </select>
+                          </div>
+                          <div class="mb-3">
+                            <label
+                              for="business-prosess"
+                              class="form-label text-primary"
+                              >Biznes prosesi:<span class="required"
+                                >*</span
+                              ></label
+                            >
+                            <select
+                              class="selectpicke w-100"
+                              id="business-prosess"
+                              name="business-prosess"
+                              required
+                            >
+                              <!-- <option value="">Seçin</option>
+                              <option value="Müqavilə">Müqavilə</option>
+                              <option value="Faktura">Faktura</option>
+                              <option value="Sertifikat">Sertifikat</option>
+                              <option value="Hesabat">Hesabat</option> -->
+                            </select>
+                          </div>
+                          <div class="mb-3">
+                            <label
+                              for="sened-nomresi"
+                              class="form-label text-primary"
+                              >Sənədin Nömrəsi:<span class="required"
+                                >*</span
+                              ></label
+                            >
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="sened-nomresi"
+                              name="sened-nomresi"
+                              required
+                            />
+                          </div>
+                          <div class="mb-3">
+                            <label
+                              class="form-label text-primary"
+                              for="datepicker"
+                              >Müqavilənin tarixi<span class="required"
+                                >*</span
+                              ></label
+                            >
+                            <div class="d-flex">
+                              <input
+                                type="text"
+                                class="form-control"
+                                placeholder="01/01/2024"
+                                id="datepicker"
+                                required
+                              />
+                            </div>
+                          </div>
+                          <div class="mb-3">
+                            <label for="movzu" class="form-label text-primary"
+                              >Mövzu:<span class="required">*</span></label
+                            >
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="movzu"
+                              name="movzu"
+                              required
+                            />
+                          </div>
+                          <div class="mb-3">
+                            <label for="kimde" class="form-label text-primary"
+                              >Kimdə:<span class="required">*</span></label
+                            >
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="kimde"
+                              name="kimde"
+                            />
+                          </div>
+                        </div>
+                        <div class="col-xl-6 col-sm-6">
+                          <div class="mb-3">
+                            <label for="layihe" class="form-label text-primary"
+                              >Layihə:<span class="required">*</span></label
+                            >
+                            <select
+                              class="selectpicke w-100"
+                              id="layihe"
+                              name="layihe"
+                              required
+                            >
+                              <!-- <option value="">Seçin</option>
+                            <option value="Müqavilə">Müqavilə</option>
+                            <option value="Faktura">Faktura</option>
+                            <option value="Sertifikat">Sertifikat</option>
+                            <option value="Hesabat">Hesabat</option> -->
+                            </select>
+                            <!-- <input
+                              type="text"
+                              class="form-control"
+                              id="layihe"
+                              name="layihe"
+                              required
+                            />
+                            
+                            <ul
+                              id="suggestions"
+                              style="width: 100%;"
+                              class="suggestions dropdown-menu inner"
+                              role="presentation"
+                            ></ul> -->
+                          </div>
+                          <div class="mb-3">
+                            <label for="qovluq" class="form-label text-primary">
+                              Qovluq:
+                              <span class="required">*</span>
+                            </label>
+                            <select
+                              class="selectpicke w-100"
+                              id="qovluq"
+                              name="qovluq"
+                              required
+                            >
+                              <option value="">Seçin</option>
+                              <option value="01">01</option>
+                              <option value="02">02</option>
+                              <option value="03">03</option>
+                              <option value="04">04</option>
+                              <option value="05">05</option>
+                              <option value="06">06</option>
+                              <option value="07">07</option>
+                              <option value="08">08</option>
+                              <option value="09">09</option>
+                              <option value="10">10</option>
+                              <option value="11">11</option>
+                              <option value="12">12</option>
+                              <option value="13">13</option>
+                              <option value="14">14</option>
+                              <option value="15">15</option>
+                              <option value="16">16</option>
+                              <option value="17">17</option>
+                              <option value="18">18</option>
+                              <option value="19">19</option>
+                              <option value="20">20</option>
+                              <option value="21">21</option>
+                              <option value="22">22</option>
+                              <option value="23">23</option>
+                              <option value="24">24</option>
+                              <option value="25">25</option>
+                              <option value="26">26</option>
+                              <option value="27">27</option>
+                              <option value="28">28</option>
+                              <option value="29">29</option>
+                              <option value="30">30</option>
+                            </select>
+                          </div>
+                          <div class="mb-3">
+                            <label
+                              for="sened-sira-nomresi"
+                              class="form-label text-primary"
+                              >Sənədin Sıra Nömrəsi:<span class="required"
+                                >*</span
+                              ></label
+                            >
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="sened-sira-nomresi"
+                              name="sened-sira-nomresi"
+                              required
+                            />
+                          </div>
+                          <div class="mb-3">
+                            <label for="qeyd" class="form-label text-primary"
+                              >Qeyd:<span class="required">*</span></label
+                            >
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="qeyd"
+                              name="qeyd"
+                              required
+                            />
+                          </div>
+                          <div class="mb-3">
+                            <label
+                              for="reletedDoc"
+                              class="form-label text-primary"
+                              >Əlaqəli sənədin nömrəsi:</label
+                            >
+                            <select
+                              class="selectpicke w-100"
+                              id="reletedDoc"
+                              name="reletedDoc"
+                            ></select>
+                          </div>
+                          <div class="mb-3">
+                            <label
+                              for="tag-input"
+                              class="form-label text-primary"
+                              >Tag əlavə edin:<span class="required"
+                                >*</span
+                              ></label
+                            >
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="tag-input"
+                              name="tag-input"
+                              placeholder="Tag əlavə edin"
+                            />
+                            <div id="tag-container"></div>
+                            <!-- <button
+                              type="button"
+                              id="add-tag-btn"
+                              class="btn btn-primary mt-3"
+                            >
+                              Tag Əlavə Et
+                            </button> -->
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
+            <div class="col-xl-12">
+              <div class="card">
+                <div class="card-header">
+                  <h5 class="mb-0">Tərəflər Siyahısı</h5>
+                </div>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-xl-12 col-sm-12">
+                      <div class="mb-3">
+                        <label for="terefler" class="form-label text-primary"
+                          >Tərəflər<span class="required">*</span></label
+                        >
+                        <!-- <input
+                          type="text"
+                          class="form-control"
+                          id="terefler"
+                          placeholder="ND Company"
+                        /> -->
+                        <div id="rolesContainer" class="row">
+                          <!-- Dynamic role inputs will be appended here -->
+                        </div>
+                        <button
+                          class="btn btn-primary"
+                          type="button"
+                          id="addRoleButton"
+                        >
+                          +
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="">
+                    <button class="btn btn-outline-primary me-3">
+                      Save as Draft
+                    </button>
+                    <button class="btn btn-primary" type="submit">Save</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
         </div>
       </div>
 
       <!--**********************************
             Content body end
         ***********************************-->
-
-      <!--**********************************
-			Footer start
-		***********************************-->
-      <div class="footer out-footer style-1">
-        <div class="copyright">
-          <p>
-            Copyright © Designed &amp; Developed by
-            <a href="https://dexignlab.com/" target="_blank">DexignLab</a> 2023
-          </p>
-        </div>
-      </div>
-      <!--**********************************
-			Footer end
-		***********************************-->
     </div>
     <!--**********************************
         Main wrapper end
@@ -1174,22 +1281,30 @@
     <!--**********************************
         Scripts
     ***********************************-->
+    <script type="module" src="../../js/ccg/add.js"></script>
+    <script type="module" src="../../js/auth/checker.js"></script>
     <!-- Required vendors -->
     <script src="../../vendor/global/global.min.js"></script>
-    <script src="../../vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
     <script src="../../vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
-    <script src="../../vendor/select2/js/select2.full.min.js"></script>
-    <script src="../../js/libraries/select2-init.js"></script>
+    <script src="../../vendor/moment/moment.min.js"></script>
+
+    <script src="../../vendor/bootstrap-datepicker-master/js/bootstrap-datepicker.min.js"></script>
+    <script src="../../vendor/wow-master/dist/wow.min.js"></script>
     <script src="../../js/libraries/custom.min.js"></script>
     <script src="../../js/libraries/dlabnav-init.js"></script>
     <script src="../../js/libraries/demo.js"></script>
     <script src="../../js/libraries/styleSwitcher.js"></script>
-    <!-- code-highlight -->
-    <script src="../../js/libraries/highlight.min.js"></script>
-    <script type="module" src="../../js/auth/checker.js"></script>
     <script type="module" src="../../js/auth/logOut.js"></script>
-
-    <script type="module" src="../../js/task/index-new.js"></script>
+    <script>
+      $(function () {
+        $("#datepicker")
+          .datepicker({
+            autoclose: true,
+            todayHighlight: true,
+          })
+          .datepicker("update", new Date());
+      });
+    </script>
   </body>
 </html>
-<!-- 5812 -->
+<!-- 2594 -->

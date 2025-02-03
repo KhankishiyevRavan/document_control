@@ -28,9 +28,11 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-database.js";
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
-const dataRef = ref(database, "/documents");
+const dataRef = ref(database, "/elta/documents");
+const dataRefParams = ref(database, "/parametrs");
+
 // const documentsRef = database().ref('/documents/data/');
-const documentsRef = ref(database, "/documents/data");
+const documentsRef = ref(database, "/elta/documents/data");
 
 let siraCount = null;
 
@@ -57,7 +59,7 @@ const reletedDocSelect = document.querySelector("#reletedDoc");
 
 const typeSelect = document.querySelector("#sened-novu");
 const businessSelect = document.querySelector("#business-prosess");
-const projectListSelect = document.querySelector("#layihe")
+const projectListSelect = document.querySelector("#layihe");
 
 tagInput.addEventListener("keypress", function (e) {
   if (e.key === "Enter") {
@@ -262,7 +264,7 @@ const pushDocuments = async (newDocument) => {
   var objKey = push(dataRef).key;
   console.log(newDocument);
 
-  set(ref(database, "/documents/data/" + objKey), {
+  set(ref(database, "/elta/documents/data/" + objKey), {
     ...newDocument,
   })
     .then(() => {
@@ -280,8 +282,9 @@ const getDocuments = async () => {
       if (snapshot.exists()) {
         const res = snapshot.val();
         data = res.data;
-        senedNovuList = res.parametrs.senedNovu;
-        businessProcesses = res.parametrs.businessProcess;
+        getParametrs();
+        // senedNovuList = res.parametrs.senedNovu;
+        // businessProcesses = res.parametrs.businessProcess;
         projectList = res.parametrs.projectList;
         for (let dataId in data) {
           // console.log(data[dataId]);
@@ -299,8 +302,8 @@ const getDocuments = async () => {
         }
 
         mainDocumentOption();
-        senedNovuFilterOption();
-        businessProcessesOption();
+        // senedNovuFilterOption();
+        // businessProcessesOption();
         projectListOption();
         // projectDataListShow();
 
@@ -501,3 +504,29 @@ onValue(documentsRef, (snapshot) => {
   siraCount = length + 1;
   siraInput.value = siraCount;
 });
+const getParametrs = async () => {
+  get(dataRefParams)
+    .then((snapshot) => {
+      if (snapshot.exists()) {
+        const res = snapshot.val();
+        console.log(res);
+
+        senedNovuList = res.senedNovu;
+        businessProcesses = res.businessProcess;
+        // projectList = res.parametrs.projectList;
+        // console.log(senedNovuList);
+
+        // const nestedObjects = Object.values(data);
+        // const lastObject = nestedObjects[nestedObjects.length - 1];
+        // siraCount = Number(lastObject.siraCount) + 1;
+        // window.localStorage.setItem("siraCount", siraCount);
+        senedNovuFilterOption();
+        businessProcessesOption();
+      } else {
+        console.log("No data available");
+      }
+    })
+    .catch((error) => {
+      console.error("Error reading data: ", error);
+    });
+};

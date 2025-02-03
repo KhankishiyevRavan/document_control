@@ -36,7 +36,7 @@ import {
 
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
-const dataRef = ref(database, "/elta/documents/data/" + documentId);
+const dataRef = ref(database, "/ccg/documents/data/" + documentId);
 const dataRefParams = ref(database, "/parametrs");
 
 let data = [];
@@ -306,7 +306,7 @@ getDocument();
 const putDocuments = async (id, updatedDocument) => {
   // console.log(id);
 
-  update(ref(database, "/elta/documents/data/" + id), updatedDocument)
+  update(ref(database, "/ccg/documents/data/" + id), updatedDocument)
     .then(() => {
       // if (snapshot.exists()) {
       //   const res = snapshot.val();
@@ -316,7 +316,7 @@ const putDocuments = async (id, updatedDocument) => {
       alert(" successfully updated!");
       // data[editingIndex] =
       editingIndex = null;
-      window.location.pathname = "/assets/pages/document/document-page.html";
+      window.location.pathname = "/assets/pages/ccg-document/document-page.html";
     })
     .catch((error) => {
       console.error("Error updating data: ", error);
@@ -360,7 +360,7 @@ const editDataShow = () => {
   // $(document.getElementById("sened-novu")).selectpicker("refresh");
   $(document.getElementById("qovluq")).selectpicker("refresh");
 };
-const dataRefS = ref(database, "/elta/documents");
+const dataRefS = ref(database, "/ccg/documents");
 const getDocuments = async () => {
   get(dataRefS)
     .then((snapshot) => {

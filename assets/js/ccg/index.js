@@ -22,7 +22,7 @@ import {
 
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
-const dataRef = ref(database, "/elta/documents");
+const dataRef = ref(database, "/ccg/documents");
 const dataRefParams = ref(database, "/parametrs");
 let siraCount = 1;
 const form = document.getElementById("document-form");
@@ -140,7 +140,7 @@ const cedveliGoster = (d = showData, p = 10, c = 1) => {
     const editBtn = newRow.querySelector(".edit-btn");
     editBtn.addEventListener("click", function () {
       window.location.href =
-        "/assets/pages/document/document-edit.html?id=" + dataValue.id;
+        "/assets/pages/ccg-document/document-edit.html?id=" + dataValue.id;
     });
   }
 };

@@ -1,11 +1,3 @@
-const queryString = window.location.search;
-
-// URLSearchParams ile parametreleri ayıkla
-const urlParams = new URLSearchParams(queryString);
-
-// 'id' parametresini al
-const documentId = urlParams.get("id");
-
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js";
 // import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-analytics.js";
@@ -32,27 +24,28 @@ import {
   set,
   push,
   update,
+  onValue,
 } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-database.js";
-
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
-const dataRef = ref(database, "/elta/documents/data/" + documentId);
+const dataRef = ref(database, "/ccg/documents");
 const dataRefParams = ref(database, "/parametrs");
 
-let data = [];
-let datas = [];
-let senedNovuList = [];
-let businessProcesses = [];
-let mainDocumentList = [];
-let projectList = [];
-let terefList = [];
+// const documentsRef = database().ref('/documents/data/');
+const documentsRef = ref(database, "/ccg/documents/data");
+
 let siraCount = null;
 
+let data = [];
+
+let senedNovuList = [];
+let businessProcesses = [];
+let projectList = [];
+let terefList = [];
+
+let mainDocumentList = [];
 const form = document.getElementById("document-form");
 const siraInput = document.querySelector("#sira");
-const reletedDocSelect = document.querySelector("#reletedDoc");
-
-const docNameDetails = document.querySelector("#doc-name-details");
 
 let tagsArray = [];
 
@@ -62,9 +55,10 @@ const tagContainer = document.getElementById("tag-container");
 
 const mainDocumentCheckbox = document.querySelector("#flexCheckDefault");
 
+const reletedDocSelect = document.querySelector("#reletedDoc");
+
 const typeSelect = document.querySelector("#sened-novu");
 const businessSelect = document.querySelector("#business-prosess");
-
 const projectListSelect = document.querySelector("#layihe");
 
 tagInput.addEventListener("keypress", function (e) {
@@ -108,7 +102,7 @@ function displayTags() {
     tagContainer.appendChild(tagElement);
   });
 }
-let editingIndex = null;
+
 siraInput.value = siraCount;
 
 let rolesArray = [];
@@ -147,7 +141,6 @@ function addRoleInput(roleName = "", role = "") {
     }
     roleNameSelect.appendChild(option);
   });
-
   const roleInputDiv = document.createElement("div");
   roleInputDiv.style.width = "-webkit-fill-available";
   const roleInput = document.createElement("input");
@@ -176,6 +169,7 @@ function addRoleInput(roleName = "", role = "") {
 document.getElementById("addRoleButton").addEventListener("click", function () {
   addRoleInput();
 });
+
 form.addEventListener("submit", function (event) {
   event.preventDefault();
 
@@ -201,26 +195,26 @@ form.addEventListener("submit", function (event) {
   rolesArray = [];
   const roleInputs = document.querySelectorAll(".role-input");
   roleInputs.forEach((roleDiv) => {
-    // console.log(roleDiv);
+    console.log(roleDiv);
 
     const roleName = roleDiv.querySelector("select.roleName").value;
     const role = roleDiv.querySelector(".role").value;
-    // console.log(roleName, role);
+    console.log(roleName, role);
 
     if (roleName && role) {
       rolesArray.push({ roleName, role });
     }
   });
 
-  // console.log(data);
+  console.log(data);
 
-  // console.log(Object.keys(data));
+  console.log(Object.keys(data));
 
   const existingSenedNomresiIndex = Object.keys(data).find(
     (key) => data[key].senedNomresi === senedNomresi
   );
 
-  // console.log(existingSenedNomresiIndex);
+  console.log(existingSenedNomresiIndex);
 
   if (existingSenedNomresiIndex) {
     alert(
@@ -232,10 +226,10 @@ form.addEventListener("submit", function (event) {
     return;
   }
 
-  // console.log(existingSenedNomresiIndex);
-  // console.log(rolesArray);
+  console.log(existingSenedNomresiIndex);
+  console.log(rolesArray);
 
-  data[editingIndex] = {
+  let newDocument = {
     siraCount: sira,
     senedNovu: senedNovu,
     businessProcess: businessProcess,
@@ -252,12 +246,9 @@ form.addEventListener("submit", function (event) {
     qeyd: qeyd,
     mainDocument: mainDocument,
   };
-  let updatedDocument = data[editingIndex];
-  // console.log(updatedDocument);
 
-  putDocuments(editingIndex, updatedDocument);
-
-  editingIndex = null;
+  pushDocuments(newDocument);
+  data = { ...data, newDocument };
   const siraCount =
     Object.keys(data).length > 0
       ? Math.max(...Object.values(data).map((d) => d.siraCount)) + 1
@@ -268,128 +259,60 @@ form.addEventListener("submit", function (event) {
   const rolesContainer = document.getElementById("rolesContainer");
   rolesContainer.innerHTML = "";
 });
-const getDocument = async () => {
+
+const pushDocuments = async (newDocument) => {
+  var objKey = push(dataRef).key;
+  console.log(newDocument);
+
+  set(ref(database, "/ccg/documents/data/" + objKey), {
+    ...newDocument,
+  })
+    .then(() => {
+      console.log(newDocument);
+      alert("Data successfully written!");
+      window.location.pathname = "/assets/pages/ccg-document/document-page.html";
+    })
+    .catch((error) => {
+      alert("Error writing data: ", error);
+    });
+};
+const getDocuments = async () => {
   get(dataRef)
     .then((snapshot) => {
       if (snapshot.exists()) {
         const res = snapshot.val();
-        // console.log(res);
-
-        // console.log(res);
-
-        data = res;
-        // for (let resId in data) {
-        //   console.log(data[resId].mainDocument);
-
-        //   if (data[resId].mainDocument) {
-        //     mainDocumentList.push(data[resId].senedNomresi);
-        //   }
-        // }
-        // console.log(mainDocumentList);
-
-        mainDocumentOption();
-        senedNovuFilterOption();
-        projectListOption();
-        businessProcessesOption();
-        editDataShow();
-        docNameDetails.textContent =
-          data.senedNomresi + " nömrəli sənədin detalları";
-      } else {
-        console.log("No data available");
-      }
-    })
-    .catch((error) => {
-      console.error("Error reading data: ", error);
-    });
-};
-getDocument();
-const putDocuments = async (id, updatedDocument) => {
-  // console.log(id);
-
-  update(ref(database, "/elta/documents/data/" + id), updatedDocument)
-    .then(() => {
-      // if (snapshot.exists()) {
-      //   const res = snapshot.val();
-      // }
-      // console.log(res);
-
-      alert(" successfully updated!");
-      // data[editingIndex] =
-      editingIndex = null;
-      window.location.pathname = "/assets/pages/document/document-page.html";
-    })
-    .catch((error) => {
-      console.error("Error updating data: ", error);
-      alert("Error updating data: ", error);
-      return;
-    });
-};
-const editDataShow = () => {
-  document.getElementById("sened-novu").value = data.senedNovu;
-  document.getElementById("business-prosess").value = data.businessProcess;
-
-  document.getElementById("reletedDoc").value = data.elaqeliSened;
-  // console.log(data.elaqeliSened);
-  // console.log(document.getElementById("reletedDoc").value);
-
-  document.getElementById("sened-nomresi").value = data.senedNomresi;
-  document.getElementById("movzu").value = data.movzu;
-  document.getElementById("datepicker").value = data.tarix;
-  document.getElementById("layihe").value = data.layihe;
-  document.getElementById("qovluq").value = data.qovluq;
-  document.getElementById("sened-sira-nomresi").value = data.senedSiraNomresi;
-  // document.getElementById("sened-tag").value = data.senedTag;
-  document.getElementById("kimde").value = data.kimde;
-  document.getElementById("qeyd").value = data.qeyd;
-  mainDocumentCheckbox.checked = data.mainDocument;
-  const rolesContainer = document.getElementById("rolesContainer");
-  ////////////////////
-  rolesContainer.innerHTML = "";
-  rolesArray = data.terefler;
-  rolesArray?.forEach((role) => {
-    addRoleInput(role.roleName, role.role);
-  });
-  ////////////////////
-  tagContainer.innerHTML = "";
-  tagsArray = data.tagsArray ? data.tagsArray : [];
-
-  displayTags();
-
-  siraInput.value = data.siraCount;
-  editingIndex = documentId;
-  // $(document.getElementById("sened-novu")).selectpicker("refresh");
-  $(document.getElementById("qovluq")).selectpicker("refresh");
-};
-const dataRefS = ref(database, "/elta/documents");
-const getDocuments = async () => {
-  get(dataRefS)
-    .then((snapshot) => {
-      if (snapshot.exists()) {
-        const res = snapshot.val();
-        datas = res.data;
+        data = res.data;
         getParametrs();
         // senedNovuList = res.parametrs.senedNovu;
         // businessProcesses = res.parametrs.businessProcess;
         projectList = res.parametrs.projectList;
-        // console.log(datas);
+        for (let dataId in data) {
+          // console.log(data[dataId]);
 
-        for (let resId in datas) {
-          let terefler = datas[resId].terefler;
+          let terefler = data[dataId].terefler;
           terefler?.map((teref) => {
             if (!terefList.includes(teref.role)) {
               terefList.push(teref.role);
             }
           });
-          if (datas[resId].mainDocument) {
-            mainDocumentList.push(datas[resId].senedNomresi);
+
+          if (data[dataId].mainDocument) {
+            mainDocumentList.push(data[dataId].senedNomresi);
           }
         }
+
         mainDocumentOption();
         // senedNovuFilterOption();
-        projectListOption();
         // businessProcessesOption();
+        projectListOption();
         // projectDataListShow();
-        // console.log(mainDocumentList);
+
+        const nestedObjects = Object.values(data);
+
+        // Sonuncu obyekti tap
+        const lastObject = nestedObjects[nestedObjects.length - 1];
+        siraCount = Number(lastObject.siraCount) + 1;
+        siraInput.value = siraCount;
       } else {
         console.log("No data available");
       }
@@ -399,9 +322,8 @@ const getDocuments = async () => {
     });
 };
 getDocuments();
-const mainDocumentOption = () => {
-  // console.log(mainDocumentList);
 
+const mainDocumentOption = () => {
   reletedDocSelect.innerHTML = "";
   const optionDefault = document.createElement("option");
   optionDefault.value = "";
@@ -414,20 +336,15 @@ const mainDocumentOption = () => {
     option.textContent = project;
     reletedDocSelect.append(option);
   });
-  // console.log(data);
 
-  document.getElementById("reletedDoc").value = data.elaqeliSened;
-  $(reletedDocSelect).selectpicker("refresh"); // Refresh to display the options
+  $(reletedDocSelect).selectpicker("refresh");
 };
-
 const senedNovuFilterOption = () => {
-  typeSelect.innerHTML = ""; // Clear existing options
+  typeSelect.innerHTML = "";
   const optionDefault = document.createElement("option");
   optionDefault.value = "";
   optionDefault.textContent = "Hamısını Göstər";
   typeSelect.append(optionDefault);
-
-  // console.log(senedNovuList);
 
   for (const sId in senedNovuList) {
     let role = senedNovuList[sId];
@@ -437,15 +354,10 @@ const senedNovuFilterOption = () => {
     typeSelect.append(option);
   }
 
-  document.getElementById("sened-novu").value = data.senedNovu;
-
   $(typeSelect).selectpicker("refresh");
 };
 const businessProcessesOption = () => {
-  // console.log(businessSelect);
-  // console.log(businessProcesses);
-
-  businessSelect.innerHTML = ""; // Clear existing options
+  businessSelect.innerHTML = "";
   const optionDefault = document.createElement("option");
   optionDefault.value = "";
   optionDefault.textContent = "Hamısını Göstər";
@@ -459,11 +371,27 @@ const businessProcessesOption = () => {
     businessSelect.append(option);
   }
 
-  document.getElementById("business-prosess").value = data.businessProcess;
-
   $(businessSelect).selectpicker("refresh");
 };
+const projectListOption = () => {
+  projectListSelect.innerHTML = "";
+  const optionDefault = document.createElement("option");
+  optionDefault.value = "";
+  optionDefault.textContent = "Hamısını Göstər";
+  projectListSelect.append(optionDefault);
+
+  for (const bId in projectList) {
+    let role = projectList[bId];
+    const option = document.createElement("option");
+    option.value = role.id;
+    option.textContent = role.name;
+    projectListSelect.append(option);
+  }
+
+  $(projectListSelect).selectpicker("refresh");
+};
 const suggestionsList = document.getElementById("suggestions");
+
 const createSuggestionItem = (item, input) => {
   const li = document.createElement("li");
   if (item.name) {
@@ -487,6 +415,7 @@ const createSuggestionItem = (item, input) => {
   }
   return li;
 };
+
 const input = document.getElementById("layihe");
 
 const showResults = (data, suggestionsList, input) => {
@@ -498,24 +427,6 @@ const showResults = (data, suggestionsList, input) => {
     suggestionsList.appendChild(li);
   });
   suggestionsList.style.display = data.length > 0 ? "block" : "none";
-};
-const projectListOption = () => {
-  projectListSelect.innerHTML = "";
-  const optionDefault = document.createElement("option");
-  optionDefault.value = "";
-  optionDefault.textContent = "Hamısını Göstər";
-  projectListSelect.append(optionDefault);
-
-  for (const bId in projectList) {
-    let role = projectList[bId];
-    const option = document.createElement("option");
-    option.value = role.id;
-    option.textContent = role.name;
-    projectListSelect.append(option);
-  }
-  document.getElementById("layihe").value = data.layihe;
-
-  $(projectListSelect).selectpicker("refresh");
 };
 // const projectDataListShow = () => {
 //   input.addEventListener("input", function () {
@@ -551,13 +462,13 @@ const projectListOption = () => {
 // };
 const terefDataListShow = (input, suggestionsListRole) => {
   input.addEventListener("input", function () {
+    console.log(input.value);
+
     const searchQuery = input.value.toLowerCase();
     if (searchQuery.length >= 0) {
       const filteredData = terefList.filter((item) =>
         item.toLowerCase().includes(searchQuery)
       );
-      console.log(filteredData);
-
       showResults(filteredData, suggestionsListRole, input);
     }
   });
@@ -586,6 +497,13 @@ const terefDataListShow = (input, suggestionsListRole) => {
     }
   });
 };
+onValue(documentsRef, (snapshot) => {
+  const data = snapshot.val();
+  const length = Object.keys(data).length; // Datanın uzunluğu
+  console.log("Verilənlərin uzunluğu: ", length);
+  siraCount = length + 1;
+  siraInput.value = siraCount;
+});
 const getParametrs = async () => {
   get(dataRefParams)
     .then((snapshot) => {

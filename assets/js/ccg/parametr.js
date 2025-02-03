@@ -23,7 +23,7 @@ import {
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 const dataRef = ref(database, "/parametrs");
-const parametsSpesificRef = ref(database, "/elta/documents/parametrs");
+const parametsSpesificRef = ref(database, "/ccg/documents/parametrs");
 
 const senedNovuTable = document.querySelector("#senedNovuTable tbody");
 const businessProcessTable = document.querySelector(
@@ -114,7 +114,7 @@ const createTr = (s, parametrRef, table, id) => {
     if (parametrRef == "projectList") {
       console.log("salam");
 
-      remove(ref(database, `/elta/documents/parametrs/${parametrRef}/` + id))
+      remove(ref(database, `/ccg/documents/parametrs/${parametrRef}/` + id))
         .then(() => {
           console.log("Data successfully deleted!");
           alert("Data successfully deleted!");
@@ -148,8 +148,8 @@ const createTr = (s, parametrRef, table, id) => {
 };
 const addParametrData = (parametrData, path) => {
   if (path == "projectList") {
-    let objKey = push(ref(database, "/elta/documents/parametrs/" + path)).key;
-    set(ref(database, "/elta/documents/parametrs/" + path + "/" + objKey), parametrData)
+    let objKey = push(ref(database, "/ccg/documents/parametrs/" + path)).key;
+    set(ref(database, "/ccg/documents/parametrs/" + path + "/" + objKey), parametrData)
       .then(() => {
         alert("Data successfully written!");
         location.reload();
