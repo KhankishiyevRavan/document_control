@@ -11,6 +11,7 @@ const firebaseConfig = {
   databaseURL:
     "https://document-control-nd-default-rtdb.europe-west1.firebasedatabase.app/",
 };
+
 import {
   getDatabase,
   get,
