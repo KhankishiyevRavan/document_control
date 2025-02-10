@@ -116,6 +116,8 @@ const roleNames = [
   "İcarəçi",
   "Alıcı",
   "Satıcı",
+  "Göndərən",
+  "Qəbul edən",
 ];
 
 function addRoleInput(roleName = "", role = "") {

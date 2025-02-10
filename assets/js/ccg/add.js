@@ -116,6 +116,8 @@ const roleNames = [
   "İcarəçi",
   "Alıcı",
   "Satıcı",
+  "Göndərən",
+  "Qəbul edən",
 ];
 
 function addRoleInput(roleName = "", role = "") {
@@ -270,7 +272,8 @@ const pushDocuments = async (newDocument) => {
     .then(() => {
       console.log(newDocument);
       alert("Data successfully written!");
-      window.location.pathname = "/assets/pages/ccg-document/document-page.html";
+      window.location.pathname =
+        "/assets/pages/ccg-document/document-page.html";
     })
     .catch((error) => {
       alert("Error writing data: ", error);
