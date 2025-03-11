@@ -35,14 +35,7 @@ let senedNovuList = [];
 let businessProcesses = [];
 let projectList = [];
 let terefList = [];
-const roleNames = [
-  "Müəllim",
-  "Təchizatçı",
-  "Müdir",
-  "İşçi",
-  "Icraci",
-  "Sifarisci ",
-];
+let rolesList = [];
 const cedveliGoster = (d = showData, p = 10, c = 1) => {
   documentTableBody.innerHTML = "";
   // data.forEach((d, index) => {
@@ -51,34 +44,14 @@ const cedveliGoster = (d = showData, p = 10, c = 1) => {
   // let showData = data.slice()
 
   const paginatedData = paginate(d, p, c);
-  console.log(paginatedData);
 
   for (let dataId in paginatedData.data) {
     const newRow = document.createElement("tr");
     let dataValue = paginatedData.data[dataId];
-    // console.log(data[dataId]);
-    // console.log(data[dataId]);
-
-    // let layiheName = data[dataId].layihe;
-    // if (!projectList.includes(layiheName)) {
-    //   projectList.push(layiheName);
-    // }
-
-    // // console.log(terefler);
-    // let terefler = data[dataId].terefler;
-
-    // terefler?.map((teref) => {
-    //   //   console.log(teref.role);
-
-    //   if (!terefList.includes(teref.role)) {
-    //     terefList.push(teref.role);
-    //   }
-    // });
-    // console.log(senedNovuList);
 
     let senedNovuArray = Object.values(senedNovuList);
-
     let senedNovuText = senedNovuArray.find((s) => s.id == dataValue.senedNovu);
+
     let businessProcessArray = Object.values(businessProcesses);
     let businessProcessText = businessProcessArray.find(
       (b) => b.id == dataValue.businessProcess
@@ -86,6 +59,8 @@ const cedveliGoster = (d = showData, p = 10, c = 1) => {
 
     let projectListArray = Object.values(projectList);
     let projectName = projectListArray.find((p) => p.id == dataValue.layihe);
+
+    let rolesListArray = Object.values(rolesList);
 
     newRow.innerHTML = `
             <td>${dataValue.siraCount}</td>
@@ -104,13 +79,20 @@ const cedveliGoster = (d = showData, p = 10, c = 1) => {
             <td style="max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" 
             title = '${projectName?.name}'>${projectName?.name}</td>
             <td>
-                ${
-                  dataValue.terefler
-                    ? dataValue.terefler?.map(
-                        (t) => `<p>${t.roleName}: ${t.role}</p>`
-                      )
-                    : " "
-                }
+              ${
+                dataValue.terefler
+                  ? dataValue.terefler
+                      .map((t) => {
+                        let roleObj = rolesListArray.find(
+                          (r) => r.id == t.roleName
+                        );
+                        return roleObj
+                          ? `<p>${roleObj.name}:${t.role} </p>`
+                          : "";
+                      })
+                      .join("")
+                  : " "
+              }
             </td>
             <td>${dataValue.qovluq}</td>
             <td>${dataValue.senedSiraNomresi}</td>
@@ -228,7 +210,7 @@ const filterDocuments = () => {
       );
       //   console.log(s);
 
-      matchesType = senedNovuObj.id == typeValue;
+      matchesType = senedNovuObj?.id == typeValue;
       // matchesType = cells[1].textContent.includes(typeValue); // 1-ci sütun (Sənəd Növü)
     }
     // Axtarış filtr
@@ -268,7 +250,7 @@ const filterDocuments = () => {
       showData.push(dataValue);
     }
   }
-  console.log(count);
+  // console.log(count);
   cedveliGoster();
 };
 typeFilter.addEventListener("change", filterDocuments);
@@ -382,6 +364,13 @@ function paginate(object = {}, pageSize = 10, currentPage = 1) {
     });
     paginationUl.append(li);
   }
+  console.log({
+    currentPage: currentPage,
+    pageSize: pageSize,
+    totalItems: totalItems,
+    totalPages: Math.ceil(totalItems / pageSize),
+    data: data, // Return the sliced data as an object for the current page
+  });
   return {
     currentPage: currentPage,
     pageSize: pageSize,
@@ -414,7 +403,7 @@ const selectPage = () => {
 filterDocuments();
 function searchInObject(object, searchTerm) {
   const lowerCaseSearchTerm = searchTerm.toLowerCase(); // Normalize search term
-  const excludedKeys = ["senedNovu", "layihe", "businessProcess"]; // Excluded keys
+  const excludedKeys = ["senedNovu", "layihe", "businessProcess", "terefler"]; // Excluded keys
 
   return Object.entries(object).some(([key, field]) => {
     if (excludedKeys.includes(key)) {
@@ -450,6 +439,28 @@ function searchInObject(object, searchTerm) {
             return true;
           }
         }
+      } else if (key === "terefler") {
+        // for (const id in rolesList) {
+        // console.log(rolesList[id]);
+
+        // console.log(Object.values(rolesList),lowerCaseSearchTerm);
+        // console.log(Object.values(rolesList).filter((f)=>f.name.includes(lowerCaseSearchTerm) ));
+
+        // console.log(
+          let terefLerText = object.terefler
+            .map((t) => {
+              let roleObj = Object.values(rolesList).find(
+                (r) => r.id == t.roleName
+              );
+              return roleObj ? `${roleObj.name}:${t.role} ` : "";
+            })
+            .join("")
+        // );
+
+        if (terefLerText.toLowerCase().includes(lowerCaseSearchTerm)) {
+          return true;
+        }
+        // }
       }
       return false;
     } else {
@@ -489,6 +500,7 @@ const getParametrs = async () => {
 
         senedNovuList = res.senedNovu;
         businessProcesses = res.businessProcess;
+        rolesList = res.rolesList;
         // projectList = res.parametrs.projectList;
         // console.log(senedNovuList);
 

@@ -149,7 +149,10 @@ const createTr = (s, parametrRef, table, id) => {
 const addParametrData = (parametrData, path) => {
   if (path == "projectList") {
     let objKey = push(ref(database, "/ccg/documents/parametrs/" + path)).key;
-    set(ref(database, "/ccg/documents/parametrs/" + path + "/" + objKey), parametrData)
+    set(
+      ref(database, "/ccg/documents/parametrs/" + path + "/" + objKey),
+      parametrData
+    )
       .then(() => {
         alert("Data successfully written!");
         location.reload();
@@ -171,6 +174,8 @@ const addParametrData = (parametrData, path) => {
 };
 
 const showSenedNovuList = () => {
+  console.log(Object.values(senedNovuList).slice(-1));
+
   for (const senedNovuId in senedNovuList) {
     createTr(
       senedNovuList[senedNovuId],
@@ -208,11 +213,15 @@ getParametrs();
     let data = {};
     let path = input.name;
     if (input.name === "senedNovu") {
-      id = Object.keys(senedNovuList).length + 1;
+      // console.log(Object.values(senedNovuList).slice(-1)[0]);
+
+      id = Object.values(senedNovuList).slice(-1)[0].id + 1;
+      // id = Object.keys(senedNovuList).length + 1;
     } else if (input.name === "businessProcess") {
-      id = Object.keys(businessProcessesList).length + 1;
+      id = Object.values(businessProcessesList).slice(-1)[0].id + 1;
+      // id = Object.keys(businessProcessesList).length + 1;
     } else if (input.name === "projectList") {
-      id = Object.keys(projectList).length + 1;
+      id = Object.values(projectList).slice(-1)[0].id + 1;
     }
     data = {
       name: input.value,

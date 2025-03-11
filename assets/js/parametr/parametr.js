@@ -31,6 +31,7 @@ const businessProcessTable = document.querySelector(
   "#businessProcessTable tbody"
 );
 const projectListTable = document.querySelector("#projectListTable tbody");
+const rolesListTable = document.querySelector("#rolesListTable tbody");
 // const senedNovuBtn = document.querySelector("#senedNovuBtn");
 
 // const docTypeInput = document.querySelector("#document-type-input");
@@ -38,10 +39,12 @@ const projectListTable = document.querySelector("#projectListTable tbody");
 let senedNovuList = [];
 let businessProcessesList = [];
 let projectList = [];
+let rolesList = {};
 let parametrsRef = {
   docType: "senedNovu",
   businessProcess: "businessProcess",
   projectList: "projectList",
+  rolesList:"rolesList",
 };
 const getParametrs = async () => {
   get(dataRef)
@@ -51,6 +54,7 @@ const getParametrs = async () => {
         console.log(res);
         senedNovuList = res?.senedNovu;
         businessProcessesList = res?.businessProcess;
+        rolesList = res.rolesList || {};
         // projectList = res?.projectList;
         // showSenedNovuList();
         getDocumentParametrs();
@@ -150,7 +154,10 @@ const createTr = (s, parametrRef, table, id) => {
 const addParametrData = (parametrData, path) => {
   if (path == "projectList") {
     let objKey = push(ref(database, "/elta/documents/parametrs/" + path)).key;
-    set(ref(database, "/elta/documents/parametrs/" + path + "/" + objKey), parametrData)
+    set(
+      ref(database, "/elta/documents/parametrs/" + path + "/" + objKey),
+      parametrData
+    )
       .then(() => {
         alert("Data successfully written!");
         location.reload();
@@ -196,6 +203,14 @@ const showSenedNovuList = () => {
       projectListId
     );
   }
+  for (const rolesListId in rolesList) {
+    createTr(
+      rolesList[rolesListId],
+      parametrsRef.rolesList,
+      rolesListTable,
+      rolesListId
+    );
+  }
 };
 getParametrs();
 [...document.querySelectorAll("button")].map((btn) => {
@@ -203,18 +218,23 @@ getParametrs();
     e.preventDefault();
     let input = e.target.closest("form")?.querySelector("input");
     console.log(input.name);
+    console.log(rolesList);
 
     if (!input.value) return;
     let id = "";
     let data = {};
     let path = input.name;
     if (input.name === "senedNovu") {
-      id = Object.keys(senedNovuList).length + 1;
+      id = Object.values(senedNovuList)?.slice(-1)[0].id + 1;
     } else if (input.name === "businessProcess") {
-      id = Object.keys(businessProcessesList).length + 1;
+      id = Object.values(businessProcessesList)?.slice(-1)[0].id + 1;
     } else if (input.name === "projectList") {
-      id = Object.keys(projectList).length + 1;
+      id = Object.values(projectList)?.slice(-1)[0].id + 1;
+    } else if (input.name === "rolesList") {
+      id = Object.values(rolesList)?.slice(-1)[0]?.id + 1;
+      console.log(id);
     }
+    if (!id) id = 1;
     data = {
       name: input.value,
       id: id,

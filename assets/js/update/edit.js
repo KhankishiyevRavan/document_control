@@ -113,16 +113,7 @@ siraInput.value = siraCount;
 
 let rolesArray = [];
 
-const roleNames = [
-  "Podratçı",
-  "SubPodratçı",
-  "Sifarisçi ",
-  "İcraçı",
-  "İcarəyə verən",
-  "İcarəçi",
-  "Alıcı",
-  "Satıcı",
-];
+let roleNames = [];
 
 function addRoleInput(roleName = "", role = "") {
   const rolesContainer = document.getElementById("rolesContainer");
@@ -138,15 +129,21 @@ function addRoleInput(roleName = "", role = "") {
 
   const roleNameSelect = document.createElement("select");
   roleNameSelect.classList.add("roleName");
-  roleNames?.forEach((name) => {
+  console.log(roleName);
+  console.log(roleNames);
+
+  for (let roleId in roleNames) {
+    let role = roleNames[roleId];
     const option = document.createElement("option");
-    option.value = name;
-    option.textContent = name;
-    if (name === roleName) {
+    option.value = role.id;
+    option.textContent = role.name;
+    console.log(roleName);
+
+    if (role.id == roleName) {
       option.selected = true;
     }
     roleNameSelect.appendChild(option);
-  });
+  }
 
   const roleInputDiv = document.createElement("div");
   roleInputDiv.style.width = "-webkit-fill-available";
@@ -180,7 +177,7 @@ form.addEventListener("submit", function (event) {
   event.preventDefault();
 
   const tagsString = tagsArray?.join(", ");
-  console.log(tagsString);
+  // console.log(tagsString);
 
   const sira = parseInt(siraInput.value);
   const senedNovu = document.getElementById("sened-novu").value;
@@ -205,6 +202,7 @@ form.addEventListener("submit", function (event) {
 
     const roleName = roleDiv.querySelector("select.roleName").value;
     const role = roleDiv.querySelector(".role").value;
+
     // console.log(roleName, role);
 
     if (roleName && role) {
@@ -345,10 +343,7 @@ const editDataShow = () => {
   const rolesContainer = document.getElementById("rolesContainer");
   ////////////////////
   rolesContainer.innerHTML = "";
-  rolesArray = data.terefler;
-  rolesArray?.forEach((role) => {
-    addRoleInput(role.roleName, role.role);
-  });
+
   ////////////////////
   tagContainer.innerHTML = "";
   tagsArray = data.tagsArray ? data.tagsArray : [];
@@ -595,6 +590,7 @@ const getParametrs = async () => {
 
         senedNovuList = res.senedNovu;
         businessProcesses = res.businessProcess;
+        roleNames = res.rolesList;
         // projectList = res.parametrs.projectList;
         // console.log(senedNovuList);
 
@@ -602,6 +598,12 @@ const getParametrs = async () => {
         // const lastObject = nestedObjects[nestedObjects.length - 1];
         // siraCount = Number(lastObject.siraCount) + 1;
         // window.localStorage.setItem("siraCount", siraCount);
+        rolesArray = data.terefler;
+        console.log(rolesArray);
+
+        rolesArray?.forEach((role) => {
+          addRoleInput(role.roleName, role.role);
+        });
         senedNovuFilterOption();
         businessProcessesOption();
       } else {

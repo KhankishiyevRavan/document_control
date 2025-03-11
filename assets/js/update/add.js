@@ -107,18 +107,7 @@ siraInput.value = siraCount;
 
 let rolesArray = [];
 
-const roleNames = [
-  "Podratçı",
-  "SubPodratçı",
-  "Sifarisçi ",
-  "İcraçı",
-  "İcarəyə verən",
-  "İcarəçi",
-  "Alıcı",
-  "Satıcı",
-  "Göndərən",
-  "Qəbul edən",
-];
+let roleNames = [];
 
 function addRoleInput(roleName = "", role = "") {
   const rolesContainer = document.getElementById("rolesContainer");
@@ -134,15 +123,16 @@ function addRoleInput(roleName = "", role = "") {
 
   const roleNameSelect = document.createElement("select");
   roleNameSelect.classList.add("roleName");
-  roleNames?.forEach((name) => {
+  for (let roleId in roleNames) {
+    let role = roleNames[roleId];
     const option = document.createElement("option");
-    option.value = name;
-    option.textContent = name;
-    if (name === roleName) {
+    option.value = role.id;
+    option.textContent = role.name;
+    if (role.name === roleName) {
       option.selected = true;
     }
     roleNameSelect.appendChild(option);
-  });
+  }
   const roleInputDiv = document.createElement("div");
   roleInputDiv.style.width = "-webkit-fill-available";
   const roleInput = document.createElement("input");
@@ -515,6 +505,7 @@ const getParametrs = async () => {
 
         senedNovuList = res.senedNovu;
         businessProcesses = res.businessProcess;
+        roleNames = res.rolesList;
         // projectList = res.parametrs.projectList;
         // console.log(senedNovuList);
 
