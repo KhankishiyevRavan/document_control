@@ -168,6 +168,7 @@ form.addEventListener("submit", function (event) {
   const tagsString = tagsArray?.join(", ");
   console.log(tagsString);
 
+  
   const sira = parseInt(siraInput.value);
   const senedNovu = document.getElementById("sened-novu").value;
   const businessProcess = document.getElementById("business-prosess").value;
