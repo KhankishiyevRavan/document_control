@@ -87,7 +87,7 @@ const cedveliGoster = (d = showData, p = 10, c = 1) => {
                           (r) => r.id == t.roleName
                         );
                         return roleObj
-                          ? `<p>${roleObj.name}:${t.role} </p>`
+                          ? `<p>${roleObj.name}: ${t.role} </p>`
                           : "";
                       })
                       .join("")
@@ -452,7 +452,7 @@ function searchInObject(object, searchTerm) {
             let roleObj = Object.values(rolesList).find(
               (r) => r.id == t.roleName
             );
-            return roleObj ? `${roleObj.name} : ${t.role} ` : "";
+            return roleObj ? `${roleObj.name}: ${t.role}` : "";
           })
           .join("");
 
