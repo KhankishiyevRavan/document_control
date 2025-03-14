@@ -42,7 +42,7 @@ const cedveliGoster = (d = showData, p = 10, c = 1) => {
   //   console.log(d);
   // });
   // let showData = data.slice()
-  
+
   const paginatedData = paginate(d, p, c);
 
   for (let dataId in paginatedData.data) {
@@ -447,19 +447,28 @@ function searchInObject(object, searchTerm) {
         // console.log(Object.values(rolesList).filter((f)=>f.name.includes(lowerCaseSearchTerm) ));
 
         // console.log(
-          let terefLerText = object.terefler
-            .map((t) => {
-              let roleObj = Object.values(rolesList).find(
-                (r) => r.id == t.roleName
-              );
-              return roleObj ? `${roleObj.name}:${t.role} ` : "";
-            })
-            .join("")
-        // );
+        let terefLerText = object.terefler
+          .map((t) => {
+            let roleObj = Object.values(rolesList).find(
+              (r) => r.id == t.roleName
+            );
+            return roleObj ? `${roleObj.name} : ${t.role} ` : "";
+          })
+          .join("");
 
-        if (terefLerText.toLowerCase().includes(lowerCaseSearchTerm)) {
+        console.log(
+          terefLerText.toLocaleLowerCase("az"),
+          lowerCaseSearchTerm.toLocaleLowerCase("az")
+        );
+
+        if (
+          terefLerText
+            .toLocaleLowerCase("az")
+            .includes(lowerCaseSearchTerm.toLocaleLowerCase("az"))
+        ) {
           return true;
         }
+
         // }
       }
       return false;
