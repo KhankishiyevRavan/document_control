@@ -42,7 +42,7 @@ const cedveliGoster = (d = showData, p = 10, c = 1) => {
   //   console.log(d);
   // });
   // let showData = data.slice()
-
+  
   const paginatedData = paginate(d, p, c);
 
   for (let dataId in paginatedData.data) {

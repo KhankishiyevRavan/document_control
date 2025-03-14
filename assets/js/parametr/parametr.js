@@ -232,7 +232,6 @@ getParametrs();
       id = Object.values(projectList)?.slice(-1)[0].id + 1;
     } else if (input.name === "rolesList") {
       id = Object.values(rolesList)?.slice(-1)[0]?.id + 1;
-      console.log(id);
     }
     if (!id) id = 1;
     data = {
