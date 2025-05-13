@@ -21417,13 +21417,13 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
   fill: #fff;
 }
 [data-headerbg="color_12"][data-theme-version="dark"] .header-right,
-[data-headerbg="color_12"] .header-right {
-  /* .sidebar-info h4, .sidebar-info .h4,
+/* [data-headerbg="color_12"] .header-right {
+  .sidebar-info h4, .sidebar-info .h4,
 					.header-profile2 span{
 						color:$white;
 				
-					} */
-}
+					}
+} */
 [data-headerbg="color_12"][data-theme-version="dark"] .header-right .notification_dropdown .nav-link,
 [data-headerbg="color_12"] .header-right .notification_dropdown .nav-link {
   background-color: #00496d;
@@ -21869,19 +21869,19 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
 [data-container="boxed"][data-sidebar-position="fixed"][data-layout="horizontal"] .container-fluid, [data-container="boxed"][data-sidebar-position="fixed"][data-layout="horizontal"] .container-sm, [data-container="boxed"][data-sidebar-position="fixed"][data-layout="horizontal"] .container-md, [data-container="boxed"][data-sidebar-position="fixed"][data-layout="horizontal"] .container-lg, [data-container="boxed"][data-sidebar-position="fixed"][data-layout="horizontal"] .container-xl, [data-container="boxed"][data-sidebar-position="fixed"][data-layout="horizontal"] .container-xxl {
   padding-bottom: 0;
 }
-[data-container="boxed"][data-sidebar-position="fixed"][data-layout="horizontal"] {
-  /* &[data-sidebar-style="full"],
+/* [data-container="boxed"][data-sidebar-position="fixed"][data-layout="horizontal"] {
+  &[data-sidebar-style="full"],
 	&[data-sidebar-style="icon-hover"]{
 		.content-body{
 			padding-top: 9rem;
 		}
-	} */
-  /* &[data-sidebar-style="modern"]{
+	}
+  &[data-sidebar-style="modern"]{
 		.content-body{
 			padding-top: 6.5rem;
 		}
-	} */
-}
+	}
+} */
 [data-container="boxed"][data-sidebar-position="fixed"][data-layout="horizontal"][data-sidebar-style="compact"] .content-body {
   padding-top: 18rem !important;
 }
